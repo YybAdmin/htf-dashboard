@@ -29,7 +29,7 @@ export default {
   methods: {
     changeTheme (i) {
       this.btnIndex = i
-      this.$emit('comChanged', i)
+      this.$emit('comChanged', i+1)
     }
   },
   mounted () {

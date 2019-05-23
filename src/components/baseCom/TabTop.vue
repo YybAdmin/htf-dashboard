@@ -2,7 +2,11 @@
   <div class="tmpDiv">
     <table class="tmpTable">
       <tr>
-        <td class="normal normalrm" v-bind:key="item.index" v-for="(item,i) in list" @click="changeTheme($event , i+1,'manual')">
+        <td class="normal"
+            v-for="(item,i) in itemList"
+            :key="i"
+            :class="[tabIndex == i ? 'selected':'']"
+            @click="changeTheme(i)">
           {{item.name}}
         </td>
       </tr>
@@ -12,31 +16,27 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import DivSplit from '@/components/baseCom/DivSplit'
 
 export default {
   name: 'normal',
   components: {DivSplit},
-  props: ['itemList'],
+  props: {
+    itemList:{
+      type: Array,
+      default: []
+    }
+  },
   data () {
     return {
-      list: this.itemList
+      tabIndex: 0
     }
   },
   methods: {
-    changeTheme (ev, i, flag) {
-      var datav = ev.target.attributes[0].name
-      var comRm = '.normalrm[' + datav + ']'
-      $(comRm).removeClass('selected')
-      ev.target.classList.add('selected')
-      if (flag === 'manual') {
-        this.$emit('comChanged', i)
-      }
+    changeTheme (i) {
+      this.tabIndex = i
+      this.$emit('comChanged', i+1)
     }
-  },
-  mounted () {
-    $(this.$el.firstChild.firstChild.firstChild).addClass('selected')
   }
 }
 </script>
