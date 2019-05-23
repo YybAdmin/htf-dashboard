@@ -86,6 +86,9 @@ export default {
       if (flag === 'manual') {
         this.$emit('comChanged', i)
       }
+    },
+    setData (list) {
+      this.list = Object.assign([], this.list, list)
     }
   },
   mounted () {
