@@ -58,7 +58,7 @@ export default {
   }
   .normal2 {
     background-color: white;
-    color: #333;
+    color: #999999;
     font-size: 12px;
     margin: 15px 15px 5px 0px;
     line-height: 25px;
