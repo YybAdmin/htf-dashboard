@@ -4,14 +4,12 @@ Mock.mock('/report/hujin/headData', /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
-    'list': [{ 'VALUE1': '111,11', 'VALUE2': '111,22', 'VALUE3': '111,33', 'VALUE4': '111,44', 'VALUE5': '111,55', 'VALUE6': '111,66' },
-      { 'VALUE1': '211,11', 'VALUE2': '211,22', 'VALUE3': '211,33', 'VALUE4': '211,44', 'VALUE5': '211,55', 'VALUE6': '211,66' },
-      { 'VALUE1': '311,11', 'VALUE2': '311,22', 'VALUE3': '311,33', 'VALUE4': '311,44', 'VALUE5': '311,55', 'VALUE6': '311,66' }]
+    'list': [{ 'VALUE1': '111,11', 'VALUE2': '111,22', 'VALUE3': '111,33', 'VALUE4': '111,44', 'VALUE5': '111,55', 'VALUE6': '111,66' }]
   }
 })
 // 上图 分布
 Mock.mock('/report/hujin/chartUp', /post/i, function (req) {
-  let pageVal = JSON.parse(req.body).pageVal
+  let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs1 === 1) {
     if (pageVal.tabletr === 1) {
       return {
@@ -56,7 +54,7 @@ Mock.mock('/report/hujin/chartUp', /post/i, function (req) {
 })
 // 中图 分布
 Mock.mock('/report/hujin/chartMid', /post/i, function (req) {
-  let pageVal = JSON.parse(req.body).pageVal
+  let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs2 === 1) {
     if (pageVal.tabletr === 1) {
       return {
@@ -107,7 +105,7 @@ Mock.mock('/report/hujin/chartMid', /post/i, function (req) {
 })
 // 下图 分布req
 Mock.mock('/report/hujin/chartDwn', /post/i, function (req) {
-  let pageVal = JSON.parse(req.body).pageVal
+  let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs3 === 1) {
     return {
       'code': '200',
@@ -154,7 +152,7 @@ Mock.mock('/report/hujin/hujinKehuHeadData', /post/i, function (req) {
 })
 // 客户 折线图
 Mock.mock('/report/hujin/kehuChart', /post/i, function (req) {
-  let pageVal = JSON.parse(req.body).pageVal
+  let pageVal = JSON.parse(req.body)
   console.log(pageVal)
   return {
     'code': '200',

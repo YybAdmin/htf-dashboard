@@ -11,7 +11,7 @@ Mock.mock('/report/jingpin/headData', /post/i, function () {
 })
 // 上图 分布
 Mock.mock('/report/jingpin/chartUp', /post/i, function (req) {
-  let pageVal = JSON.parse(req.body).pageVal
+  let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs1 === 1) {
     if (pageVal.tabletr === 1) {
       return {
@@ -61,7 +61,7 @@ Mock.mock('/report/jingpin/chartUp', /post/i, function (req) {
   }
 })
 Mock.mock('/report/jingpin/chartMid', /post/i, function (req) {
-  let pageVal = JSON.parse(req.body).pageVal
+  let pageVal = JSON.parse(req.body)
   console.log(pageVal)
   return {
     'code': '200',
@@ -78,7 +78,7 @@ Mock.mock('/report/jingpin/chartMid', /post/i, function (req) {
   }
 })
 Mock.mock('/report/jingpin/chartDwn', /post/i, function (req) {
-  let pageVal = JSON.parse(req.body).pageVal
+  let pageVal = JSON.parse(req.body)
   console.log(pageVal)
   return {
     'code': '200',
