@@ -165,11 +165,13 @@ export default {
             y: 'VALUE1'
           },
           itemStyle: {
-            color: '#7CB1F9'
+            color: '#7CB1F9',
+            barBorderRadius: [2, 2, 0, 0]
           },
           emphasis: {
             itemStyle: {
-              color: '#2B83F8'
+              color: '#2B83F8',
+              barBorderRadius: [2, 2, 0, 0]
             }
           },
           label: {
@@ -214,16 +216,19 @@ export default {
           name: this.chartInfo.name2,
           type: 'bar',
           barWidth: '20px',
+          barBorderRadius: [5, 5, 0, 0],
           encode: {
             x: 'NAME',
             y: 'VALUE2'
           },
           itemStyle: {
-            color: '#FA7375'
+            color: '#FA7375',
+            barBorderRadius: [2, 2, 0, 0]
           },
           emphasis: {
             itemStyle: {
-              color: '#FF2B2E'
+              color: '#FF2B2E',
+              barBorderRadius: [2, 2, 0, 0]
             }
           },
           label: {
