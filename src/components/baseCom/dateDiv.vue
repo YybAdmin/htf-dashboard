@@ -49,7 +49,8 @@ export default {
     text-align: center;
     position: absolute;
   }
-  .normal {
+  span {
     line-height: 30px;
+    font-size: 12px;
   }
 </style>

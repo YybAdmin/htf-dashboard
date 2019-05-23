@@ -48,7 +48,7 @@ export default {
     color:  #999;
     line-height: 34px;
     text-align: center;
-    border-bottom: 1px solid #EEE;
+    border: 0.5px solid #EEEEEE;
     background-color: #FAFAFA;
   }
   .selected {
