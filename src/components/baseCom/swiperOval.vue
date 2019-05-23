@@ -57,26 +57,19 @@ export default {
 }
 </script>
 <style scoped>
-
-  .swiper-container {
-    width: 290px;
-  }
-
-  .swiper-slide {
-    text-align: center;
-  }
-
   .normal {
     background-color: white;
     color: #999999;
     font-size: 13px;
-    border: 1px solid #CCCCCC;
-    border-radius: 10px;
-    padding: 3px 8px;
     outline: none;
+    padding: 3px 11px;
+    margin-top: 4px;
+    border: 1px solid transparent;
   }
 
   .selected {
+    border: 1px solid #CCCCCC;
+    border-radius:13px;
     color: #ddaf59;
     background-color: #FEF7E9;
     border-color: #ddaf59;
