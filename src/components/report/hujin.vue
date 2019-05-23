@@ -1,5 +1,6 @@
 <template>
   <div>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <div id="chartContent">
       <tab-top @comChanged="changePageState($event,'f_tabtop')" v-bind:itemList="comName.tabTopList"></tab-top>
       <div id="guimoDiv">
@@ -21,9 +22,9 @@
         <HeadTableNoTitle id="sumUp" ref="sumUp" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
         <table style="width:100%;">
           <tr>
-            <td style="width: 54%;">
-              <NameArea v-bind:item="comName.MidTitle"></NameArea></td>
-            <td style="width: 45%;">
+            <td style="width: 63%;">
+              <NameArea v-bind:item="comName.MidTitle" id="MidTitle"></NameArea></td>
+            <td style="width: 37%;">
               <FenbuQushi v-if="this.switch.fenbuRst2" ref="fenbuQushi2" @comChanged="changePageState($event,'f_fenbuQushi2')" /> </td>
           </tr>
         </table>
@@ -31,12 +32,18 @@
         <DrawTwoBar id="chartMid" ref="chartMid"  v-bind:chartInfo="this.charData.chartMid"  @comChanged="changePageState($event,'f_chartMid')"/>
         <DrawTwoLine id="chartMid2" ref="chartMid2" v-bind:chartInfo="this.charData.chartMid"  @comChanged="changePageState($event,'f_chartMid2')" />
         <DrawThreeBarOneLine id="chartMid3" ref="chartMid3" v-bind:chartInfo="this.charData.chartMid3" @comChanged="changePageState($event,'f_chartMid')"/>
+        <div v-if="pageVal.fbOrQs2 ===1" style="font-size:11px;font-family:PingFangSC-Regular;color: #999999;padding-bottom:9px;padding-top:3px;letter-spacing:1px" >*图中百分比代表保有量环比增长</div>
         <HeadTableNoTitle id="sumMid" ref="sumMid" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
         <div id="guimoDivDwn">
           <div  id="jlQdDim">
             <TabDimWidth100Dwn v-if="this.switch.jliOrQdRst" @comChanged="changePageState($event,'f_jingliQudao')" v-bind:itemList="comName.TabDimJlOrQdList"></TabDimWidth100Dwn>
           </div>
-          <FenbuQushi v-if="this.switch.fenbuRst3" ref="fenbuQushi3"  @comChanged="changePageState($event,'f_fenbuQushi3')" />
+          <table style="width:100%;">
+            <tr>
+              <td style="width: 63%;"><NameArea v-bind:item="comName.DwnTitle"></NameArea></td>
+              <td style="width: 37%;"><FenbuQushi v-if="this.switch.fenbuRst3" ref="fenbuQushi3"  @comChanged="changePageState($event,'f_fenbuQushi3')" /></td>
+            </tr>
+          </table>
           <Tag id="tagDwn" ref="tagDwn"/>
           <DrawTwoBar id="chartDwn" ref="chartDwn"  v-bind:chartInfo="this.charData.chartDwn" @comChanged="changePageState($event,'f_chartDwn')"/>
           <DrawTwoLine id="chartDwn2" ref="chartDwn2" v-bind:chartInfo="this.charData.chartDwn"  @comChanged="changePageState($event,'f_chartDwn2')" />
@@ -94,12 +101,14 @@ export default {
         SumMeaList: [{name: '总保有量(亿元)'}, {name: '总份额(亿份)'}],
         SumMeaList2: [{name: '总销售额(万元)'}, {name: '净申购金额(万元)'}],
         SumMeaList3: [{name: '总管理费(万元)'}, {name: '净收入(万元)'}],
-        MidTitle: '业务团队规模对比(公募)',
+        MidTitle: '业务团队规模对比-全部',
         MidTag: '全部团队',
+        DwnTitle: '客户经理排名',
         TabDimJlOrQdList: [{name: '三方客户经理'}, {name: '三方渠道'}],
         kehuHeadList: [{name: '总客户数', unit: '万人'}, {name: '自有平台客户数', unit: '万人'}, {name: '三方平台客户数', unit: '万人'}],
         EcCusGrpList: [{name: '自有个人'}, {name: '自有高净值'}, {name: '自有企业'}, {name: '三方平台'}],
-        kehuMeaType: [{name: '存量客户'}, {name: '增量客户'}]
+        kehuMeaType: [{name: '存量客户'}, {name: '增量客户'}],
+        chartMidTeamName: ''
       },
       switch: {
         proTypeRet: true,
@@ -132,7 +141,9 @@ export default {
       },
       pageValName: {
         pKey2Name: '汇总',
-        pKey3Name: '汇总'
+        pKey3Name: '汇总',
+        gmtypeName: '全部',
+        zhtypeName: '全部'
       },
       // pdfApi: this.$API_LIST.hujinPdf
       pdfApi: 'https://iapp.htffund.com/microservice/iapp-dashboard/api/test/pdf'
@@ -206,15 +217,25 @@ export default {
     changePageState: function (val, flag) {
       var reflashFlag = 'NO'
       // 规模 客户数 切换
-      if (flag === 'f_tabtop') { reflashFlag = this.changeTabTop(val) }
+      if (flag === 'f_tabtop') {
+        reflashFlag = this.changeTabTop(val)
+      }
       // 规模 表格tr切换
-      if (flag === 'f_tabletr') { reflashFlag = this.changeTableTr(val) }
+      if (flag === 'f_tabletr') {
+        reflashFlag = this.changeTableTr(val)
+      }
       // 规模 产品大类切换
-      if (flag === 'f_protype') { reflashFlag = this.changeProtype(val) }
+      if (flag === 'f_protype') {
+        reflashFlag = this.changeProtype(val)
+      }
       // 规模 公募类型切换
-      if (flag === 'f_gmtype') { reflashFlag = this.pageVal.gmType = val }
+      if (flag === 'f_gmtype') {
+        reflashFlag = this.changeGmtype(val)
+      }
       // 规模 专户类型切换
-      if (flag === 'f_zhtype') { reflashFlag = this.pageVal.zhType = val }
+      if (flag === 'f_zhtype') {
+        reflashFlag = this.changeZhtype(val)
+      }
       // chartUp 分布趋势切换
       if (flag === 'f_fenbuQushi1') { reflashFlag = this.changeFenbuQushi1(val) }
       if (flag === 'f_chartUp') { reflashFlag = this.onClickChartUp(val) }
@@ -239,9 +260,7 @@ export default {
       // chartDwn 柱状图 点击事件
       if (flag === 'f_chartDwn') { reflashFlag = this.onClickChartDwn(val) }
       // 业务团队规模对比 三方客户经理三方渠道切换
-      if (flag === 'f_jingliQudao') {
-        this.pageVal.jlOrQd = val
-      }
+      if (flag === 'f_jingliQudao') { reflashFlag = this.onClickJingliQudao(val) }
       //
       if (flag === 'p_kehuDate') {
         this.pageVal.kehuDateType = val
@@ -524,6 +543,10 @@ export default {
       this.resetCom('fenbuRst1', 'fbOrQs1')
       this.pageVal.pKey2 = '999999'
       this.pageValName.pKey2Name = '汇总'
+      this.comName.MidTitle = '业务团队规模对比-' + this.comName.TabDimList[val - 1].name
+      this.drawChartUp(this.pageVal)
+      this.drawChartMid(this.pageVal)
+      this.drawChartDwn(this.pageVal)
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       if (val === 2) {
         $('#gmDimDiv').show()
@@ -532,6 +555,45 @@ export default {
         $('#zhDimDiv').show()
         this.resetCom('zhTypeRst', 'zhType')
       }
+      return 'INIT'
+    },
+    changeGmtype: function (val) {
+      this.pageVal.gmType = val
+      if (val >= 2) {
+        this.pageValName.gmtypeName = this.comName.gmTypeList[this.pageVal.gmType - 2].name
+      } else {
+        this.pageValName.gmtypeName = '全部'
+      }
+      this.comName.MidTitle = '业务团队规模对比-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.gmtypeName
+      if (this.pageVal.pKey2 === 5) {
+        this.comName.DwnTitle = '三方渠道排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.gmtypeName + '-' + this.pageValName.pKey2Name
+      } else {
+        this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.gmtypeName + '-' + this.pageValName.pKey2Name
+      }
+      this.drawChartMid(this.pageVal)
+      this.drawChartDwn(this.pageVal)
+      this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
+      this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
+      return 'INIT'
+    },
+    changeZhtype: function (val) {
+      this.pageVal.zhType = val
+      if (val >= 2) {
+        this.pageValName.zhtypeName = this.comName.zhTypeList[this.pageVal.zhType - 2].name
+      } else {
+        this.pageValName.zhtypeName = '全部'
+      }
+      this.comName.MidTitle = '业务团队规模对比-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName
+      if (this.pageVal.jlOrQd === 2) {
+        this.comName.DwnTitle = '三方渠道排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName + '-' + this.pageValName.pKey2Name
+      } else {
+        this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName + '-' + this.pageValName.pKey2Name
+      }
+      this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName + '-' + this.pageValName.pKey2Name
+      this.drawChartMid(this.pageVal)
+      this.drawChartDwn(this.pageVal)
+      this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
+      this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
       return 'INIT'
     },
     changeFenbuQushi1: function (val) {
@@ -569,7 +631,7 @@ export default {
     },
     changeFenbuQushi2: function (val) {
       this.pageVal.fbOrQs2 = val
-      $('#chartMid,#chartMid2,#chartMid3').hide()
+      $('#chartMid,#chartMid2,#chartMid3,#tagMid').hide()
       this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
       if (this.pageVal.pKey2 !== '999999') {
         if (val === 1) {
@@ -581,6 +643,8 @@ export default {
           this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
         } else {
           $('#chartMid2').show()
+          this.$refs.tagMid.text = this.pageValName.pKey2Name
+          $('#tagMid').slideDown()
         }
         $('#chartDwn').show()
         return 'MidDwn'
@@ -608,6 +672,14 @@ export default {
       this.pageValName.pKey2Name = val.pKeyName !== 'ALL' ? val.pKeyName : '汇总'
       this.pageValName.pKey3Name = '汇总'
       $('#chartDwn2').hide()
+      if (this.pageVal.proType === 2) {
+        this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.gmtypeName + '-' + this.pageValName.pKey2Name
+      } else if (this.pageVal.proType === 3) {
+        this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName + '-' + this.pageValName.pKey2Name
+      } else {
+        this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.pKey2Name
+      }
+      this.drawChartDwn(this.pageVal)
       $('#chartDwn').show()
       $('#tagDwn').hide()
       if (val.pKey !== '999999') {
@@ -645,6 +717,22 @@ export default {
     onClickChartDwn: function (val) {
       this.pageVal.pKey3 = val.pKey
       this.pageValName.pKey3Name = val.pKeyName !== 'ALL' ? val.pKeyName : '汇总'
+    },
+    onClickJingliQudao: function (val) {
+      this.pageVal.jlOrQd = val
+      var JingliQudao = (val === 2) ? '三方渠道排名-' : '客户经理排名-'
+      if (this.pageVal.proType === 2) { // 改标题
+        this.comName.DwnTitle = JingliQudao + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.gmtypeName + '-' + this.pageValName.pKey2Name
+      } else if (this.pageVal.proType === 3) {
+        this.comName.DwnTitle = JingliQudao + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName + '-' + this.pageValName.pKey2Name
+      } else {
+        this.comName.DwnTitle = JingliQudao + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.pKey2Name
+      }
+      this.drawChartDwn(this.pageVal)
+      $('#chartDwn2').hide()
+      $('#chartDwn').show()
+      $('#tagDwn').hide()
+      this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
     },
     guimoInit: function () {
       // 规模 经理渠道 初始化隐藏
