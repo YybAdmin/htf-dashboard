@@ -3,10 +3,10 @@
     <div :class="{'hide': ifHide}">
       <button class="normal btn-left"
               :class="[btnIndex == 0 ? 'selected':'']"
-              @click="changeTheme(1)">分布</button>
+              @click="changeTheme(0)">分布</button>
       <button class="normal btn-right"
               :class="[btnIndex == 1 ? 'selected':'']"
-              @click="changeTheme(2)">趋势</button>
+              @click="changeTheme(1)">趋势</button>
     </div>
     <div class="normal2" :class="{'hide': !ifHide}">
       数据日期:<span>{{this.dataDate}}</span>
@@ -28,7 +28,7 @@ export default {
   methods: {
     changeTheme (i) {
       this.btnIndex = i
-      this.$emit('comChanged', i)
+      this.$emit('comChanged', i+1)
     },
     setData: function (ifHide, dataDate) {
       this.ifHide = ifHide
