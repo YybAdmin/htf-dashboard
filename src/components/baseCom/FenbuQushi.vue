@@ -1,10 +1,14 @@
 <template>
   <div class="divsty">
-    <div v-bind:class="{'hide': ifHide}">
-      <button class="normal btn-left normalrm" @click="changeTheme($event, 1,'manual')">分布</button>
-      <button class="normal btn-right normalrm" @click="changeTheme($event, 2,'manual')">趋势</button>
+    <div :class="{'hide': ifHide}">
+      <button class="normal btn-left"
+              :class="[btnIndex == 0 ? 'selected':'']"
+              @click="changeTheme(1)">分布</button>
+      <button class="normal btn-right"
+              :class="[btnIndex == 1 ? 'selected':'']"
+              @click="changeTheme(2)">趋势</button>
     </div>
-    <div class="normal2" v-bind:class="{'hide': !ifHide}">
+    <div class="normal2" :class="{'hide': !ifHide}">
       数据日期:<span>{{this.dataDate}}</span>
     </div>
   </div>
@@ -17,19 +21,14 @@ export default {
   data () {
     return {
       ifHide: false,
+      btnIndex: 0,
       dataDate: '9999-01-01'
     }
   },
   methods: {
-    changeTheme (ev, i, flag) {
-      var rmgrp = $(this.$el).find('button')
-      $(rmgrp).each(function () {
-        $(this).removeClass('selected')
-      })
-      ev.target.classList.add('selected')
-      if (flag === 'manual') {
-        this.$emit('comChanged', i)
-      }
+    changeTheme (i) {
+      this.btnIndex = i
+      this.$emit('comChanged', i)
     },
     setData: function (ifHide, dataDate) {
       this.ifHide = ifHide
