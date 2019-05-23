@@ -68,17 +68,19 @@ export default{
     position: absolute;
     left:8px;
     margin: 4px auto;
-    padding: 11px 16px 6px 5px;
+    padding: 11px 16px 10px 18px;
     width: 85%;
     line-height: 18px;
     font-size: 12px;
     letter-spacing:1px;
     text-align: left;
-    background: white;
-    box-shadow: 0px 0px 12px #f0f0f0;
-    border: 1px solid #e5e5e5;
-    border-radius: 3px;
     color: #666666;
+    font-family:PingFangSC-Regular;
+    background: white;
+    box-shadow: 0px 0px 6px 0px #A7A7A7;
+    /*border: 1px solid #e5e5e5;*/
+    border-radius: 3px;
+
   }
   .nav {
     position: absolute;
