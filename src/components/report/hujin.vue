@@ -294,7 +294,7 @@ export default {
         label2Show: false,
         labelNum: 1
       }
-      this.$http.post(this.$API_LIST.hujinChartUp, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp.setData(res.data.list, paramsUp)
         chartUp.drawTwoBarChart()
         this.drawSumUp(res.data.list, pageVal)
@@ -307,7 +307,7 @@ export default {
         label2Show: false,
         labelNum: 1
       }
-      this.$http.post(this.$API_LIST.hujinChartUp, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp3.setData(res.data.list, paramsUp)
         chartUp3.drawThreeBarOneLine()
         this.drawSumUp(res.data.list, pageVal)
@@ -320,7 +320,7 @@ export default {
         label2Show: true,
         labelNum: 2
       }
-      this.$http.post(this.$API_LIST.hujinChartUp, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp2.setData(res.data.list, paramsUp, pageVal.dateType)
         chartUp2.drawTwoLineChart()
       })
@@ -358,7 +358,7 @@ export default {
         labelNum: 2,
         labelColor: false
       }
-      this.$http.post(this.$API_LIST.hujinChartMid, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
         chartMid.setData(res.data.list, paramsMid)
         chartMid.drawTwoBarChart()
         this.drawSumMid(res.data.list, pageVal)
@@ -373,7 +373,7 @@ export default {
         label2Show: false,
         labelNum: 1
       }
-      this.$http.post(this.$API_LIST.hujinChartMid, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
         chartMid3.setData(res.data.list, paramsMid)
         chartMid3.drawThreeBarOneLine()
         this.drawSumMid(res.data.list, pageVal)
@@ -386,7 +386,7 @@ export default {
         label2Show: false,
         labelNum: 2
       }
-      this.$http.post(this.$API_LIST.hujinChartMid, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
         chartMid2.setData(res.data.list, paramsMid, pageVal.dateType)
         chartMid2.drawTwoLineChart()
       })
@@ -421,7 +421,7 @@ export default {
         label2Show: false,
         labelNum: 1
       }
-      this.$http.post(this.$API_LIST.hujinChartDwn, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
         chartDwn.setData(res.data.list, params)
         chartDwn.drawTwoBarChart()
       })
@@ -434,14 +434,14 @@ export default {
         labelNum: 2,
         labelColor: true
       }
-      this.$http.post(this.$API_LIST.hujinChartDwn, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
         chartDwn2.setData(res.data.list, params, pageVal.dateType)
         chartDwn2.drawTwoLineChart()
       })
     },
     drawkehuChart: function (pageVal) {
       let kehuChart = this.$refs.kehuChart
-      this.$http.post(this.$API_LIST.hujinKehuChart, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinKehuChart, pageVal).then(res => {
         kehuChart.setData(res.data.list, pageVal.kehuDateType)
         kehuChart.drawNLine()
       })
@@ -753,11 +753,11 @@ export default {
       $('#kehuDiv').hide()
       // 头部 数据 初始化
       let HeadTable1 = this.$refs.HeadTable1
-      this.$http.post(this.$API_LIST.hujinHeadData).then(res => {
-        HeadTable1.list = res.data.list
+      this.$http.post(this.$API_LIST.hujinHeadData, this.pageVal).then(res => {
+        HeadTable1.setData(res.data.list)
       })
       let dateDiv = this.$refs.dateDiv
-      this.$http.post(this.$API_LIST.hujinDataDate, {pageVal: this.pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
         dateDiv.date = res.data.list[0].NAME
         this.pageVal.dataDate = res.data.list[0].NAME
       })
@@ -770,7 +770,7 @@ export default {
         kehuhead.setData(res.data.list)
       })
       let kehuChart = this.$refs.kehuChart
-      this.$http.post(this.$API_LIST.hujinKehuChart, {pageVal: this.pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.hujinKehuChart, this.pageVal).then(res => {
         kehuChart.setData(res.data.list, 1)
         kehuChart.drawNLine()
       })

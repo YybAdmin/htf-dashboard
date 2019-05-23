@@ -6,8 +6,8 @@ import router from './router'
 import API_LIST from '@/assets/js/com/apiList'
 import myUtil from '@/assets/js/com/myUtil'
 import echartUtil from '@/assets/js/com/echartUtil'
-import '@/mock/hujin'
-import '@/mock/jingpin'
+// import '@/mock/hujin'
+// import '@/mock/jingpin'
 import axios from 'axios'
 
 Vue.config.productionTip = false
