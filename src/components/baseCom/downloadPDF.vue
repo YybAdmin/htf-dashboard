@@ -1,10 +1,10 @@
 <template>
   <div>
     <div style="text-align: left;">
-      <table style="width: 95%;table-layout: fixed">
+      <table style="width: 95%;table-layout: fixed;height: 50px">
         <tr>
-          <td @click="jumpToPDF()">
-              <img id="pdf" :src="srcURL" class="pdfImg" /> <div style="display: inline-block">{{description}}</div>
+          <td @click="jumpToPDF()" width="60%">
+              <img id="pdf" :src="srcURL" class="pdfImg" /> <div style="display: inline-block;font-family:PingFangSC-Regular;">{{description}}</div>
           </td>
           <td v-show="!ifPDF" @click="jumpToPDF()">
             <div class="pdfButtons">
@@ -45,7 +45,7 @@ export default {
     return {
       ifPDF: false,
       srcURL: pdfImg,
-      description: '查看PDF文件',
+      description: '点击查看PDF文件',
       scale: 1,
       pageNum: 1,
       pageNumShow: '',
@@ -87,7 +87,7 @@ export default {
         this.downloadPDF()
       } else {
         this.srcURL = pdfImg
-        this.description = '查看PDF文件'
+        this.description = '点击查看PDF文件'
         $('#loading').hide()
       }
     },
