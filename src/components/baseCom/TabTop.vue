@@ -65,10 +65,11 @@ export default {
   .selected:after {
     content: '';
     position: absolute;
-    width: 10%;
-    height: 2px;
+    width: 20px;
+    height: 3px;
     left: 45%;
-    bottom: 5px;
+    bottom: 3px;
     background-color: #DDAF59;
+    border-radius:2px;
   }
 </style>
