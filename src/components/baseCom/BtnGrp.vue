@@ -1,36 +1,38 @@
 <template>
   <div class="tmpDiv">
-    <span class="normal normalrm" v-bind:key="item.index" v-for="(item,i) in list" @click="changeTheme($event, i+1,'manual')">
-      {{item.name}}
+    <span>
+      <span class="normal"
+            v-bind:key="i"
+            v-for="(item,i) in itemList"
+            :class="[btnIndex == i ? 'selected' : '', i == 0 ? 'normalLeft' : '', i == (itemList.length - 1)? 'normalRight': '']"
+            @click="changeTheme(i)">
+        {{item.name}}
+      </span>
     </span>
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
 export default {
   name: 'BtnLeft',
-  props: ['itemList'],
-  data () {
+  props: {
+    itemList: {
+      type: Array,
+      default: []
+    }
+  },
+  data() {
     return {
-      list: this.itemList
+      btnIndex: 0
     }
   },
   methods: {
-    changeTheme (ev, i, flag) {
-      var datav = ev.target.attributes[0].name
-      var comRm = '.normalrm[' + datav + ']'
-      $(comRm).removeClass('selected')
-      ev.target.classList.add('selected')
-      if (flag === 'manual') {
-        this.$emit('comChanged', i)
-      }
+    changeTheme (i) {
+      this.btnIndex = i
+      this.$emit('comChanged', i)
     }
   },
   mounted () {
-    $(this.$el.firstChild).addClass('selected')
-    $(this.$el.firstChild).addClass('normalLeft')
-    $(this.$el.lastChild).addClass('normalRight')
   }
 }
 </script>
