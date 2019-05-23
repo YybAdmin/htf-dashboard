@@ -41,6 +41,7 @@ export default {
     width:100%;
     table-layout: fixed;
     border-collapse: collapse;
+    border: 0.5px solid #EEEEEE;
   }
   .normal {
     font-size: 12px;
