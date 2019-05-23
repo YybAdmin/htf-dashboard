@@ -51,10 +51,10 @@ export default {
     table-layout: fixed;
   }
   .normal {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color:  #333333;
-    line-height: 40px;
+    line-height: 38px;
     text-align: center;
     margin-right:10px;
   }
