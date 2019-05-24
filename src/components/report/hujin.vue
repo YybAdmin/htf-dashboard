@@ -7,7 +7,7 @@
         <HeadTable6r2rg @comChanged="changePageState($event,'f_tabletr')" ref="HeadTable1"></HeadTable6r2rg>
         <DivSplit/>
         <NameArea v-bind:item="comName.TopTitle"></NameArea>
-        <TabDim v-if="this.switch.proTypeRet" @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.TabDimList"></TabDim>
+        <TabDim v-if="this.switch.proTypeRet" ref="proType" @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.TabDimList"></TabDim>
         <div id="gmDimDiv">
           <swiperOval v-if="this.switch.gmTypeRst" @comChanged="changePageState($event,'f_gmtype')" v-bind:itemList="comName.gmTypeList"></swiperOval>
         </div>
@@ -628,6 +628,11 @@ export default {
     },
     onClickChartUp: function (val) {
       this.pageVal.pKey1 = val.pKey
+      if (this.pageVal.proType === 1) {
+        if (this.pageVal.pKey1 === 2) {
+
+        }
+      }
     },
     changeFenbuQushi2: function (val) {
       this.pageVal.fbOrQs2 = val

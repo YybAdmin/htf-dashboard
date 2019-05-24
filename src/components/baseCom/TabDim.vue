@@ -1,6 +1,10 @@
 <template>
     <div class="tmpDiv">
-      <span class="normal normalrm" v-bind:key="item.index" v-for="(item,i) in list" @click="changeTheme($event ,i+1,'manual')">
+      <span class="normal"
+            v-for="(item,i) in list"
+            :key="i"
+            :class="[tabIndex == i ? 'selected':'']"
+            @click="changeTheme(i+1)">
         {{item.name}}
       </span>
     </div>
@@ -10,23 +14,23 @@
 import $ from 'jquery'
 export default {
   name: 'TabDim',
-  props: ['itemList'],
+  props: {
+    itemList: {
+      type: Array
+    }
+  },
   data () {
     return {
+      tabIndex: 0,
       list: this.itemList
     }
   },
   methods: {
-    changeTheme (ev, i, flag) {
+    changeTheme (i) {
       let enable = this.itemList[i - 1].clickDisable === undefined ? false : this.itemList[i - 1].clickDisable
       if (!enable) {
-        let datav = ev.target.attributes[0].name
-        let comRm = '.normalrm[' + datav + ']'
-        $(comRm).removeClass('selected')
-        ev.target.classList.add('selected')
-        if (flag === 'manual') {
-          this.$emit('comChanged', i)
-        }
+        this.tabIndex = i - 1
+        this.$emit('comChanged', i)
       }
     }
   },

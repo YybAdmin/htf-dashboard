@@ -28,7 +28,7 @@ export default {
   methods: {
     changeTheme (i) {
       this.btnIndex = i
-      this.$emit('comChanged', i+1)
+      this.$emit('comChanged', i + 1)
     },
     setData: function (ifHide, dataDate) {
       this.ifHide = ifHide
