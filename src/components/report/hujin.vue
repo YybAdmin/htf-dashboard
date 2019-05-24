@@ -16,7 +16,7 @@
         </div>
         <FenbuQushi  v-if="this.switch.fenbuRst1" @comChanged="changePageState($event,'f_fenbuQushi1')"/>
         <DrawTwoBar id="chartUp" ref="chartUp"  v-bind:chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp')"/>
-        <DrawTwoLine id="chartUp2" ref="chartUp2" v-bind:chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp2')" />
+        <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.ChartUpName" @comChanged="changePageState($event,'f_chartUp2')" />
         <DrawThreeBarOneLine id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.charData.chartUp3" @comChanged="changePageState($event,'f_chartUp')"/>
         <TabDimWidth100Up v-if="this.switch.dateTypeRet" @comChanged="changePageState($event,'f_dateType')" v-bind:itemList="comName.TabDimDateList"></TabDimWidth100Up>
         <HeadTableNoTitle id="sumUp" ref="sumUp" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
@@ -199,6 +199,23 @@ export default {
           selected: [true, false, false, false, false, false, false, false]
         }
       }
+    },
+    ChartUpName: function () {
+      let name1 = {
+        title: '保有量/份额 (单位:亿)',
+        name1: '保有量',
+        name2: '份额',
+        pKey: this.pageVal.pKey1,
+        clickParams: []
+      }
+      let name2 = {
+        title: '销售额(单位:万元)',
+        name1: '销售额',
+        name2: '净流入',
+        pKey: this.pageVal.pKey1,
+        clickParams: []
+      }
+      return (this.pageVal.tabletr === 2) ? name2 : name1
     }
   },
   methods: {
@@ -243,6 +260,9 @@ export default {
       if (flag === 'f_chartUp2') {
         this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
         this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
+        this.pageVal.dataDate = val[0].value.NAMEBAK
+        this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
+        this.drawChartMid(this.pageVal) // 根据数据日期重画ChartMid
       }
       // chartUp 日期切换
       if (flag === 'f_dateType') { this.pageVal.dateType = val }
@@ -254,6 +274,9 @@ export default {
       if (flag === 'f_chartMid2') {
         this.$refs.sumMid.headData[0].VALUE1 = val[0].data.VALUE1
         this.$refs.sumMid.headData[0].VALUE2 = val[0].data.VALUE2
+        this.pageVal.dataDate = val[0].value.NAMEBAK
+        this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
+        this.drawChartDwn(this.pageVal) // 根据数据日期重画ChartDwn
       }
       // chartDwn 分布趋势切换
       if (flag === 'f_fenbuQushi3') { reflashFlag = this.changeFenbuQushi3(val) }
@@ -304,7 +327,7 @@ export default {
       let chartUp3 = this.$refs.chartUp3
       let paramsUp = {
         label1Show: true,
-        label2Show: false,
+        label2Show: true,
         labelNum: 1
       }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
@@ -317,7 +340,7 @@ export default {
       let chartUp2 = this.$refs.chartUp2
       let paramsUp = {
         label1Show: true,
-        label2Show: true,
+        label2Show: false,
         labelNum: 2
       }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
@@ -622,7 +645,6 @@ export default {
           $('#chartMid3').show()
         }
         this.pageVal.fbOrQs2 = 1
-        this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
         return 'Up2Mid13'
       }
     },
@@ -645,6 +667,7 @@ export default {
           $('#chartMid2').show()
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
+          this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
         }
         $('#chartDwn').show()
         return 'MidDwn'
