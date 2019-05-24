@@ -7,9 +7,9 @@
         <HeadTable6r2rg @comChanged="changePageState($event,'f_tabletr')" ref="HeadTable1"></HeadTable6r2rg>
         <DivSplit/>
         <NameArea v-bind:item="comName.TopTitle"></NameArea>
-        <TabDim v-if="this.switch.proTypeRet" ref="proType" @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.TabDimList"></TabDim>
+        <TabDim v-if="this.switch.proTypeRet"  @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.TabDimList"></TabDim>
         <div id="gmDimDiv">
-          <swiperOval v-if="this.switch.gmTypeRst" @comChanged="changePageState($event,'f_gmtype')" v-bind:itemList="comName.gmTypeList"></swiperOval>
+          <swiperOval v-if="this.switch.gmTypeRst" ref="gmType" @comChanged="changePageState($event,'f_gmtype')" v-bind:itemList="comName.gmTypeList"></swiperOval>
         </div>
         <div id="zhDimDiv">
           <swiperOval v-if="this.switch.zhTypeRst" @comChanged="changePageState($event,'f_zhtype')" v-bind:itemList="comName.zhTypeList"></swiperOval>
@@ -566,6 +566,7 @@ export default {
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
       // 上图改变选中状态
+      this.$refs.chartUp.selectBar(this.pageVal.gmType)
       return 'MidChart'
     },
     changeZhtype: function (val) {
