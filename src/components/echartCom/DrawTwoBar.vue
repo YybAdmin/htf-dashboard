@@ -57,6 +57,19 @@ export default {
         }
       }
     },
+    selectBar: function (kkey) {
+      let thisChart = echarts.getInstanceByDom(this.$refs.twoBarChart)
+      if (this.pKey !== '999999') {
+        for (var i = 0; i < this.data.length; i++) {
+          if (this.data[i].KKEY === this.pKey) {
+            thisChart.dispatchAction({
+              type: 'highlight',
+              dataIndex: i
+            })
+          }
+        }
+      }
+    },
     drawTwoBarChart: function () {
       let thisChart = echarts.getInstanceByDom(this.$refs.twoBarChart)
       if (thisChart !== undefined) {

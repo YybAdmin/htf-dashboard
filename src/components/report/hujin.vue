@@ -217,21 +217,13 @@ export default {
     changePageState: function (val, flag) {
       var reflashFlag = 'NO'
       // 规模 客户数 切换
-      if (flag === 'f_tabtop') {
-        reflashFlag = this.changeTabTop(val)
-      }
+      if (flag === 'f_tabtop') { reflashFlag = this.changeTabTop(val) }
       // 规模 表格tr切换
-      if (flag === 'f_tabletr') {
-        reflashFlag = this.changeTableTr(val)
-      }
+      if (flag === 'f_tabletr') { reflashFlag = this.changeTableTr(val) }
       // 规模 产品大类切换
-      if (flag === 'f_protype') {
-        reflashFlag = this.changeProtype(val)
-      }
+      if (flag === 'f_protype') { reflashFlag = this.changeProtype(val) }
       // 规模 公募类型切换
-      if (flag === 'f_gmtype') {
-        reflashFlag = this.changeGmtype(val)
-      }
+      if (flag === 'f_gmtype') { reflashFlag = this.changeGmtype(val) }
       // 规模 专户类型切换
       if (flag === 'f_zhtype') {
         reflashFlag = this.changeZhtype(val)
@@ -285,6 +277,7 @@ export default {
           $('#chartContent').fadeIn()
         }
       }
+      console.log(this.pageVal)
       this.guimoGetDataAndDraw(this.pageVal, reflashFlag)
     },
     drawChartUp: function (pageVal) {
@@ -570,11 +563,10 @@ export default {
       } else {
         this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.gmtypeName + '-' + this.pageValName.pKey2Name
       }
-      this.drawChartMid(this.pageVal)
-      this.drawChartDwn(this.pageVal)
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
-      return 'INIT'
+      // 上图改变选中状态
+      return 'MidChart'
     },
     changeZhtype: function (val) {
       this.pageVal.zhType = val
