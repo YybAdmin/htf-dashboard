@@ -42,11 +42,11 @@ export default {
   methods: {
     setData: function (data, option) {
       this.data = data
-      if (option !== undefined) {
+      if (option !== undefined) { // 背景阴影
         this.shadow.ifShadow = (option.ifShadow !== undefined ? option.ifShadow : false)
         this.shadow.shadowNum = (option.shadowNum !== undefined ? option.shadowNum : 0)
         this.barLabel.label1Show = (option.label1Show !== undefined ? option.label1Show : true)
-        this.barLabel.label2Show = (option.label2Show !== undefined ? option.label2Show : false)
+        this.barLabel.label2Show = (option.label2Show !== undefined ? option.label2Show : true)
         this.barLabel.labelNum = (option.labelNum !== undefined ? option.labelNum : 1)
         this.barLabel.labelColor = (option.labelColor !== undefined ? option.labelColor : true)
       }
@@ -65,7 +65,7 @@ export default {
       if (thisChart !== undefined) {
         thisChart.dispose()
       }
-      let ymax = 0
+      let ymax = 0 // 左右两个纵轴坐标起止
       let ymin = 0
       let v1max = 0
       let v4max = 0
@@ -107,6 +107,23 @@ export default {
             color: '#999999'
           }
         }],
+        tooltip: {
+          trigger: 'axis',
+          textStyle: {
+            align: 'left'
+          },
+          axisPointer: {
+            type: 'line',
+            label: {
+              show: false
+            },
+            lineStyle: {
+              opacity: 1,
+              color: '#BABABA',
+              type: 'dashed'
+            }
+          }
+        },
         legend: {
           bottom: '2%',
           data: [this.chartInfo.name1, this.chartInfo.name2, this.chartInfo.name3, this.chartInfo.name4]
@@ -146,6 +163,9 @@ export default {
           show: this.shadow.ifShadow,
           type: 'category',
           boundaryGap: false,
+          axisPointer: {
+            show: false // 不触发弹框
+          },
           axisLabel: {
             show: false
           },
