@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div ref="twoBarChart" v-bind:style="{width:this.$myUtil.getDeviceWidth()+'px', height:250+'px'}">
+  <div style="padding-left: 15px">
+    <div ref="twoBarChart" v-bind:style="{width:this.$myUtil.getDeviceWidth()-15+'px', height:250+'px'}">
       <div class="picsty" ><img src="@/assets/img/download.gif" style="height:50px;width:50px;"></div>
       <div class="fontsty">请稍候.....</div>
     </div>
