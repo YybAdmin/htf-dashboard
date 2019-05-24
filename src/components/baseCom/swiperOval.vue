@@ -3,12 +3,17 @@
     <table style="width: 100%; height: 30px;  padding-left: 10px;">
       <tr>
         <td style="width: 50px;">
-          <button id="btnswiper1" @click="changeTheme($event, 1,'manual')" class="normal selected normalrm">全部</button>
+          <button class="normal"
+                  :class="[swiperIndex == -1 ? 'selected' : '']"
+                  @click="changeTheme(-1)">
+            全部</button>
         </td>
         <td>
-          <swiper :options="swiperOption" ref="mySwiper">
-            <swiper-slide v-bind:key="item.index" v-for="(item,i) in list">
-              <button v-on:click="changeTheme($event, i+2,'manual')" class="normal normalrm">{{item.name}}</button>
+          <swiper :options="SwiperOptions" ref="mySwiper">
+            <swiper-slide v-bind:key="i" v-for="(item,i) in itemList" style="width: fit-content">
+              <button class="normal" :class="[swiperIndex == i ? 'selected' : '']" @click="changeTheme(i)">
+                {{item.name}}
+              </button>
             </swiper-slide>
           </swiper>
         </td>
@@ -18,40 +23,27 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import 'swiper/dist/css/swiper.css'
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
 export default {
   name: 'ButtonSwiper',
   components: { swiper, swiperSlide },
-  props: ['itemList'],
+  props: {
+    itemList: Array
+  },
   data () {
     return {
-      swiperOption: {
-        slidesPerView: 4
-      },
-      list: this.itemList
+      swiperIndex: -1,
+      SwiperOptions: {
+        slidesPerView: 5
+      }
     }
   },
   methods: {
-    changeTheme (ev, i, flag) {
-      let enable
-      if (i === 1) {
-        enable = false
-      } else {
-        enable = this.itemList[i - 2].clickDisable === undefined ? false : this.itemList[i - 2].clickDisable
-      }
-      if (!enable) {
-        let rmgrp = $(this.$el).find('button')
-        $(rmgrp).each(function () {
-          $(this).removeClass('selected')
-        })
-        ev.target.classList.add('selected')
-        if (flag === 'manual') {
-          this.$emit('comChanged', i)
-        }
-      }
+    changeTheme (i) {
+      this.swiperIndex = i
+      this.$emit('comChanged', i + 2)
     }
   }
 }
