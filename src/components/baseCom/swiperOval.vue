@@ -5,7 +5,7 @@
         <td style="width: 50px;">
           <button class="normal"
                   :class="[swiperIndex == -1 ? 'selected' : '']"
-                  @click="changeTheme(-1)">
+                  @click="changeTheme(-1, 'self')">
             全部</button>
         </td>
         <td>

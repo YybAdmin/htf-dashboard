@@ -625,8 +625,10 @@ export default {
         }
       } else if (this.pageVal.proType === 2) {
         this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
+        return 'MidChart'
       } else if (this.pageVal.proType === 3) {
         this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
+        return 'MidChart'
       }
     },
     changeFenbuQushi2: function (val) {
