@@ -7,12 +7,12 @@
         <HeadTable6r2rg @comChanged="changePageState($event,'f_tabletr')" ref="HeadTable1"></HeadTable6r2rg>
         <DivSplit/>
         <NameArea v-bind:item="comName.TopTitle"></NameArea>
-        <TabDim v-if="this.switch.proTypeRet"  @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.TabDimList"></TabDim>
+        <TabDim v-if="this.switch.proTypeRet"  ref="proType" @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.TabDimList"></TabDim>
         <div id="gmDimDiv">
           <swiperOval v-if="this.switch.gmTypeRst" ref="gmType" @comChanged="changePageState($event,'f_gmtype')" v-bind:itemList="comName.gmTypeList"></swiperOval>
         </div>
         <div id="zhDimDiv">
-          <swiperOval v-if="this.switch.zhTypeRst" @comChanged="changePageState($event,'f_zhtype')" v-bind:itemList="comName.zhTypeList"></swiperOval>
+          <swiperOval v-if="this.switch.zhTypeRst" ref="zhType"  @comChanged="changePageState($event,'f_zhtype')" v-bind:itemList="comName.zhTypeList"></swiperOval>
         </div>
         <FenbuQushi  v-if="this.switch.fenbuRst1" @comChanged="changePageState($event,'f_fenbuQushi1')"/>
         <DrawTwoBar id="chartUp" ref="chartUp"  v-bind:chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp')"/>
@@ -156,7 +156,6 @@ export default {
           title: '保有量/份额 (单位:亿)',
           name1: '保有量',
           name2: '份额',
-          pKey: this.pageVal.pKey1,
           clickParams: []
         },
         chartUp3: {
@@ -225,11 +224,10 @@ export default {
       // 规模 公募类型切换
       if (flag === 'f_gmtype') { reflashFlag = this.changeGmtype(val) }
       // 规模 专户类型切换
-      if (flag === 'f_zhtype') {
-        reflashFlag = this.changeZhtype(val)
-      }
+      if (flag === 'f_zhtype') { reflashFlag = this.changeZhtype(val) }
       // chartUp 分布趋势切换
       if (flag === 'f_fenbuQushi1') { reflashFlag = this.changeFenbuQushi1(val) }
+      // chartUp 柱子点击事件
       if (flag === 'f_chartUp') { reflashFlag = this.onClickChartUp(val) }
       // chartUp2 趋势图点击切换日期
       if (flag === 'f_chartUp2') {
@@ -284,8 +282,9 @@ export default {
       let chartUp = this.$refs.chartUp
       let paramsUp = {
         label1Show: true,
-        label2Show: false,
-        labelNum: 1
+        label2Show: true,
+        labelNum: 1,
+        initSelKey: '999999'
       }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp.setData(res.data.list, paramsUp)
@@ -537,9 +536,6 @@ export default {
       this.pageVal.pKey2 = '999999'
       this.pageValName.pKey2Name = '汇总'
       this.comName.MidTitle = '业务团队规模对比-' + this.comName.TabDimList[val - 1].name
-      this.drawChartUp(this.pageVal)
-      this.drawChartMid(this.pageVal)
-      this.drawChartDwn(this.pageVal)
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       if (val === 2) {
         $('#gmDimDiv').show()
@@ -583,11 +579,11 @@ export default {
         this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName + '-' + this.pageValName.pKey2Name
       }
       this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.zhtypeName + '-' + this.pageValName.pKey2Name
-      this.drawChartMid(this.pageVal)
-      this.drawChartDwn(this.pageVal)
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
-      return 'INIT'
+      // 上图改变选中状态
+      this.$refs.chartUp.selectBar(this.pageVal.zhType)
+      return 'MidChart'
     },
     changeFenbuQushi1: function (val) {
       this.pageVal.fbOrQs1 = val
@@ -620,11 +616,17 @@ export default {
       }
     },
     onClickChartUp: function (val) {
-      this.pageVal.pKey1 = val.pKey
+      this.pageVal.pKey1 = parseInt(val.pKey)
       if (this.pageVal.proType === 1) {
-        if (this.pageVal.pKey1 === 2) {
-
+        if (this.pageVal.pKey1 !== 4) {
+          this.$refs.proType.changeTheme(2)
+          this.changePageState(this.pageVal.pKey1, 'f_protype')
+          return 'INIT'
         }
+      } else if (this.pageVal.proType === 2) {
+        this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
+      } else if (this.pageVal.proType === 3) {
+        this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
       }
     },
     changeFenbuQushi2: function (val) {

@@ -11,7 +11,7 @@
         <td>
           <swiper :options="SwiperOptions" ref="mySwiper">
             <swiper-slide v-bind:key="i" v-for="(item,i) in itemList" style="width: fit-content">
-              <button class="normal" :class="[swiperIndex == i ? 'selected' : '']" @click="changeTheme(i)">
+              <button class="normal" :class="[swiperIndex == i ? 'selected' : '']" @click="changeTheme(i, 'self')">
                 {{item.name}}
               </button>
             </swiper-slide>
@@ -41,9 +41,11 @@ export default {
     }
   },
   methods: {
-    changeTheme (i) {
+    changeTheme (i, flag) {
       this.swiperIndex = i
-      this.$emit('comChanged', i + 2)
+      if (flag === 'self') {
+        this.$emit('comChanged', i + 2)
+      }
     }
   }
 }

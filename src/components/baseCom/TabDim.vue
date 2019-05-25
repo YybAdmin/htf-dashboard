@@ -4,7 +4,7 @@
             v-for="(item,i) in list"
             :key="i"
             :class="[tabIndex == i ? 'selected':'']"
-            @click="changeTheme(i+1)">
+            @click="changeTheme(i+1, 'self')">
         {{item.name}}
       </span>
     </div>
@@ -26,11 +26,13 @@ export default {
     }
   },
   methods: {
-    changeTheme (i) {
+    changeTheme (i, flag) {
       let enable = this.itemList[i - 1].clickDisable === undefined ? false : this.itemList[i - 1].clickDisable
       if (!enable) {
         this.tabIndex = i - 1
-        this.$emit('comChanged', i)
+        if (flag === 'self') {
+          this.$emit('comChanged', i)
+        }
       }
     }
   },
