@@ -307,7 +307,7 @@ export default {
         label1Show: true,
         label2Show: true,
         labelNum: 1,
-        initSelKey: '999999'
+        initSelKey: this.pageVal.pKey1.toString()
       }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp.setData(res.data.list, paramsUp)
@@ -374,6 +374,47 @@ export default {
         labelColor: false
       }
       this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
+        let retData = res.data.list
+        let zyCapital = 0
+        let zyShares = 0
+        let sfCapital = 0
+        let sfShares = 0
+        for (let i = 0; i < retData.length; i++) {
+          if(retData[i].KKEY == '4'){
+            zyCapital = retData[i].VALUE1
+            zyShares = retData[i].VALUE2
+          }
+          if(retData[i].KKEY == '5'){
+            sfCapital = retData[i].VALUE1
+            sfShares = retData[i].VALUE2
+          }
+        }
+        for (let i = 0; i < retData.length ; i++) {
+          if(zyCapital!=0 && sfCapital != 0){
+            if(retData[i].KKEY == '1' || retData[i].KKEY == '2' || retData[i].KKEY == '3') {
+              retData[i].RATE1 = (parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)).toFixed(2)*100
+              retData[i].RATE2 = (parseFloat(retData[i].VALUE2) / parseFloat(zyShares)).toFixed(2)*100
+            }
+            if(retData[i].KKEY == '4' || retData[i].KKEY == '5'){
+              retData[i].RATE1 = (parseFloat(retData[i].VALUE1) / (parseFloat(zyCapital)+parseFloat(sfCapital))).toFixed(2)*100
+              retData[i].RATE2 = (parseFloat(retData[i].VALUE2) / (parseFloat(zyShares)+parseFloat(sfShares))).toFixed(2)*100
+            }
+          } else if (sfCapital== 0 && zyCapital!= 0 ) {
+            retData[i].RATE1 = (parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)).toFixed(2)*100
+            retData[i].RATE2 = (parseFloat(retData[i].VALUE2) / parseFloat(zyShares)).toFixed(2)*100
+          } else if (sfCapital != 0 && zyCapital == 0 ) {
+            retData[i].RATE1 = '-'
+            retData[i].RATE2 = '-'
+          }
+        }
+        retData[1].RATE1 = (parseFloat(retData[1].VALUE1) / parseFloat(retData[3].VALUE1)).toFixed(2)*100
+        retData[1].RATE2 = (parseFloat(retData[1].VALUE2) / parseFloat(retData[3].VALUE2)).toFixed(2)*100
+        retData[2].RATE1 = (parseFloat(retData[2].VALUE1) / parseFloat(retData[3].VALUE1)).toFixed(2)*100
+        retData[2].RATE2 = (parseFloat(retData[2].VALUE2) / parseFloat(retData[3].VALUE2)).toFixed(2)*100
+        retData[3].RATE1 = (parseFloat(retData[3].VALUE1) /( parseFloat(retData[3].VALUE1) +parseFloat(retData[4].VALUE1))).toFixed(2)*100
+        retData[3].RATE2 = (parseFloat(retData[3].VALUE2) /( parseFloat(retData[3].VALUE2) +parseFloat(retData[4].VALUE2))).toFixed(2)*100
+        retData[4].RATE1 = (parseFloat(retData[4].VALUE1) /( parseFloat(retData[3].VALUE1) +parseFloat(retData[4].VALUE1))).toFixed(2)*100
+        retData[4].RATE2 = (parseFloat(retData[4].VALUE2) /( parseFloat(retData[3].VALUE2) +parseFloat(retData[4].VALUE2))).toFixed(2)*100
         chartMid.setData(res.data.list, paramsMid)
         chartMid.drawTwoBarChart()
         this.drawSumMid(res.data.list, pageVal)
@@ -639,6 +680,7 @@ export default {
     },
     onClickChartUp: function (val) {
       this.pageVal.pKey1 = parseInt(val.pKey)
+      this.pageVal.proType = parseInt(val.pKey)
       if (this.pageVal.proType === 1) {
         if (this.pageVal.pKey1 !== 4) {
           this.$refs.proType.changeTheme(2)
