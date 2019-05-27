@@ -60,6 +60,22 @@ export default {
         }
       }
     },
+    selectBar: function (kkey) {
+      let thisChart = echarts.getInstanceByDom(this.$refs.threeBarOneLine)
+      this.selKey = '999999'
+      thisChart.dispatchAction({
+        type: 'downplay'
+      })
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i].KKEY === kkey.toString()) {
+          this.selKey = kkey.toString()
+          thisChart.dispatchAction({
+            type: 'highlight',
+            dataIndex: i
+          })
+        }
+      }
+    },
     drawThreeBarOneLine: function () {
       let thisChart = echarts.getInstanceByDom(this.$refs.threeBarOneLine)
       if (thisChart !== undefined) {
@@ -383,7 +399,7 @@ export default {
           var xIndex = pointInGrid[0]
           var op = myChart.getOption()
           var pkey = op.dataset[0].source[xIndex].KKEY
-          var pKeyName = op.dataset[0].source[xIndex].KKEY
+          var pKeyName = op.dataset[0].source[xIndex].NAME
           if (pKey === '999999') {
             pKey = pkey
             myChart.dispatchAction({
