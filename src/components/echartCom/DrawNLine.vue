@@ -82,21 +82,21 @@ export default {
           },
           formatter: function (params) {
             console.log(params)
-            let content = '<div style="text-align: left;font-size: 11px;color: #333333">' + params[0].data.NAME + '</div>' +
-            '<div"><table style="width: 150px;font-size: 11px;color: #333333">'
+            let content = '<div style="text-align: left;font-size: 11px;color: #FFFFFF">' + params[0].data.NAME + '</div>' +
+            '<div"><table style="width: 150px;font-size: 11px;color: #FFFFFF">'
             for (var i = 1; i <= params.length; i++) {
               content = content + '<tr><td style="text-align: left;">' + params[i - 1].seriesName + '</td>' + '<td style="text-align: right;">' + params[i - 1].data['VALUE' + i] + '</td></tr>'
             }
             content = content + '</table></div>'
             return content
-          },
-          backgroundColor: 'rgba(246,246,246,0.6)',
-          borderWidth: 1,
-          borderColor: '#CCCCCC',
-          textStyle: {
-            color: '#333333',
-            fontSize: '11px'
           }
+          // backgroundColor: 'rgba(246,246,246,0.6)',
+          // borderWidth: 1,
+          // borderColor: '#CCCCCC',
+          // textStyle: {
+          //   color: '#333333',
+          //   fontSize: '11px'
+          // }
         },
         dataZoom: {
           type: 'inside',
