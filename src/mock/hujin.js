@@ -4,7 +4,9 @@ Mock.mock('/report/hujin/headData', /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
-    'list': [{ 'VALUE1': '111,11', 'VALUE2': '111,22', 'VALUE3': '111,33', 'VALUE4': '111,44', 'VALUE5': '111,55', 'VALUE6': '111,66' }]
+    'list': [{ 'VALUE1': '111,11', 'VALUE2': '111,22', 'VALUE3': '111,33', 'VALUE4': '111,44', 'VALUE5': '111,55', 'VALUE6': '111,66' },
+      { 'VALUE1': '211,11', 'VALUE2': '111,22', 'VALUE3': '111,33', 'VALUE4': '111,44', 'VALUE5': '111,55', 'VALUE6': '111,66' },
+      { 'VALUE1': '311,11', 'VALUE2': '111,22', 'VALUE3': '111,33', 'VALUE4': '111,44', 'VALUE5': '111,55', 'VALUE6': '111,66' }]
   }
 })
 // 上图 分布
@@ -12,12 +14,30 @@ Mock.mock('/report/hujin/chartUp', /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs1 === 1) {
     if (pageVal.tabletr === 1) {
-      return {
-        'code': '200',
-        'msg': 'success',
-        'list': [{'KKEY': '1', 'NAME': '公募', 'VALUE1': '100.25', 'VALUE2': '200'},
-          {'KKEY': '2', 'NAME': '资管', 'VALUE1': '300.65', 'VALUE2': '400'},
-          {'KKEY': '3', 'NAME': '专户', 'VALUE1': '500.54', 'VALUE2': '600'}]
+      if (pageVal.proType === 1) {
+        return {
+          'code': '200',
+          'msg': 'success',
+          'list': [{'KKEY': '2', 'NAME': '公募', 'VALUE1': '700.25', 'VALUE2': '670'},
+            {'KKEY': '3', 'NAME': '专户', 'VALUE1': '300.65', 'VALUE2': '400'},
+            {'KKEY': '4', 'NAME': '资管', 'VALUE1': '500.54', 'VALUE2': '600'}]
+        }
+      } else if (pageVal.proType === 2) { // 公募
+        return {
+          'code': '200',
+          'msg': 'success',
+          'list': [{'KKEY': '2', 'NAME': '货币', 'VALUE1': '100.25', 'VALUE2': '200'},
+            {'KKEY': '3', 'NAME': '权益', 'VALUE1': '300.65', 'VALUE2': '400'},
+            {'KKEY': '4', 'NAME': '债券', 'VALUE1': '500.54', 'VALUE2': '600'},
+            {'KKEY': '5', 'NAME': '理财', 'VALUE1': '500.54', 'VALUE2': '600'}]
+        }
+      } else if (pageVal.proType === 3) { // 专户
+        return {
+          'code': '200',
+          'msg': 'success',
+          'list': [{'KKEY': '2', 'NAME': '货币', 'VALUE1': '100.25', 'VALUE2': '200'},
+            {'KKEY': '3', 'NAME': '权益', 'VALUE1': '300.65', 'VALUE2': '400'}]
+        }
       }
     } else if (pageVal.tabletr === 2) {
       return {

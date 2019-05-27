@@ -15,8 +15,7 @@ export default {
     chartInfo: {
       title: '',
       name1: '',
-      name2: '',
-      pKey: '999999'
+      name2: ''
     }
   },
   data () {
@@ -33,6 +32,7 @@ export default {
         labelNum: 1,
         labelColor: false
       },
+      selKey: '999999',
       data: []
     }
   },
@@ -46,6 +46,7 @@ export default {
         this.barLabel.label2Show = (option.label2Show !== undefined ? option.label2Show : false)
         this.barLabel.labelNum = (option.labelNum !== undefined ? option.labelNum : 1)
         this.barLabel.labelColor = (option.labelColor !== undefined ? option.labelColor : true)
+        this.selKey = (option.initSelKey !== undefined ? option.initSelKey : '999999')
       }
       var length = this.data.length
       for (let i = 0; i <= length; i++) {
@@ -57,12 +58,28 @@ export default {
         }
       }
     },
+    selectBar: function (kkey) {
+      let thisChart = echarts.getInstanceByDom(this.$refs.twoBarChart)
+      this.selKey = '999999'
+      thisChart.dispatchAction({
+        type: 'downplay'
+      })
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i].KKEY === kkey.toString()) {
+          this.selKey = kkey.toString()
+          thisChart.dispatchAction({
+            type: 'highlight',
+            dataIndex: i
+          })
+        }
+      }
+    },
     drawTwoBarChart: function () {
       let thisChart = echarts.getInstanceByDom(this.$refs.twoBarChart)
       if (thisChart !== undefined) {
         thisChart.dispose()
       }
-      let pKey = this.chartInfo.pKey
+      let pKey = this.selKey
       let data = this.data
       let iflabelColor = this.barLabel.labelColor
       let labelNum = this.barLabel.labelNum
@@ -281,10 +298,13 @@ export default {
           }, pointInPixel)
           var xIndex = pointInGrid[0]
           var op = myChart.getOption()
-          var pkey = op.dataset[0].source[xIndex].KKEY
+          var kkey = op.dataset[0].source[xIndex].KKEY
           var pKeyName = op.dataset[0].source[xIndex].NAME
           if (pKey === '999999') {
-            pKey = pkey
+            pKey = kkey
+            myChart.dispatchAction({
+              type: 'downplay'
+            })
             myChart.dispatchAction({
               type: 'highlight',
               dataIndex: xIndex
@@ -293,11 +313,11 @@ export default {
             myChart.dispatchAction({
               type: 'downplay'
             })
-            if (pKey === pkey) {
+            if (pKey === kkey) {
               pKey = '999999'
               pKeyName = 'ALL'
             } else {
-              pKey = pkey
+              pKey = kkey
               myChart.dispatchAction({
                 type: 'highlight',
                 dataIndex: xIndex

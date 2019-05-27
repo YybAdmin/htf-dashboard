@@ -17,8 +17,7 @@ export default {
   name: 'BtnLeft',
   props: {
     itemList: {
-      type: Array,
-      default: []
+      type: Array
     }
   },
   data() {
@@ -29,7 +28,7 @@ export default {
   methods: {
     changeTheme (i) {
       this.btnIndex = i
-      this.$emit('comChanged', i+1)
+      this.$emit('comChanged', i + 1)
     }
   },
   mounted () {

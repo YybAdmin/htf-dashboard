@@ -22,9 +22,8 @@ export default {
   name: 'normal',
   components: {DivSplit},
   props: {
-    itemList:{
-      type: Array,
-      default: []
+    itemList: {
+      type: Array
     }
   },
   data () {
