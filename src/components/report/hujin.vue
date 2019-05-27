@@ -392,30 +392,22 @@ export default {
         for (let i = 0; i < retData.length ; i++) {
           if(zyCapital!=0 && sfCapital != 0){
             if(retData[i].KKEY == '1' || retData[i].KKEY == '2' || retData[i].KKEY == '3') {
-              retData[i].RATE1 = (parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)).toFixed(2)*100
-              retData[i].RATE2 = (parseFloat(retData[i].VALUE2) / parseFloat(zyShares)).toFixed(2)*100
+              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital))*100).toFixed(2)
+              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares))*100).toFixed(2)
             }
             if(retData[i].KKEY == '4' || retData[i].KKEY == '5'){
-              retData[i].RATE1 = (parseFloat(retData[i].VALUE1) / (parseFloat(zyCapital)+parseFloat(sfCapital))).toFixed(2)*100
-              retData[i].RATE2 = (parseFloat(retData[i].VALUE2) / (parseFloat(zyShares)+parseFloat(sfShares))).toFixed(2)*100
+              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / (parseFloat(zyCapital)+parseFloat(sfCapital)))*100).toFixed(2)
+              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / (parseFloat(zyShares)+parseFloat(sfShares)))*100).toFixed(2)
             }
           } else if (sfCapital== 0 && zyCapital!= 0 ) {
-            retData[i].RATE1 = (parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)).toFixed(2)*100
-            retData[i].RATE2 = (parseFloat(retData[i].VALUE2) / parseFloat(zyShares)).toFixed(2)*100
+            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital))*100).toFixed(2)
+            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares))*100).toFixed(2)
           } else if (sfCapital != 0 && zyCapital == 0 ) {
-            retData[i].RATE1 = '-'
-            retData[i].RATE2 = '-'
+            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital))*100).toFixed(2)
+            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares))*100).toFixed(2)
           }
         }
-        retData[1].RATE1 = (parseFloat(retData[1].VALUE1) / parseFloat(retData[3].VALUE1)).toFixed(2)*100
-        retData[1].RATE2 = (parseFloat(retData[1].VALUE2) / parseFloat(retData[3].VALUE2)).toFixed(2)*100
-        retData[2].RATE1 = (parseFloat(retData[2].VALUE1) / parseFloat(retData[3].VALUE1)).toFixed(2)*100
-        retData[2].RATE2 = (parseFloat(retData[2].VALUE2) / parseFloat(retData[3].VALUE2)).toFixed(2)*100
-        retData[3].RATE1 = (parseFloat(retData[3].VALUE1) /( parseFloat(retData[3].VALUE1) +parseFloat(retData[4].VALUE1))).toFixed(2)*100
-        retData[3].RATE2 = (parseFloat(retData[3].VALUE2) /( parseFloat(retData[3].VALUE2) +parseFloat(retData[4].VALUE2))).toFixed(2)*100
-        retData[4].RATE1 = (parseFloat(retData[4].VALUE1) /( parseFloat(retData[3].VALUE1) +parseFloat(retData[4].VALUE1))).toFixed(2)*100
-        retData[4].RATE2 = (parseFloat(retData[4].VALUE2) /( parseFloat(retData[3].VALUE2) +parseFloat(retData[4].VALUE2))).toFixed(2)*100
-        chartMid.setData(res.data.list, paramsMid)
+        chartMid.setData(retData, paramsMid)
         chartMid.drawTwoBarChart()
         this.drawSumMid(res.data.list, pageVal)
       })
