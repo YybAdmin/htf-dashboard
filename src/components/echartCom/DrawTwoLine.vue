@@ -91,8 +91,8 @@ export default {
             _this.changeDate(params)
             return '<div style="text-align: left;font-size: 11px;color: #FFFFFF">' + params[0].data.NAME + '</div>' +
               '<div"><table style="width: 120px;font-size: 11px;color: #FFFFFF">' +
-              '<tr><td style="text-align: left;"><span>' + _this.chartInfo.name1 + '</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE1 + '亿</span></td></tr>' +
-              '<tr><td style="text-align: left;"><span>' + _this.chartInfo.name2 + '</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE2 + '亿</span></td></tr>' +
+              '<tr><td style="text-align: left;"><span>保有量：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE1 + '亿</span></td></tr>' +
+              '<tr><td style="text-align: left;"><span>份额：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE2 + '亿</span></td></tr>' +
               '<tr><td style="text-align: left;"><span>保有量环比：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.RATE1 + '%</span></td></tr>' +
               '<tr><td style="text-align: left;"><span>份额环比：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.RATE2 + '%</span></td></tr>' +
               '</table></div>'
