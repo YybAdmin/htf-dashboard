@@ -47,6 +47,7 @@
           <Tag id="tagDwn" ref="tagDwn"/>
           <DrawTwoBar id="chartDwn" ref="chartDwn"  v-bind:chartInfo="this.charData.chartDwn" @comChanged="changePageState($event,'f_chartDwn')"/>
           <DrawTwoLine id="chartDwn2" ref="chartDwn2" v-bind:chartInfo="this.charData.chartDwn"  @comChanged="changePageState($event,'f_chartDwn2')" />
+          <DivSplit/>
         </div>
       </div>
       <div id="kehuDiv">
@@ -56,6 +57,7 @@
         <TabDim  @comChanged="changePageState($event,'p_kehuCusGrp')" v-bind:itemList="comName.EcCusGrpList"></TabDim>
         <swiperOvalNoAll  @comChanged="changePageState($event,'p_kehuMeaType')" v-bind:itemList="comName.kehuMeaType"></swiperOvalNoAll>
         <DrawNLine ref="kehuChart" v-bind:chartInfo="this.charData.kehuChart"/>
+        <DivSplit/>
       </div>
     </div>
     <downloadPDF @pdfChanged="changePageState($event,'f_pdf')" v-bind:pdfApi="this.pdfApi"></downloadPDF>
@@ -470,6 +472,8 @@ export default {
           this.drawChartUp3(pageVal)
           this.drawChartMid3(pageVal)
         }
+      } else if (flag === 'ChartUp2') {
+        this.drawChartUp2(pageVal)
       } else if (flag === 'Up2Mid13') {
         if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
           this.drawChartUp2(pageVal)
@@ -488,6 +492,8 @@ export default {
         } else if (pageVal.fbOrQs2 === 2) {
           this.drawChartMid2(pageVal)
         }
+      } else if (flag === 'MidChart2') { // 分布->趋势重画趋势图，趋势->分布不重画分布图
+        this.drawChartMid2(pageVal)
       } else if (flag === 'MidDwn') {
         if (pageVal.fbOrQs2 === 1) {
           if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
@@ -499,6 +505,8 @@ export default {
           this.drawChartMid2(pageVal)
         }
         this.drawChartDwn(pageVal)
+      } else if (flag === 'MidDwn2') {
+        this.drawChartMid2(pageVal)
       } else if (flag === 'DwnChart') {
         if (pageVal.fbOrQs3 === 1) {
           this.drawChartDwn(pageVal)
@@ -551,10 +559,15 @@ export default {
       this.pageVal.proType = val
       $('#guimoDivDwn').hide()
       $('#chartUp2,#chartUp3').hide()
-      $('#chartUp').show()
       $('#chartMid2,#chartMid3').hide()
-      $('#chartMid').show()
       $('#gmDimDiv,#zhDimDiv').hide()
+      if (this.pageVal.tabletr === 2) {
+        $('#chartUp3').show()
+        $('#chartMid3').show()
+      } else {
+        $('#chartUp').show()
+        $('#chartMid').show()
+      }
       this.resetCom('fenbuRst1', 'fbOrQs1')
       this.pageVal.pKey2 = '999999'
       this.pageValName.pKey2Name = '汇总'
@@ -585,7 +598,11 @@ export default {
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
       // 上图改变选中状态
-      this.$refs.chartUp.selectBar(this.pageVal.gmType)
+      if (this.pageVal.tabletr === 2) {
+        this.$refs.chartUp3.selectBar(this.pageVal.gmType)
+      } else {
+        this.$refs.chartUp.selectBar(this.pageVal.gmType)
+      }
       return 'MidChart'
     },
     changeZhtype: function (val) {
@@ -605,7 +622,11 @@ export default {
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
       // 上图改变选中状态
-      this.$refs.chartUp.selectBar(this.pageVal.zhType)
+      if (this.pageVal.tabletr === 2) {
+        this.$refs.chartUp3.selectBar(this.pageVal.zhType)
+      } else {
+        this.$refs.chartUp.selectBar(this.pageVal.zhType)
+      }
       return 'MidChart'
     },
     changeFenbuQushi1: function (val) {
@@ -615,7 +636,7 @@ export default {
       $('#chartMid,#chartMid2,#chartMid3').hide()
       this.pageVal.pKey2 = '999999'
       this.pageValName.pKey2Name = '汇总'
-      if (val === 1) {
+      if (val === 1) { // 分布->趋势重画趋势图，趋势->分布不重画分布图
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp').show()
           $('#chartMid').show()
@@ -624,7 +645,7 @@ export default {
           $('#chartMid3').show()
         }
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
-        return 'INIT'
+        // return 'INIT'
       } else {
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp2').show()
@@ -634,22 +655,24 @@ export default {
           $('#chartMid3').show()
         }
         this.pageVal.fbOrQs2 = 1
-        return 'Up2Mid13'
+        return 'ChartUp2'
       }
     },
     onClickChartUp: function (val) {
       this.pageVal.pKey1 = parseInt(val.pKey)
       if (this.pageVal.proType === 1) {
         if (this.pageVal.pKey1 !== 4) {
-          this.$refs.proType.changeTheme(2)
+          this.$refs.proType.changeTheme(this.pageVal.pKey1)
           this.changePageState(this.pageVal.pKey1, 'f_protype')
           return 'INIT'
         }
       } else if (this.pageVal.proType === 2) {
         this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
+        this.changeGmtype(this.pageVal.pKey1)
         return 'MidChart'
       } else if (this.pageVal.proType === 3) {
         this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
+        this.changeZhtype(this.pageVal.pKey1)
         return 'MidChart'
       }
     },
@@ -672,7 +695,7 @@ export default {
           this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
         }
         $('#chartDwn').show()
-        return 'MidDwn'
+        return 'MidChart2'
       } else {
         if (val === 1) {
           this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
@@ -686,9 +709,9 @@ export default {
           $('#chartMid2').show()
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
+          return 'MidChart2'
         }
         this.changeFenbuQushi3(1)
-        return 'MidChart'
       }
     },
     onClickChartMid: function (val) {
