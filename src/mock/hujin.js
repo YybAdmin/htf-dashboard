@@ -40,12 +40,30 @@ Mock.mock('/report/hujin/chartUp', /post/i, function (req) {
         }
       }
     } else if (pageVal.tabletr === 2) {
-      return {
-        'code': '200',
-        'msg': 'success',
-        'list': [{'KKEY': '1', 'NAME': '公募', 'VALUE1': '100.25', 'VALUE2': '-50', 'VALUE3': '60.25', 'VALUE4': '100'},
-          {'KKEY': '2', 'NAME': '资管', 'VALUE1': '300.65', 'VALUE2': '-100', 'VALUE3': '230.25', 'VALUE4': '200'},
-          {'KKEY': '3', 'NAME': '专户', 'VALUE1': '500.54', 'VALUE2': '-300', 'VALUE3': '200.25', 'VALUE4': '150'}]
+      if (pageVal.proType === 1) {
+        return {
+          'code': '200',
+          'msg': 'success',
+          'list': [{'KKEY': '2', 'NAME': '公募', 'VALUE1': '100.25', 'VALUE2': '-50', 'VALUE3': '60.25', 'VALUE4': '100'},
+            {'KKEY': '3', 'NAME': '专户', 'VALUE1': '300.65', 'VALUE2': '-100', 'VALUE3': '230.25', 'VALUE4': '200'},
+            {'KKEY': '4', 'NAME': '资管', 'VALUE1': '500.54', 'VALUE2': '-300', 'VALUE3': '200.25', 'VALUE4': '150'}]
+        }
+      } else if (pageVal.proType === 2) { // 公募
+        return {
+          'code': '200',
+          'msg': 'success',
+          'list': [{'KKEY': '2', 'NAME': '货币', 'VALUE1': '180.25', 'VALUE2': '-70', 'VALUE3': '110.25', 'VALUE4': '100'},
+            {'KKEY': '3', 'NAME': '权益', 'VALUE1': '300.65', 'VALUE2': '-100', 'VALUE3': '230.25', 'VALUE4': '200'},
+            {'KKEY': '4', 'NAME': '债券', 'VALUE1': '500.54', 'VALUE2': '-300', 'VALUE3': '200.25', 'VALUE4': '150'},
+            {'KKEY': '5', 'NAME': '理财', 'VALUE1': '500.54', 'VALUE2': '-300', 'VALUE3': '200.25', 'VALUE4': '150'}]
+        }
+      } else if (pageVal.proType === 3) { // 专户
+        return {
+          'code': '200',
+          'msg': 'success',
+          'list': [{'KKEY': '2', 'NAME': '货币', 'VALUE1': '100.25', 'VALUE2': '-50', 'VALUE3': '60.25', 'VALUE4': '100'},
+            {'KKEY': '3', 'NAME': '权益', 'VALUE1': '500.54', 'VALUE2': '-300', 'VALUE3': '200.25', 'VALUE4': '150'}]
+        }
       }
     } else if (pageVal.tabletr === 3) {
       return {
