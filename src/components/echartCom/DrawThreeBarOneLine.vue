@@ -60,15 +60,13 @@ export default {
         }
       }
     },
-    selectBar: function (kkey) {
+    selectBar: function (kkey) { // kkey=2,3,4,5
       let thisChart = echarts.getInstanceByDom(this.$refs.threeBarOneLine)
-      this.selKey = '999999'
       thisChart.dispatchAction({
         type: 'downplay'
       })
-      for (var i = 0; i < this.data.length; i++) {
+      for (var i = 0; i < this.data.length; i++) { // this.data[i].KKEY=2,3,4,5
         if (this.data[i].KKEY === kkey.toString()) {
-          this.selKey = kkey.toString()
           thisChart.dispatchAction({
             type: 'highlight',
             dataIndex: i
@@ -125,6 +123,7 @@ export default {
         }],
         tooltip: {
           trigger: 'axis',
+          triggerOn: 'click',
           textStyle: {
             align: 'left'
           },
@@ -402,6 +401,9 @@ export default {
           var pKeyName = op.dataset[0].source[xIndex].NAME
           if (pKey === '999999') {
             pKey = pkey
+            myChart.dispatchAction({
+              type: 'downplay'
+            })
             myChart.dispatchAction({
               type: 'highlight',
               dataIndex: xIndex
