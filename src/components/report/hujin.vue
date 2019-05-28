@@ -308,8 +308,8 @@ export default {
       let paramsUp = {
         label1Show: true,
         label2Show: true,
-        labelNum: 1,
-        initSelKey: this.pageVal.pKey1.toString()
+        labelNum: 1
+        // initSelKey: this.pageVal.pKey1.toString()
       }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp.setData(res.data.list, paramsUp)
@@ -505,6 +505,7 @@ export default {
           this.drawChartUp3(pageVal)
           this.drawChartMid3(pageVal)
         }
+        this.drawChartDwn(pageVal)
       } else if (flag === 'ChartUp2') {
         this.drawChartUp2(pageVal)
       } else if (flag === 'Up2Mid13') {
@@ -636,6 +637,9 @@ export default {
       } else {
         this.$refs.chartUp.selectBar(this.pageVal.gmType)
       }
+      if (this.pageVal.fbOrQs1 === 2) { // 若当前展示趋势图，重画
+        this.drawChartUp2(this.pageVal)
+      }
       return 'MidChart'
     },
     changeZhtype: function (val) {
@@ -660,6 +664,9 @@ export default {
       } else {
         this.$refs.chartUp.selectBar(this.pageVal.zhType)
       }
+      if (this.pageVal.fbOrQs1 === 2) { // 若当前展示趋势图，重画
+        this.drawChartUp2(this.pageVal)
+      }
       return 'MidChart'
     },
     changeFenbuQushi1: function (val) {
@@ -678,7 +685,6 @@ export default {
           $('#chartMid3').show()
         }
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
-        // return 'INIT'
       } else {
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp2').show()
@@ -693,21 +699,30 @@ export default {
     },
     onClickChartUp: function (val) {
       this.pageVal.pKey1 = parseInt(val.pKey)
-      this.pageVal.proType = parseInt(val.pKey)
       if (this.pageVal.proType === 1) {
         if (this.pageVal.pKey1 !== 4) {
           this.$refs.proType.changeTheme(this.pageVal.pKey1)
-          this.changePageState(this.pageVal.pKey1, 'f_protype')
+          this.changeProtype(this.pageVal.pKey1)
           return 'INIT'
         }
       } else if (this.pageVal.proType === 2) {
-        this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
-        this.changeGmtype(this.pageVal.pKey1)
-        return 'MidChart'
+        if (this.pageVal.pKey1 === 999999) { // 重复点击取消选中回到‘全部’
+          this.$refs.gmType.changeTheme(-1)
+          this.changeGmtype(1)
+        } else {
+          this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
+          this.changeGmtype(this.pageVal.pKey1)
+        }
+        return 'MidDwn'
       } else if (this.pageVal.proType === 3) {
-        this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
-        this.changeZhtype(this.pageVal.pKey1)
-        return 'MidChart'
+        if (this.pageVal.pKey1 === 999999) {
+          this.$refs.zhType.changeTheme(-1)
+          this.changeZhtype(1)
+        } else {
+          this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
+          this.changeZhtype(this.pageVal.pKey1)
+        }
+        return 'MidDwn'
       }
     },
     changeFenbuQushi2: function (val) {
