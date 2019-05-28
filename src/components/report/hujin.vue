@@ -223,7 +223,9 @@ export default {
     resetCom: function (switchValStr, pageValStr, parentId) {
       if (switchValStr !== undefined) {
         this.switch[switchValStr] = false
-        this.$nextTick(() => { this.switch[switchValStr] = true })
+        this.$nextTick(() => {
+          this.switch[switchValStr] = true
+        })
       }
       if (pageValStr !== undefined) {
         this.pageVal[pageValStr] = 1
@@ -235,19 +237,33 @@ export default {
     changePageState: function (val, flag) {
       var reflashFlag = 'NO'
       // 规模 客户数 切换
-      if (flag === 'f_tabtop') { reflashFlag = this.changeTabTop(val) }
+      if (flag === 'f_tabtop') {
+        reflashFlag = this.changeTabTop(val)
+      }
       // 规模 表格tr切换
-      if (flag === 'f_tabletr') { reflashFlag = this.changeTableTr(val) }
+      if (flag === 'f_tabletr') {
+        reflashFlag = this.changeTableTr(val)
+      }
       // 规模 产品大类切换
-      if (flag === 'f_protype') { reflashFlag = this.changeProtype(val) }
+      if (flag === 'f_protype') {
+        reflashFlag = this.changeProtype(val)
+      }
       // 规模 公募类型切换
-      if (flag === 'f_gmtype') { reflashFlag = this.changeGmtype(val) }
+      if (flag === 'f_gmtype') {
+        reflashFlag = this.changeGmtype(val)
+      }
       // 规模 专户类型切换
-      if (flag === 'f_zhtype') { reflashFlag = this.changeZhtype(val) }
+      if (flag === 'f_zhtype') {
+        reflashFlag = this.changeZhtype(val)
+      }
       // chartUp 分布趋势切换
-      if (flag === 'f_fenbuQushi1') { reflashFlag = this.changeFenbuQushi1(val) }
+      if (flag === 'f_fenbuQushi1') {
+        reflashFlag = this.changeFenbuQushi1(val)
+      }
       // chartUp 柱子点击事件
-      if (flag === 'f_chartUp') { reflashFlag = this.onClickChartUp(val) }
+      if (flag === 'f_chartUp') {
+        reflashFlag = this.onClickChartUp(val)
+      }
       // chartUp2 趋势图点击切换日期
       if (flag === 'f_chartUp2') {
         this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
@@ -257,11 +273,17 @@ export default {
         this.drawChartMid(this.pageVal) // 根据数据日期重画ChartMid
       }
       // chartUp 日期切换
-      if (flag === 'f_dateType') { this.pageVal.dateType = val }
+      if (flag === 'f_dateType') {
+        this.pageVal.dateType = val
+      }
       // chartMid 分布趋势切换
-      if (flag === 'f_fenbuQushi2') { reflashFlag = this.changeFenbuQushi2(val) }
+      if (flag === 'f_fenbuQushi2') {
+        reflashFlag = this.changeFenbuQushi2(val)
+      }
       // chartMid 柱状图 点击事件
-      if (flag === 'f_chartMid') { reflashFlag = this.onClickChartMid(val) }
+      if (flag === 'f_chartMid') {
+        reflashFlag = this.onClickChartMid(val)
+      }
       // chartMid2 趋势图点击切换日期
       if (flag === 'f_chartMid2') {
         this.$refs.sumMid.headData[0].VALUE1 = val[0].data.VALUE1
@@ -271,11 +293,17 @@ export default {
         this.drawChartDwn(this.pageVal) // 根据数据日期重画ChartDwn
       }
       // chartDwn 分布趋势切换
-      if (flag === 'f_fenbuQushi3') { reflashFlag = this.changeFenbuQushi3(val) }
+      if (flag === 'f_fenbuQushi3') {
+        reflashFlag = this.changeFenbuQushi3(val)
+      }
       // chartDwn 柱状图 点击事件
-      if (flag === 'f_chartDwn') { reflashFlag = this.onClickChartDwn(val) }
+      if (flag === 'f_chartDwn') {
+        reflashFlag = this.onClickChartDwn(val)
+      }
       // 业务团队规模对比 三方客户经理三方渠道切换
-      if (flag === 'f_jingliQudao') { reflashFlag = this.onClickJingliQudao(val) }
+      if (flag === 'f_jingliQudao') {
+        reflashFlag = this.onClickJingliQudao(val)
+      }
       //
       if (flag === 'p_kehuDate') {
         this.pageVal.kehuDateType = val
@@ -350,6 +378,7 @@ export default {
           val1 = val1 + parseFloat(list[i].VALUE1)
           val2 = val2 + parseFloat(list[i].VALUE2)
         }
+        val1 = val1.toFixed(2) // 保留两位小数
         sumUp.setData(val1, val2, this.comName.SumMeaList)
       } else if (pageVal.tabletr === 2) {
         for (let i = 0; i < list.length; i++) {
@@ -382,31 +411,31 @@ export default {
         let sfCapital = 0
         let sfShares = 0
         for (let i = 0; i < retData.length; i++) {
-          if(retData[i].KKEY == '4'){
+          if (retData[i].KKEY === '4') {
             zyCapital = retData[i].VALUE1
             zyShares = retData[i].VALUE2
           }
-          if(retData[i].KKEY == '5'){
+          if (retData[i].KKEY === '5') {
             sfCapital = retData[i].VALUE1
             sfShares = retData[i].VALUE2
           }
         }
-        for (let i = 0; i < retData.length ; i++) {
-          if(zyCapital!=0 && sfCapital != 0){
-            if(retData[i].KKEY == '1' || retData[i].KKEY == '2' || retData[i].KKEY == '3') {
-              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital))*100).toFixed(2)
-              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares))*100).toFixed(2)
+        for (let i = 0; i < retData.length; i++) {
+          if (zyCapital !== 0 && sfCapital !== 0) {
+            if (retData[i].KKEY === '1' || retData[i].KKEY === '2' || retData[i].KKEY === '3') {
+              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
+              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
             }
-            if(retData[i].KKEY == '4' || retData[i].KKEY == '5'){
-              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / (parseFloat(zyCapital)+parseFloat(sfCapital)))*100).toFixed(2)
-              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / (parseFloat(zyShares)+parseFloat(sfShares)))*100).toFixed(2)
+            if (retData[i].KKEY === '4' || retData[i].KKEY === '5') {
+              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / (parseFloat(zyCapital) + parseFloat(sfCapital))) * 100).toFixed(2)
+              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / (parseFloat(zyShares) + parseFloat(sfShares))) * 100).toFixed(2)
             }
-          } else if (sfCapital== 0 && zyCapital!= 0 ) {
-            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital))*100).toFixed(2)
-            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares))*100).toFixed(2)
-          } else if (sfCapital != 0 && zyCapital == 0 ) {
-            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital))*100).toFixed(2)
-            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares))*100).toFixed(2)
+          } else if (sfCapital === 0 && zyCapital !== 0) {
+            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
+            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
+          } else if (sfCapital !== 0 && zyCapital === 0) {
+            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
+            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
           }
         }
         chartMid.setData(retData, paramsMid)
@@ -560,6 +589,7 @@ export default {
         $('#kehuDiv').hide()
         this.$myUtil.watermark({watermark_txt0: 'test 00000'})
       } else if (this.pageVal.tabTop === 2) {
+        this.kehuInit()
         $('#guimoDiv').hide()
         $('#kehuDiv').show()
         this.$myUtil.watermark({watermark_txt0: 'ssss 999999'})
@@ -863,8 +893,10 @@ export default {
     },
     kehuInit: function () {
       let kehuhead = this.$refs.kehuHead
-      this.$http.post(this.$API_LIST.hujinKehuHeadData).then(res => {
+      this.$http.post(this.$API_LIST.hujinKehuHeadData, this.pageVal).then(res => {
+        // var list = [{'VALUE1': res.data.list[0].VALUE1, 'VALUE2': res.data.list[1].VALUE1, 'VALUE3': res.data.list[2].VALUE1}]
         kehuhead.setData(res.data.list)
+        console.log('kehuhead:' + JSON.stringify(res.data))
       })
       let kehuChart = this.$refs.kehuChart
       this.$http.post(this.$API_LIST.hujinKehuChart, this.pageVal).then(res => {
@@ -875,7 +907,6 @@ export default {
   },
   mounted () {
     this.guimoInit()
-    this.kehuInit()
     // this.$myUtil.watermark({watermark_txt0: 'liuyi 099889'})
     this.$myUtil.getDeviceWidth()
   }
