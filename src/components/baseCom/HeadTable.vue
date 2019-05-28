@@ -27,7 +27,7 @@ export default {
   components: {DivSplit},
   data () {
     return {
-      title: '业绩汇总',
+      title: '业绩汇总 (本年度)',
       data: [{VALUE1: '--', VALUE2: '--', VALUE3: '--'}]
     }
   },
