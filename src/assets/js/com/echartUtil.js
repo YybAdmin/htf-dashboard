@@ -8,16 +8,16 @@ var echartUtil = {
       retStr = dateString.substring(2, 6)
     }
     if (dateType === 3) {
-      if (dateString.substring(4, 6) === '01' || dateString.substring(4, 6) === '02' || dateString.substring(4, 6) === '03') {
+      if (dateString.substring(4, 6) === '01' || dateString.substring(4, 6) === '02' || dateString.substring(4, 6) === '03' || dateString.substring(4, 6) === '-1') {
         retStr = dateString.substring(2, 4) + ' Q1'
       }
-      if (dateString.substring(4, 6) === '04' || dateString.substring(4, 6) === '05' || dateString.substring(4, 6) === '06') {
+      if (dateString.substring(4, 6) === '04' || dateString.substring(4, 6) === '05' || dateString.substring(4, 6) === '06' || dateString.substring(4, 6) === '-2') {
         retStr = dateString.substring(2, 4) + ' Q2'
       }
-      if (dateString.substring(4, 6) === '07' || dateString.substring(4, 6) === '08' || dateString.substring(4, 6) === '09') {
+      if (dateString.substring(4, 6) === '07' || dateString.substring(4, 6) === '08' || dateString.substring(4, 6) === '09' || dateString.substring(4, 6) === '-3') {
         retStr = dateString.substring(2, 4) + ' Q3'
       }
-      if (dateString.substring(4, 6) === '10' || dateString.substring(4, 6) === '11' || dateString.substring(4, 6) === '12') {
+      if (dateString.substring(4, 6) === '10' || dateString.substring(4, 6) === '11' || dateString.substring(4, 6) === '12' || dateString.substring(4, 6) === '-4') {
         retStr = dateString.substring(2, 4) + ' Q4'
       }
     }
