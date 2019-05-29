@@ -3,7 +3,7 @@
     <div style="text-align: left;">
       <table style="width: 95%;table-layout: fixed;height: 50px">
         <tr>
-          <td @click="jumpToPDF()" width="60%">
+          <td @click="jumpToPDF()" width="55%">
               <img id="pdf" :src="srcURL" class="pdfImg" /> <div style="display: inline-block;font-family:PingFangSC-Regular;">{{description}}</div>
           </td>
           <td v-show="!ifPDF" @click="jumpToPDF()">
@@ -94,7 +94,8 @@ export default {
     downloadPDF () {
       let pdfData = null
       this.$http.get(this.pdfApi).then(res => {
-        pdfData = atob(res.data)
+        pdfData = atob(res.data.data)
+        console.log(pdfData)
         PDFJS.getDocument({data: pdfData}).then((pdf) => {
           this.pdf = pdf
           return this.pdf.getPage(1)
