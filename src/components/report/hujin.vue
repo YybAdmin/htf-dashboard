@@ -147,8 +147,7 @@ export default {
         gmtypeName: '全部',
         zhtypeName: '全部'
       },
-      // pdfApi: this.$API_LIST.hujinPdf
-      pdfApi: 'https://iapp.htffund.com/microservice/iapp-dashboard/api/test/pdf'
+      pdfApi: this.$API_LIST.hujinPdf
     }
   },
   computed: {
@@ -379,6 +378,8 @@ export default {
           val1 = val1 + parseFloat(list[i].VALUE1)
           val2 = val2 + parseFloat(list[i].VALUE2)
         }
+        val1 = val1.toFixed(2)
+        val2 = val2.toFixed(2)
         sumUp.setData(val1, val2, this.comName.SumMeaList)
       } else if (pageVal.tabletr === 2) {
         for (let i = 0; i < list.length; i++) {
@@ -393,6 +394,8 @@ export default {
           val1 = val1 + parseFloat(list[i].VALUE1)
           val2 = val2 + parseFloat(list[i].VALUE2)
         }
+        val1 = val1.toFixed(2)
+        val2 = val2.toFixed(2)
         sumUp.setData(val1, val2, this.comName.SumMeaList3)
       }
     },
