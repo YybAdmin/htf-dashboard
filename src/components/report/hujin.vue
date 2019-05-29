@@ -275,6 +275,7 @@ export default {
       // chartUp 日期切换
       if (flag === 'f_dateType') {
         this.pageVal.dateType = val
+        reflashFlag = 'INIT'
       }
       // chartMid 分布趋势切换
       if (flag === 'f_fenbuQushi2') {
@@ -378,13 +379,14 @@ export default {
           val1 = val1 + parseFloat(list[i].VALUE1)
           val2 = val2 + parseFloat(list[i].VALUE2)
         }
-        val1 = val1.toFixed(2) // 保留两位小数
         sumUp.setData(val1, val2, this.comName.SumMeaList)
       } else if (pageVal.tabletr === 2) {
         for (let i = 0; i < list.length; i++) {
-          val1 = val1 + parseFloat(list[i].VALUE4)
-          val2 = val2 + parseFloat(list[i].VALUE3)
+          val1 = val1 + parseFloat(list[i].VALUE1)
+          val2 = val2 + parseFloat(list[i].VALUE2)
         }
+        val1 = val1.toFixed(2)
+        val2 = val2.toFixed(2)
         sumUp.setData(val1, val2, this.comName.SumMeaList2)
       } else if (pageVal.tabletr === 3) {
         for (let i = 0; i < list.length; i++) {
@@ -534,6 +536,7 @@ export default {
           this.drawChartUp3(pageVal)
           this.drawChartMid3(pageVal)
         }
+        this.drawChartUp2(pageVal)
         this.drawChartDwn(pageVal)
       } else if (flag === 'ChartUp2') {
         this.drawChartUp2(pageVal)
@@ -706,7 +709,7 @@ export default {
       $('#chartMid,#chartMid2,#chartMid3').hide()
       this.pageVal.pKey2 = '999999'
       this.pageValName.pKey2Name = '汇总'
-      if (val === 1) { // 分布->趋势重画趋势图，趋势->分布不重画分布图
+      if (val === 1) {
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp').show()
           $('#chartMid').show()
@@ -715,6 +718,7 @@ export default {
           $('#chartMid3').show()
         }
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
+        return 'INIT'
       } else {
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp2').show()
@@ -894,9 +898,8 @@ export default {
     kehuInit: function () {
       let kehuhead = this.$refs.kehuHead
       this.$http.post(this.$API_LIST.hujinKehuHeadData, this.pageVal).then(res => {
-        // var list = [{'VALUE1': res.data.list[0].VALUE1, 'VALUE2': res.data.list[1].VALUE1, 'VALUE3': res.data.list[2].VALUE1}]
         kehuhead.setData(res.data.list)
-        console.log('kehuhead:' + JSON.stringify(res.data))
+        // console.log('kehuhead:' + JSON.stringify(res.data))
       })
       let kehuChart = this.$refs.kehuChart
       this.$http.post(this.$API_LIST.hujinKehuChart, this.pageVal).then(res => {
