@@ -480,21 +480,33 @@ export default {
       let val1 = 0; let val2 = 0
       if (pageVal.tabletr === 1) {
         for (let i = 0; i < list.length; i++) {
-          val1 = val1 + parseFloat(list[i].VALUE1)
-          val2 = val2 + parseFloat(list[i].VALUE2)
+          if (list[i].NAME === '自有' || list[i].NAME === '三方') {
+            val1 = val1 + parseFloat(list[i].VALUE1)
+            val2 = val2 + parseFloat(list[i].VALUE2)
+          }
         }
+        val1 = val1.toFixed(2)
+        val2 = val2.toFixed(2)
         sumMid.setData(val1, val2, this.comName.SumMeaList)
       } else if (pageVal.tabletr === 2) {
         for (let i = 0; i < list.length; i++) {
-          val1 = val1 + parseFloat(list[i].VALUE4)
-          val2 = val2 + parseFloat(list[i].VALUE3)
+          if (list[i].NAME === '自有' || list[i].NAME === '三方') {
+            val1 = val1 + parseFloat(list[i].VALUE1)
+            val2 = val2 + parseFloat(list[i].VALUE2)
+          }
         }
+        val1 = val1.toFixed(2)
+        val2 = val2.toFixed(2)
         sumMid.setData(val1, val2, this.comName.SumMeaList2)
       } else if (pageVal.tabletr === 3) {
         for (let i = 0; i < list.length; i++) {
-          val1 = val1 + parseFloat(list[i].VALUE1)
-          val2 = val2 + parseFloat(list[i].VALUE2)
+          if (list[i].NAME === '自有' || list[i].NAME === '三方') {
+            val1 = val1 + parseFloat(list[i].VALUE1)
+            val2 = val2 + parseFloat(list[i].VALUE2)
+          }
         }
+        val1 = val1.toFixed(2)
+        val2 = val2.toFixed(2)
         sumMid.setData(val1, val2, this.comName.SumMeaList3)
       }
     },
@@ -540,6 +552,7 @@ export default {
           this.drawChartMid3(pageVal)
         }
         this.drawChartUp2(pageVal)
+        this.drawChartMid2(pageVal)
         this.drawChartDwn(pageVal)
       } else if (flag === 'ChartUp2') {
         this.drawChartUp2(pageVal)
@@ -561,8 +574,6 @@ export default {
         } else if (pageVal.fbOrQs2 === 2) {
           this.drawChartMid2(pageVal)
         }
-      } else if (flag === 'MidChart2') { // 分布->趋势重画趋势图，趋势->分布不重画分布图
-        this.drawChartMid2(pageVal)
       } else if (flag === 'MidDwn') {
         if (pageVal.fbOrQs2 === 1) {
           if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
@@ -665,8 +676,6 @@ export default {
       } else {
         this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.gmtypeName + '-' + this.pageValName.pKey2Name
       }
-      this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
-      this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
       // 上图改变选中状态
       if (this.pageVal.tabletr === 2) {
         this.$refs.chartUp3.selectBar(this.pageVal.gmType)
@@ -781,7 +790,7 @@ export default {
           this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
         }
         $('#chartDwn').show()
-        return 'MidChart2'
+        return 'MidChart'
       } else {
         if (val === 1) {
           this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
@@ -795,9 +804,9 @@ export default {
           $('#chartMid2').show()
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
-          return 'MidChart2'
         }
         this.changeFenbuQushi3(1)
+        return 'MidChart'
       }
     },
     onClickChartMid: function (val) {
