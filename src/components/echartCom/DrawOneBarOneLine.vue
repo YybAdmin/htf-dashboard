@@ -80,7 +80,8 @@ export default {
           start: 0,
           end: end,
           filterMode: 'filter',
-          throttle: 200
+          throttle: 200,
+          preventDefaultMouseMove: false
         },
         dataset: {
           source: this.data
