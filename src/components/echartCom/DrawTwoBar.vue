@@ -197,6 +197,8 @@ export default {
             position: 'top',
             color: '#333333',
             fontSize: '9px',
+            align:'right',
+            offset:[11,0],
             formatter: function (params) {
               if (labelNum === 1) {
                 return '{c|' + params.data.VALUE1 + '}'
@@ -254,6 +256,8 @@ export default {
             position: 'top',
             color: '#333333',
             fontSize: '9px',
+            align:'left',
+            offset:[-11,0],
             formatter: function (params) {
               if (labelNum === 1) {
                 return '{c|' + params.data.VALUE2 + '}'
