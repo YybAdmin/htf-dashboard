@@ -135,6 +135,7 @@ export default {
         pKey2: '999999',
         fbOrQs3: 1,
         pKey3: '999999',
+        mgrCode: '999999',
         dataDate: '999999',
         jlOrQd: 1,
         kehuDateType: 1,
@@ -147,7 +148,8 @@ export default {
         gmtypeName: '全部',
         zhtypeName: '全部'
       },
-      pdfApi: this.$API_LIST.hujinPdf
+      pdfApi: this.$API_LIST.hujinPdf,
+      mgrDataList: []
     }
   },
   computed: {
@@ -274,7 +276,7 @@ export default {
       // chartUp 日期切换
       if (flag === 'f_dateType') {
         this.pageVal.dateType = val
-        reflashFlag = 'INIT'
+        reflashFlag = 'ALL'
       }
       // chartMid 分布趋势切换
       if (flag === 'f_fenbuQushi2') {
@@ -519,6 +521,7 @@ export default {
       }
       this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
         chartDwn.setData(res.data.list, params)
+        this.mgrDataList = res.data.list
         chartDwn.drawTwoBarChart()
       })
     },
@@ -543,7 +546,7 @@ export default {
       })
     },
     guimoGetDataAndDraw: function (pageVal, flag) {
-      if (flag === 'INIT') {
+      if (flag === 'ALL') {
         if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
           this.drawChartUp(pageVal)
           this.drawChartMid(pageVal)
@@ -554,6 +557,14 @@ export default {
         this.drawChartUp2(pageVal)
         this.drawChartMid2(pageVal)
         this.drawChartDwn(pageVal)
+      } else if (flag === 'INIT') {
+        if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
+          this.drawChartUp(pageVal)
+          this.drawChartMid(pageVal)
+        } else {
+          this.drawChartUp3(pageVal)
+          this.drawChartMid3(pageVal)
+        }
       } else if (flag === 'ChartUp2') {
         this.drawChartUp2(pageVal)
       } else if (flag === 'Up2Mid13') {
@@ -661,7 +672,7 @@ export default {
         $('#zhDimDiv').show()
         this.resetCom('zhTypeRst', 'zhType')
       }
-      return 'INIT'
+      return 'ALL'
     },
     changeGmtype: function (val) {
       this.pageVal.gmType = val
@@ -730,7 +741,7 @@ export default {
           $('#chartMid3').show()
         }
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
-        return 'INIT'
+        return 'ALL'
       } else {
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp2').show()
@@ -749,7 +760,7 @@ export default {
         if (this.pageVal.pKey1 !== 4) {
           this.$refs.proType.changeTheme(this.pageVal.pKey1)
           this.changeProtype(this.pageVal.pKey1)
-          return 'INIT'
+          return 'ALL'
         }
       } else if (this.pageVal.proType === 2) {
         if (this.pageVal.pKey1 === 999999) { // 重复点击取消选中回到‘全部’
@@ -783,14 +794,16 @@ export default {
             $('#chartMid3').show()
           }
           this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
+          this.drawChartMid()
+          this.$refs.chartMid.selectBar(this.pageVal.pKey2) // 保留柱子高亮
         } else {
           $('#chartMid2').show()
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
           this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
+          return 'MidChart'
         }
         $('#chartDwn').show()
-        return 'MidChart'
       } else {
         if (val === 1) {
           this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
@@ -860,6 +873,7 @@ export default {
     onClickChartDwn: function (val) {
       this.pageVal.pKey3 = val.pKey
       this.pageValName.pKey3Name = val.pKeyName !== 'ALL' ? val.pKeyName : '汇总'
+      this.pageVal.mgrCode = this.mgrDataList[val.pKey - 1].MGRCODE
     },
     onClickJingliQudao: function (val) {
       this.pageVal.jlOrQd = val

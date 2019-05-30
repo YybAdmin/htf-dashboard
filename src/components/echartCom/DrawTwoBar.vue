@@ -84,7 +84,7 @@ export default {
       let iflabelColor = this.barLabel.labelColor
       let labelNum = this.barLabel.labelNum
       let _this = this
-      let end = Math.floor(100 / (this.data.length / 5))
+      let end = Math.floor(100 / (this.data.length / 4.5))
       let myChart = echarts.init(this.$refs.twoBarChart)
       let myChartOption = {
         title: {
@@ -197,8 +197,8 @@ export default {
             position: 'top',
             color: '#333333',
             fontSize: '9px',
-            align:'right',
-            offset:[11,0],
+            align: 'right',
+            offset: [11, 0],
             formatter: function (params) {
               if (labelNum === 1) {
                 return '{c|' + params.data.VALUE1 + '}'
