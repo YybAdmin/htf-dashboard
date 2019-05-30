@@ -2,36 +2,34 @@
     <div>
       <table class="tmpTable">
         <tr>
-          <td class="normal normalrm" v-bind:key="item.id" v-for="(item, i) in list" @click="changeTheme($event ,i+1,'manual')">{{item.name}}</td>
+          <td class="normal"
+              v-for="(item, i) in list"
+              :key="item.id"
+              :class="[tdIndex === i ? 'selected' : '']"
+              @click="changeTheme(i,'self')">
+            {{item.name}}</td>
         </tr>
       </table>
     </div>
 </template>
 
 <script>
-import $ from 'jquery'
 export default {
   name: 'TabDimWidth100Dwn',
   props: ['itemList'],
   data () {
     return {
+      tdIndex: 0,
       list: this.itemList
     }
   },
   methods: {
-    changeTheme (ev, i, flag) {
-      var rmgrp = $(this.$el).find('td')
-      $(rmgrp).each(function () {
-        $(this).removeClass('selected')
-      })
-      ev.target.classList.add('selected')
-      if (flag === 'manual') {
-        this.$emit('comChanged', i)
+    changeTheme (i, flag) {
+      this.tdIndex = i
+      if (flag === 'self') {
+        this.$emit('comChanged', i + 1)
       }
     }
-  },
-  mounted () {
-    $(this.$el.firstChild.firstChild.firstChild).addClass('selected')
   }
 }
 </script>
@@ -41,7 +39,6 @@ export default {
     width:100%;
     table-layout: fixed;
     border-collapse: collapse;
-    border: 0.5px solid #EEEEEE;
   }
   .normal {
     font-size: 12px;
@@ -50,11 +47,13 @@ export default {
     line-height: 34px;
     text-align: center;
     background-color: #FAFAFA;
+    border: 1px solid #EEE;
   }
   .selected {
     color:#DDAF59;
     position: relative;
-    border-top: 1px solid #DDAF59;
+    border-top: 2px solid #DDAF59;
+    border-bottom: none;
     background-color: white;
   }
 </style>
