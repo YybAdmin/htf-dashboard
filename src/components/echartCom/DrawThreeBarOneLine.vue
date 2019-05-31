@@ -79,24 +79,6 @@ export default {
       if (thisChart !== undefined) {
         thisChart.dispose()
       }
-      let ymax = 0 // 左右两个纵轴坐标起止
-      let ymin = 0
-      let v1max = 0
-      let v4max = 0
-      let data = this.data
-      for (var i = 0; i < data.length; i++) {
-        if (v1max < parseInt(data[i].VALUE1)) {
-          v1max = parseInt(data[i].VALUE1)
-        }
-        if (v4max < parseInt(data[i].VALUE4)) {
-          v4max = parseInt(data[i].VALUE4)
-        }
-        if (ymin > parseInt(data[i].VALUE2)) {
-          ymin = parseInt(data[i].VALUE2)
-        }
-      }
-      ymax = v1max > v4max ? v1max : v4max
-      console.log('ymax:' + ymax + '-' + 'ymin:' + ymin)
       let _this = this
       let pKey = this.chartInfo.pKey
       let iflabelColor = this.barLabel.labelColor
@@ -201,8 +183,20 @@ export default {
         }],
         yAxis: [{
           position: 'right',
-          max: ymax * 1.2,
-          min: ymin * 1.2,
+          max: function (value) {
+            if (Math.abs(value.max) > Math.abs(value.min)) {
+              return (Math.abs(value.max) * 1.2).toFixed(2)
+            } else {
+              return (Math.abs(value.min) * 1.2).toFixed(2)
+            }
+          },
+          min: function (value) {
+            if (Math.abs(value.max) > Math.abs(value.min)) {
+              return (-Math.abs(value.max) * 1.2).toFixed(2)
+            } else {
+              return (-Math.abs(value.min) * 1.2).toFixed(2)
+            }
+          },
           splitLine: {
             lineStyle: {
               color: '#EEEEEE'
@@ -222,8 +216,20 @@ export default {
           }
         }, {
           position: 'left',
-          max: ymax * 1.2,
-          min: ymin * 1.2,
+          max: function (value) {
+            if (Math.abs(value.max) > Math.abs(value.min)) {
+              return (Math.abs(value.max) * 1.2).toFixed(2)
+            } else {
+              return (Math.abs(value.min) * 1.2).toFixed(2)
+            }
+          },
+          min: function (value) {
+            if (Math.abs(value.max) > Math.abs(value.min)) {
+              return (-Math.abs(value.max) * 1.2).toFixed(2)
+            } else {
+              return (-Math.abs(value.min) * 1.2).toFixed(2)
+            }
+          },
           splitLine: {
             lineStyle: {
               color: '#EEEEEE'
