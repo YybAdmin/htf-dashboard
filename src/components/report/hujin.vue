@@ -40,8 +40,8 @@
           </div>
           <table style="width:100%;">
             <tr>
-              <td style="width: 63%;"><NameArea v-bind:item="comName.DwnTitle"></NameArea></td>
-              <td style="width: 37%;"><FenbuQushi v-if="this.switch.fenbuRst3" ref="fenbuQushi3"  @comChanged="changePageState($event,'f_fenbuQushi3')" /></td>
+              <td style="width: 65%;"><NameArea v-bind:item="comName.DwnTitle"></NameArea></td>
+              <td style="width: 35%;"><FenbuQushi v-if="this.switch.fenbuRst3" ref="fenbuQushi3"  @comChanged="changePageState($event,'f_fenbuQushi3')" /></td>
             </tr>
           </table>
           <Tag id="tagDwn" ref="tagDwn"/>
@@ -271,7 +271,9 @@ export default {
         this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
         this.pageVal.dataDate = val[0].value.NAMEBAK
         this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
+        this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
         this.drawChartMid(this.pageVal) // 根据数据日期重画ChartMid
+        this.drawChartDwn(this.pageVal)
       }
       // chartUp 日期切换
       if (flag === 'f_dateType') {
@@ -386,7 +388,11 @@ export default {
       } else if (pageVal.tabletr === 2) {
         for (let i = 0; i < list.length; i++) {
           val1 = val1 + parseFloat(list[i].VALUE1)
-          val2 = val2 + parseFloat(list[i].VALUE2)
+          if (this.pageVal.fbOrQs1 === 1){
+            val2 = val2 + parseFloat(list[i].VALUE3)
+          } else {
+            val2 = val2 + parseFloat(list[i].VALUE2)
+          }
         }
         val1 = val1.toFixed(2)
         val2 = val2.toFixed(2)
@@ -494,7 +500,11 @@ export default {
         for (let i = 0; i < list.length; i++) {
           if (list[i].NAME === '自有' || list[i].NAME === '三方') {
             val1 = val1 + parseFloat(list[i].VALUE1)
-            val2 = val2 + parseFloat(list[i].VALUE2)
+            if (this.pageVal.fbOrQs2 === 1) {
+              val2 = val2 + parseFloat(list[i].VALUE3)
+            } else {
+              val2 = val2 + parseFloat(list[i].VALUE2)
+            }
           }
         }
         val1 = val1.toFixed(2)
@@ -557,6 +567,7 @@ export default {
         this.drawChartUp2(pageVal)
         this.drawChartMid2(pageVal)
         this.drawChartDwn(pageVal)
+        this.drawChartDwn2(pageVal)
       } else if (flag === 'INIT') {
         if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
           this.drawChartUp(pageVal)
@@ -740,6 +751,7 @@ export default {
           $('#chartUp3').show()
           $('#chartMid3').show()
         }
+        this.pageVal.dataDate = '999999'
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
         return 'ALL'
       } else {
@@ -839,7 +851,7 @@ export default {
       $('#chartDwn').show()
       $('#tagDwn').hide()
       if (val.pKey !== '999999') {
-        if (this.pageVal.fbOrQs1 === 2) {
+        if (this.pageVal.fbOrQs1 === 2 && this.pageVal.dataDate !== '999999') {
           this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
         } else {
           this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
@@ -873,7 +885,9 @@ export default {
     onClickChartDwn: function (val) {
       this.pageVal.pKey3 = val.pKey
       this.pageValName.pKey3Name = val.pKeyName !== 'ALL' ? val.pKeyName : '汇总'
-      this.pageVal.mgrCode = this.mgrDataList[val.pKey - 1].MGRCODE
+      if (val.pKey !== '999999') {
+        this.pageVal.mgrCode = this.mgrDataList[val.pKey - 1].MGRCODE
+      }
     },
     onClickJingliQudao: function (val) {
       this.pageVal.jlOrQd = val
