@@ -147,8 +147,7 @@ export default {
         gmtypeName: '全部',
         zhtypeName: '全部'
       },
-      pdfApi: this.$API_LIST.hujinPdf,
-      mgrDataList: []
+      pdfApi: this.$API_LIST.hujinPdf
     }
   },
   computed: {
