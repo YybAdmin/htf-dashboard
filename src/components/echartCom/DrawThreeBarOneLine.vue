@@ -13,12 +13,8 @@ export default {
   name: 'DrawThreeBarOneLine',
   props: {
     chartInfo: {
-      title1: '',
-      title2: '',
-      name1: '',
-      name2: '',
-      name3: '',
-      name4: '',
+      title: [],
+      name: [],
       pKey: ''
     }
   },
@@ -87,7 +83,7 @@ export default {
       let myChart = echarts.init(this.$refs.threeBarOneLine)
       let myChartOption = {
         title: [{
-          text: this.chartInfo.title1,
+          text: this.chartInfo.title[0],
           top: '1px',
           left: '1px',
           textStyle: {
@@ -95,7 +91,7 @@ export default {
             color: '#999999'
           }
         }, {
-          text: this.chartInfo.title2,
+          text: this.chartInfo.title[1],
           top: '1px',
           right: '1px',
           textStyle: {
@@ -123,7 +119,7 @@ export default {
         },
         legend: {
           bottom: '2%',
-          data: [this.chartInfo.name1, this.chartInfo.name2, this.chartInfo.name3, this.chartInfo.name4]
+          data: [this.chartInfo.name[0], this.chartInfo.name[1], this.chartInfo.name[2], this.chartInfo.name[3]]
         },
         dataZoom: {
           type: 'inside',
@@ -249,7 +245,7 @@ export default {
           }
         }],
         series: [{
-          name: this.chartInfo.name1,
+          name: this.chartInfo.name[0],
           type: 'bar',
           stack: 'stackGrp',
           barWidth: '20px',
@@ -307,7 +303,7 @@ export default {
             }
           }
         }, {
-          name: this.chartInfo.name2,
+          name: this.chartInfo.name[1],
           type: 'bar',
           stack: 'stackGrp',
           barWidth: '20px',
@@ -364,7 +360,7 @@ export default {
             }
           }
         }, {
-          name: this.chartInfo.name3,
+          name: this.chartInfo.name[2],
           type: 'bar',
           barWidth: '9px',
           barGap: '-75%',
@@ -382,7 +378,7 @@ export default {
             }
           }
         }, {
-          name: this.chartInfo.name4,
+          name: this.chartInfo.name[3],
           type: 'line',
           yAxisIndex: 0,
           encode: {

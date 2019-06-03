@@ -17,7 +17,7 @@
         </div>
         <FenbuQushi  v-if="this.switch.fenbuRst1" @comChanged="changePageState($event,'f_fenbuQushi1')"/>
         <DrawTwoBar id="chartUp" ref="chartUp"  v-bind:chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp')"/>
-        <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.ChartUpName" @comChanged="changePageState($event,'f_chartUp2')" />
+        <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp2')" />
         <DrawThreeBarOneLine id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.charData.chartUp3" @comChanged="changePageState($event,'f_chartUp')"/>
         <TabDimWidth100Up v-if="this.switch.dateTypeRet" @comChanged="changePageState($event,'f_dateType')" v-bind:itemList="comName.TabDimDateList"></TabDimWidth100Up>
         <HeadTableNoTitle id="sumUp" ref="sumUp" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
@@ -153,71 +153,46 @@ export default {
     }
   },
   computed: {
-    chartUpBYL: function(){
-
-    },
     charData: function () {
-      return {
-        chartUp: {
-          title: '保有量/份额 (单位:亿)',
-          name: ['保有量','份额'],
-          clickParams: []
-        },
-        chartUp3: {
-          title1: '销售额(单位:万元)',
-          title2: '流入流出(单位:万元)',
-          name1: '流入',
-          name2: '流出',
-          name3: '净流入',
-          name4: '销售额',
-          pKey: this.pageVal.pKey1,
-          clickParams: []
-        },
-        chartMid: {
-          title: '保有量/份额 (单位:亿)',
-          name: ['保有量','份额'],
-          pKey: this.pageVal.pKey2,
-          clickParams: []
-        },
-        chartMid3: {
-          title1: '销售额(单位:万元)',
-          title2: '流入流出(单位:万元)',
-          name1: '流入',
-          name2: '流出',
-          name3: '净流入',
-          name4: '销售额',
-          pKey: this.pageVal.pKey2,
-          clickParams: []
-        },
-        chartDwn: {
-          title: '保有量/份额 (单位:亿)',
-          name: ['保有量','份额'],
-          pKey: this.pageVal.pKey3,
-          clickParams: []
-        },
-        kehuChart: {
-          title: '客户数 (单位:人)',
+      let upFund = {
+        title: '保有量/份额 (单位:亿)', name: ['保有量','份额'], clickParams: []
+      }
+      let upTrans = {
+        title: ['销售额(单位:万元)','流入流出(单位:万元)'], name: ['流入', '流出','净流入','销售额'], pKey: this.pageVal.pKey1, clickParams: []
+      }
+      let upFee = {
+        title: '管理费/净收入 (单位:万)', name: ['管理费','净收入'], clickParams: []
+      }
+      let midFund = {
+        title: '保有量/份额 (单位:亿)', name: ['保有量','份额'],  pKey: this.pageVal.pKey2, clickParams: []
+      }
+      let midTrans = {
+        title: ['销售额(单位:万元)','流入流出(单位:万元)'], name: ['流入', '流出','净流入','销售额'], pKey: this.pageVal.pKey2, clickParams: []
+      }
+      let dwnFund = {
+        title: '保有量/份额 (单位:亿)', name: ['保有量','份额'], pKey: this.pageVal.pKey3, clickParams: []
+      }
+      let dwnTrans = {
+        title: '流入/流出 (单位:亿)', name: ['流入','流出'], pKey: this.pageVal.pKey3, clickParams: []
+      }
+      let kehuChart = {
+        title: '客户数 (单位:人)',
           name: ['注册客户数', '绑卡客户数', '事实客户数', '有效客户数', '百元有效数', '千元有效数', '日活跃用户', '日充值百元人数'],
           selected: [true, false, false, false, false, false, false, false]
+      }
+      if(this.pageVal.tabletr === 1){
+        return {
+          chartUp : upFund, chartUp3: upTrans, chartMid: midFund, chartMid3:midTrans, chartDwn: dwnFund, kehuChart:kehuChart
+        }
+      } else if (this.pageVal.tabletr === 2){
+        return {
+          chartUp : upFund, chartUp3: upTrans, chartMid: midFund, chartMid3:midTrans, chartDwn: dwnTrans, kehuChart:kehuChart
+        }
+      } else if (this.pageVal.tabletr === 3){
+        return {
+          // 逻辑预留
         }
       }
-    },
-    ChartUpName: function () {
-      let name1 = {
-        title: '保有量/份额 (单位:亿)',
-        name1: '保有量',
-        name2: '份额',
-        pKey: this.pageVal.pKey1,
-        clickParams: []
-      }
-      let name2 = {
-        title: '销售额(单位:万元)',
-        name1: '销售额',
-        name2: '净流入',
-        pKey: this.pageVal.pKey1,
-        clickParams: []
-      }
-      return (this.pageVal.tabletr === 2) ? name2 : name1
     }
   },
   methods: {
