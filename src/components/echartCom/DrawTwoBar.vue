@@ -14,7 +14,7 @@ export default {
   props: {
     chartInfo: {
       title: '',
-      name: [],
+      name: []
     }
   },
   data () {
@@ -255,8 +255,8 @@ export default {
             position: 'top',
             color: '#333333',
             fontSize: '9px',
-            align:'left',
-            offset:[-11,0],
+            align: 'left',
+            offset: [-11, 0],
             formatter: function (params) {
               if (labelNum === 1) {
                 return '{c|' + params.data.VALUE2 + '}'

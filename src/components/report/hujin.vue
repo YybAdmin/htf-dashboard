@@ -665,6 +665,7 @@ export default {
     },
     changeGmtype: function (val) {
       this.pageVal.gmType = val
+      this.pageVal.pKey1 = val
       if (val >= 2) {
         this.pageValName.gmtypeName = this.comName.gmTypeList[this.pageVal.gmType - 2].name
       } else {
@@ -781,12 +782,12 @@ export default {
         if (val === 1) {
           if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
             $('#chartMid').show()
+            this.$refs.chartMid.selectBar(this.pageVal.pKey2) // 保留柱子高亮
           } else {
             $('#chartMid3').show()
+            this.$refs.chartMid3.selectBar(this.pageVal.pKey2) // 保留柱子高亮
           }
           this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
-          this.drawChartMid()
-          this.$refs.chartMid.selectBar(this.pageVal.pKey2) // 保留柱子高亮
         } else {
           $('#chartMid2').show()
           this.$refs.tagMid.text = this.pageValName.pKey2Name

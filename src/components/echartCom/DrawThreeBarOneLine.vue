@@ -58,13 +58,13 @@ export default {
       }
     },
     selectBar: function (kkey) {
-      let thisChart = echarts.getInstanceByDom(this.$refs.twoBarChart)
+      let thisChart = echarts.getInstanceByDom(this.$refs.threeBarOneLine)
       this.selKey = '999999'
       thisChart.dispatchAction({
         type: 'downplay'
       })
       for (var i = 0; i < this.data.length; i++) {
-        if (this.data[i].KKEY === kkey.toString()) {
+        if (this.data[i].KKEY === kkey.toString() || this.data[i].KKEY === kkey) {
           this.selKey = kkey.toString()
           thisChart.dispatchAction({
             type: 'highlight',
@@ -80,6 +80,7 @@ export default {
       }
       let _this = this
       let pKey = this.selKey
+      let data = this.data
       let iflabelColor = this.barLabel.labelColor
       let labelNum = this.barLabel.labelNum
       let end = Math.floor(5 / this.data.length * 100)
@@ -134,7 +135,7 @@ export default {
           preventDefaultMouseMove: false
         },
         dataset: {
-          source: _this.data
+          source: this.data
         },
         grid: {
           bottom: '25%',
