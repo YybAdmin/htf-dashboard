@@ -23,6 +23,9 @@ export default {
       }
       this.refresh = false
       this.$nextTick(() => (this.refresh = true))
+    },
+    setDate(dateStr){
+      this.date = dateStr
     }
   }
 }

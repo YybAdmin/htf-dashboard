@@ -947,7 +947,8 @@ export default {
     this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
       this.pageVal.BATCHDate = res.data.BATCHDate
       this.pageVal.dataDate = res.data.BATCHDate
-      console.log(this.pageVal.dataDate)
+      this.$refs.dateDiv.setDate(this.pageVal.dataDate.substring(0,4)+'-'+
+        this.pageVal.dataDate.substring(4,6)+'-'+this.pageVal.dataDate.substring(6,8))
       this.guimoInit()
     })
   }
