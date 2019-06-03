@@ -155,40 +155,40 @@ export default {
   computed: {
     charData: function () {
       let upFund = {
-        title: '保有量/份额 (单位:亿)', name: ['保有量','份额'], clickParams: []
+        title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], clickParams: []
       }
       let upTrans = {
-        title: ['销售额(单位:万元)','流入流出(单位:万元)'], name: ['流入', '流出','净流入','销售额'], pKey: this.pageVal.pKey1, clickParams: []
+        title: ['销售额(单位:万元)', '流入流出(单位:万元)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey1, clickParams: []
       }
       let upFee = {
-        title: '管理费/净收入 (单位:万)', name: ['管理费','净收入'], clickParams: []
+        title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], clickParams: []
       }
       let midFund = {
-        title: '保有量/份额 (单位:亿)', name: ['保有量','份额'],  pKey: this.pageVal.pKey2, clickParams: []
+        title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey2, clickParams: []
       }
       let midTrans = {
-        title: ['销售额(单位:万元)','流入流出(单位:万元)'], name: ['流入', '流出','净流入','销售额'], pKey: this.pageVal.pKey2, clickParams: []
+        title: ['销售额(单位:万元)', '流入流出(单位:万元)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: []
       }
       let dwnFund = {
-        title: '保有量/份额 (单位:亿)', name: ['保有量','份额'], pKey: this.pageVal.pKey3, clickParams: []
+        title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey3, clickParams: []
       }
       let dwnTrans = {
-        title: '流入/流出 (单位:亿)', name: ['流入','流出'], pKey: this.pageVal.pKey3, clickParams: []
+        title: '流入/流出 (单位:亿)', name: ['流入', '流出'], pKey: this.pageVal.pKey3, clickParams: []
       }
       let kehuChart = {
         title: '客户数 (单位:人)',
-          name: ['注册客户数', '绑卡客户数', '事实客户数', '有效客户数', '百元有效数', '千元有效数', '日活跃用户', '日充值百元人数'],
-          selected: [true, false, false, false, false, false, false, false]
+        name: ['注册客户数', '绑卡客户数', '事实客户数', '有效客户数', '百元有效数', '千元有效数', '日活跃用户', '日充值百元人数'],
+        selected: [true, false, false, false, false, false, false, false]
       }
-      if(this.pageVal.tabletr === 1){
+      if (this.pageVal.tabletr === 1) {
         return {
-          chartUp : upFund, chartUp3: upTrans, chartMid: midFund, chartMid3:midTrans, chartDwn: dwnFund, kehuChart:kehuChart
+          chartUp: upFund, chartUp3: upTrans, chartMid: midFund, chartMid3: midTrans, chartDwn: dwnFund, kehuChart: kehuChart
         }
-      } else if (this.pageVal.tabletr === 2){
+      } else if (this.pageVal.tabletr === 2) {
         return {
-          chartUp : upFund, chartUp3: upTrans, chartMid: midFund, chartMid3:midTrans, chartDwn: dwnTrans, kehuChart:kehuChart
+          chartUp: upFund, chartUp3: upTrans, chartMid: midFund, chartMid3: midTrans, chartDwn: dwnTrans, kehuChart: kehuChart
         }
-      } else if (this.pageVal.tabletr === 3){
+      } else if (this.pageVal.tabletr === 3) {
         return {
           // 逻辑预留
         }
@@ -364,7 +364,7 @@ export default {
       } else if (pageVal.tabletr === 2) {
         for (let i = 0; i < list.length; i++) {
           val1 = val1 + parseFloat(list[i].VALUE1)
-          if (this.pageVal.fbOrQs1 === 1){
+          if (this.pageVal.fbOrQs1 === 1) {
             val2 = val2 + parseFloat(list[i].VALUE3)
           } else {
             val2 = val2 + parseFloat(list[i].VALUE2)
@@ -532,19 +532,7 @@ export default {
       })
     },
     guimoGetDataAndDraw: function (pageVal, flag) {
-      if (flag === 'ALL') {
-        if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
-          this.drawChartUp(pageVal)
-          this.drawChartMid(pageVal)
-        } else {
-          this.drawChartUp3(pageVal)
-          this.drawChartMid3(pageVal)
-        }
-        this.drawChartUp2(pageVal)
-        this.drawChartMid2(pageVal)
-        this.drawChartDwn(pageVal)
-        this.drawChartDwn2(pageVal)
-      } else if (flag === 'INIT') {
+      if (flag === 'INIT') {
         if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
           this.drawChartUp(pageVal)
           this.drawChartMid(pageVal)
@@ -661,11 +649,12 @@ export default {
         $('#zhDimDiv').show()
         this.resetCom('zhTypeRst', 'zhType')
       }
-      return 'ALL'
+      return 'INIT'
     },
     changeGmtype: function (val) {
       this.pageVal.gmType = val
       this.pageVal.pKey1 = val
+      $('#guimoDivDwn').hide()
       if (val >= 2) {
         this.pageValName.gmtypeName = this.comName.gmTypeList[this.pageVal.gmType - 2].name
       } else {
@@ -690,6 +679,7 @@ export default {
     },
     changeZhtype: function (val) {
       this.pageVal.zhType = val
+      $('#guimoDivDwn').hide()
       if (val >= 2) {
         this.pageValName.zhtypeName = this.comName.zhTypeList[this.pageVal.zhType - 2].name
       } else {
@@ -732,7 +722,7 @@ export default {
         }
         this.pageVal.dataDate = this.pageVal.BATCHDate
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
-        return 'ALL'
+        return 'INIT'
       } else {
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp2').show()
@@ -752,7 +742,7 @@ export default {
         if (this.pageVal.pKey1 !== 4) {
           this.$refs.proType.changeTheme(this.pageVal.pKey1)
           this.changeProtype(this.pageVal.pKey1)
-          return 'ALL'
+          return 'INIT'
         }
       } else if (this.pageVal.proType === 2) {
         if (this.pageVal.pKey1 === 999999) { // 重复点击取消选中回到‘全部’
@@ -924,8 +914,8 @@ export default {
     this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
       this.pageVal.BATCHDate = res.data.BATCHDate
       this.pageVal.dataDate = res.data.BATCHDate
-      this.$refs.dateDiv.setDate(this.pageVal.dataDate.substring(0,4)+'-'+
-        this.pageVal.dataDate.substring(4,6)+'-'+this.pageVal.dataDate.substring(6,8))
+      this.$refs.dateDiv.setDate(this.pageVal.dataDate.substring(0, 4) + '-' +
+        this.pageVal.dataDate.substring(4, 6) + '-' + this.pageVal.dataDate.substring(6, 8))
       this.guimoInit()
     })
   }
