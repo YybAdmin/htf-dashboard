@@ -135,7 +135,6 @@ export default {
         pKey2: '999999',
         fbOrQs3: 1,
         pKey3: '999999',
-        mgrCode: '999999',
         dataDate: '999999',
         jlOrQd: 1,
         kehuDateType: 1,
@@ -340,8 +339,8 @@ export default {
       let paramsUp = {
         label1Show: true,
         label2Show: true,
-        labelNum: 1
-        // initSelKey: this.pageVal.pKey1.toString()
+        labelNum: 1,
+        initSelKey: this.pageVal.pKey1.toString()
       }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp.setData(res.data.list, paramsUp)
@@ -527,11 +526,11 @@ export default {
       let params = {
         label1Show: true,
         label2Show: false,
-        labelNum: 1
+        labelNum: 1,
+        initSelKey: this.pageVal.pKey3.toString()
       }
       this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
         chartDwn.setData(res.data.list, params)
-        this.mgrDataList = res.data.list
         chartDwn.drawTwoBarChart()
       })
     },
@@ -650,6 +649,7 @@ export default {
         $('#chartUp3').show()
         $('#chartMid3').show()
       }
+      this.pageVal.pKey1 = '999999'
       this.pageVal.pKey2 = '999999'
       this.pageVal.pKey3 = '999999'
       this.resetCom('proTypeRet', 'proType')
@@ -672,6 +672,7 @@ export default {
         $('#chartMid').show()
       }
       this.resetCom('fenbuRst1', 'fbOrQs1')
+      this.pageVal.pKey1 = '999999'
       this.pageVal.pKey2 = '999999'
       this.pageValName.pKey2Name = '汇总'
       this.comName.MidTitle = '业务团队规模对比-' + this.comName.TabDimList[val - 1].name
@@ -885,9 +886,6 @@ export default {
     onClickChartDwn: function (val) {
       this.pageVal.pKey3 = val.pKey
       this.pageValName.pKey3Name = val.pKeyName !== 'ALL' ? val.pKeyName : '汇总'
-      if (val.pKey !== '999999') {
-        this.pageVal.mgrCode = this.mgrDataList[val.pKey - 1].MGRCODE
-      }
     },
     onClickJingliQudao: function (val) {
       this.pageVal.jlOrQd = val
