@@ -33,6 +33,9 @@ export default {
     setData: function (ifHide, dataDate) {
       this.ifHide = ifHide
       this.dataDate = dataDate
+    },
+    hideButton: function () {
+      this.ifHide = true
     }
   },
   mounted () {

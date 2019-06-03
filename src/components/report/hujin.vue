@@ -136,7 +136,8 @@ export default {
         pKey2: '999999',
         fbOrQs3: 1,
         pKey3: '999999',
-        dataDate: '2000-01-01',
+        dataDate: '999999',
+        BATCHDate: '999999',
         jlOrQd: 1,
         kehuDateType: 1,
         kehuEcCusGrp: 1,
@@ -752,7 +753,7 @@ export default {
           $('#chartUp3').show()
           $('#chartMid3').show()
         }
-        this.pageVal.dataDate = '999999'
+        this.pageVal.dataDate = this.pageVal.BATCHDate
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
         return 'ALL'
       } else {
@@ -764,6 +765,7 @@ export default {
           $('#chartMid3').show()
         }
         this.pageVal.fbOrQs2 = 1
+        this.$refs.fenbuQushi2.hideButton()
         return 'ChartUp2'
       }
     },
@@ -813,7 +815,7 @@ export default {
           $('#chartMid2').show()
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
-          this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
+          this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
           return 'MidChart'
         }
         $('#chartDwn').show()
@@ -925,11 +927,6 @@ export default {
       this.$http.post(this.$API_LIST.hujinHeadData, this.pageVal).then(res => {
         HeadTable1.setData(res.data.list)
       })
-      let dateDiv = this.$refs.dateDiv
-      this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
-        this.pageVal.dataDate = res.data.BATCHDate
-        console.log(this.pageVal.dataDate)
-      })
       // 上图 中图 上汇总 中汇总 初始化
       this.guimoGetDataAndDraw(this.pageVal, 'INIT')
     },
@@ -946,9 +943,13 @@ export default {
     }
   },
   mounted () {
-    this.guimoInit()
-    // this.$myUtil.watermark({watermark_txt0: 'liuyi 099889'})
     this.$myUtil.getDeviceWidth()
+    this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
+      this.pageVal.BATCHDate = res.data.BATCHDate
+      this.pageVal.dataDate = res.data.BATCHDate
+      console.log(this.pageVal.dataDate)
+      this.guimoInit()
+    })
   }
 }
 </script>
