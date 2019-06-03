@@ -136,7 +136,7 @@ export default {
         pKey2: '999999',
         fbOrQs3: 1,
         pKey3: '999999',
-        dataDate: '999999',
+        dataDate: '2000-01-01',
         jlOrQd: 1,
         kehuDateType: 1,
         kehuEcCusGrp: 1,
@@ -927,8 +927,8 @@ export default {
       })
       let dateDiv = this.$refs.dateDiv
       this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
-        dateDiv.date = res.data.list[0].NAME
-        this.pageVal.dataDate = res.data.list[0].NAME
+        this.pageVal.dataDate = res.data.BATCHDate
+        console.log(this.pageVal.dataDate)
       })
       // 上图 中图 上汇总 中汇总 初始化
       this.guimoGetDataAndDraw(this.pageVal, 'INIT')
@@ -937,7 +937,6 @@ export default {
       let kehuhead = this.$refs.kehuHead
       this.$http.post(this.$API_LIST.hujinKehuHeadData, this.pageVal).then(res => {
         kehuhead.setData(res.data.list)
-        // console.log('kehuhead:' + JSON.stringify(res.data))
       })
       let kehuChart = this.$refs.kehuChart
       this.$http.post(this.$API_LIST.hujinKehuChart, this.pageVal).then(res => {
