@@ -14,8 +14,7 @@ export default {
   props: {
     chartInfo: {
       title: [],
-      name: [],
-      pKey: ''
+      name: []
     }
   },
   data () {
@@ -32,6 +31,7 @@ export default {
         labelNum: 1,
         labelColor: false
       },
+      selKey: '999999',
       data: []
     }
   },
@@ -45,6 +45,7 @@ export default {
         this.barLabel.label2Show = (option.label2Show !== undefined ? option.label2Show : true)
         this.barLabel.labelNum = (option.labelNum !== undefined ? option.labelNum : 1)
         this.barLabel.labelColor = (option.labelColor !== undefined ? option.labelColor : true)
+        this.selKey = (option.initSelKey !== undefined ? option.initSelKey : '999999')
       }
       var length = this.data.length
       for (let i = 0; i < length; i++) {
@@ -56,13 +57,15 @@ export default {
         }
       }
     },
-    selectBar: function (kkey) { // kkey=2,3,4,5
-      let thisChart = echarts.getInstanceByDom(this.$refs.threeBarOneLine)
+    selectBar: function (kkey) {
+      let thisChart = echarts.getInstanceByDom(this.$refs.twoBarChart)
+      this.selKey = '999999'
       thisChart.dispatchAction({
         type: 'downplay'
       })
-      for (var i = 0; i < this.data.length; i++) { // this.data[i].KKEY=2,3,4,5
+      for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].KKEY === kkey.toString()) {
+          this.selKey = kkey.toString()
           thisChart.dispatchAction({
             type: 'highlight',
             dataIndex: i
@@ -76,7 +79,7 @@ export default {
         thisChart.dispose()
       }
       let _this = this
-      let pKey = this.chartInfo.pKey
+      let pKey = this.selKey
       let iflabelColor = this.barLabel.labelColor
       let labelNum = this.barLabel.labelNum
       let end = Math.floor(5 / this.data.length * 100)
