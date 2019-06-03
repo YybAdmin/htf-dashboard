@@ -910,7 +910,6 @@ export default {
     }
   },
   mounted () {
-    this.$myUtil.getDeviceWidth()
     this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
       this.pageVal.BATCHDate = res.data.BATCHDate
       this.pageVal.dataDate = res.data.BATCHDate
