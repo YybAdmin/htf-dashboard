@@ -14,8 +14,7 @@ export default {
   props: {
     chartInfo: {
       title: '',
-      name1: '',
-      name2: ''
+      name: [],
     }
   },
   data () {
@@ -98,7 +97,7 @@ export default {
         },
         legend: {
           bottom: '1px',
-          data: [this.chartInfo.name1, this.chartInfo.name2]
+          data: [this.chartInfo.name[0], this.chartInfo.name[1]]
         },
         dataZoom: {
           type: 'inside',
@@ -175,7 +174,7 @@ export default {
           }
         },
         series: [{
-          name: this.chartInfo.name1,
+          name: this.chartInfo.name[0],
           type: 'bar',
           barWidth: '20px',
           encode: {
@@ -233,7 +232,7 @@ export default {
             }
           }
         }, {
-          name: this.chartInfo.name2,
+          name: this.chartInfo.name[1],
           type: 'bar',
           barWidth: '20px',
           barBorderRadius: [5, 5, 0, 0],

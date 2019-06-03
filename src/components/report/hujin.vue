@@ -153,12 +153,14 @@ export default {
     }
   },
   computed: {
+    chartUpBYL: function(){
+
+    },
     charData: function () {
       return {
         chartUp: {
           title: '保有量/份额 (单位:亿)',
-          name1: '保有量',
-          name2: '份额',
+          name: ['保有量','份额'],
           clickParams: []
         },
         chartUp3: {
@@ -173,8 +175,7 @@ export default {
         },
         chartMid: {
           title: '保有量/份额 (单位:亿)',
-          name1: '保有量',
-          name2: '份额',
+          name: ['保有量','份额'],
           pKey: this.pageVal.pKey2,
           clickParams: []
         },
@@ -190,8 +191,7 @@ export default {
         },
         chartDwn: {
           title: '保有量/份额 (单位:亿)',
-          name1: '保有量',
-          name2: '份额',
+          name: ['保有量','份额'],
           pKey: this.pageVal.pKey3,
           clickParams: []
         },
