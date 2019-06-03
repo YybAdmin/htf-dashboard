@@ -826,7 +826,6 @@ export default {
       } else {
         this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.pKey2Name
       }
-      this.drawChartDwn(this.pageVal)
       $('#chartDwn').show()
       $('#tagDwn').hide()
       if (val.pKey !== '999999') {
@@ -853,13 +852,14 @@ export default {
         $('#chartDwn2').hide()
         $('#chartDwn').show()
         $('#tagDwn').slideUp()
+        this.$refs.chartDwn.selectBar(this.pageVal.pKey3) // 保留柱子高亮
       } else if (val === 2) {
         $('#chartDwn').hide()
         $('#chartDwn2').show()
         this.$refs.tagDwn.text = this.pageValName.pKey3Name
         $('#tagDwn').slideDown()
+        return 'DwnChart'
       }
-      return 'DwnChart'
     },
     onClickChartDwn: function (val) {
       this.pageVal.pKey3 = val.pKey

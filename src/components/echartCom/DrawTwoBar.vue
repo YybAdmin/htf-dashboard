@@ -64,7 +64,7 @@ export default {
         type: 'downplay'
       })
       for (var i = 0; i < this.data.length; i++) {
-        if (this.data[i].KKEY === kkey.toString()) {
+        if (this.data[i].KKEY === kkey.toString() || this.data[i].KKEY === kkey) {
           this.selKey = kkey.toString()
           thisChart.dispatchAction({
             type: 'highlight',
