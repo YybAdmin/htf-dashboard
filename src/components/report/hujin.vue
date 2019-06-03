@@ -329,7 +329,8 @@ export default {
       let paramsUp = {
         label1Show: true,
         label2Show: true,
-        labelNum: 1
+        labelNum: 1,
+        initSelKey: this.pageVal.pKey1.toString()
       }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
         chartUp3.setData(res.data.list, paramsUp)
