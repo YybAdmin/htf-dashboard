@@ -38,6 +38,7 @@ export default {
         this.barLabel.labelNum = (option.labelNum !== undefined ? option.labelNum : 1)
         this.barLabel.labelColor = (option.labelColor !== undefined ? option.labelColor : false)
       }
+      this.drawOneBarOneLineChart()
     },
     drawOneBarOneLineChart: function () {
       let thisChart = echarts.getInstanceByDom(this.$refs.OneBarOneLineChart)

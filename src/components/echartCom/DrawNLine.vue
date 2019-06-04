@@ -38,6 +38,7 @@ export default {
         if (str.indexOf('VALUE') !== -1) { count = count + 1 }
       })
       this.nLine = count
+      this.drawNLine()
     },
     drawNLine: function () {
       let thisChart = echarts.getInstanceByDom(this.$refs.sixLineChart)

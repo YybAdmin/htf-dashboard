@@ -211,7 +211,7 @@ export default {
       }
     },
     changePageState: function (val, flag) {
-      var reflashFlag = 'NO'
+      var reflashFlag = 'no'
       // 规模 客户数 切换
       if (flag === 'f_tabtop') {
         reflashFlag = this.changeTabTop(val)
@@ -238,22 +238,16 @@ export default {
       }
       // chartUp 柱子点击事件
       if (flag === 'f_chartUp') {
-        reflashFlag = this.onClickChartUp(val)
+        reflashFlag = this.onClickChartUpBar(val)
       }
       // chartUp2 趋势图点击切换日期
       if (flag === 'f_chartUp2') {
-        this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
-        this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
-        this.pageVal.dataDate = val[0].value.NAMEBAK
-        this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
-        this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
-        this.drawChartMid(this.pageVal) // 根据数据日期重画ChartMid
-        this.drawChartDwn(this.pageVal)
+        reflashFlag = this.onClickChartUpLine(val)
       }
       // chartUp 日期切换
       if (flag === 'f_dateType') {
         this.pageVal.dateType = val
-        reflashFlag = 'ALL'
+        reflashFlag = 'up_mid'
       }
       // chartMid 分布趋势切换
       if (flag === 'f_fenbuQushi2') {
@@ -261,15 +255,11 @@ export default {
       }
       // chartMid 柱状图 点击事件
       if (flag === 'f_chartMid') {
-        reflashFlag = this.onClickChartMid(val)
+        reflashFlag = this.onClickChartMidBar(val)
       }
       // chartMid2 趋势图点击切换日期
       if (flag === 'f_chartMid2') {
-        this.$refs.sumMid.headData[0].VALUE1 = val[0].data.VALUE1
-        this.$refs.sumMid.headData[0].VALUE2 = val[0].data.VALUE2
-        this.pageVal.dataDate = val[0].value.NAMEBAK
-        this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
-        this.drawChartDwn(this.pageVal) // 根据数据日期重画ChartDwn
+        reflashFlag = this.onClickChartMidLine(val)
       }
       // chartDwn 分布趋势切换
       if (flag === 'f_fenbuQushi3') {
@@ -311,43 +301,37 @@ export default {
       this.guimoGetDataAndDraw(this.pageVal, reflashFlag)
     },
     drawChartUp: function (pageVal) {
-      let chartUp = this.$refs.chartUp
-      let paramsUp = {
-        label1Show: true,
-        label2Show: true,
-        labelNum: 1,
-        initSelKey: this.pageVal.pKey1.toString()
-      }
       this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
-        chartUp.setData(res.data.list, paramsUp)
-        chartUp.drawTwoBarChart()
-        this.drawSumUp(res.data.list, pageVal)
-      })
-    },
-    drawChartUp3: function (pageVal) {
-      let chartUp3 = this.$refs.chartUp3
-      let paramsUp = {
-        label1Show: true,
-        label2Show: true,
-        labelNum: 1,
-        initSelKey: this.pageVal.pKey1.toString()
-      }
-      this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
-        chartUp3.setData(res.data.list, paramsUp)
-        chartUp3.drawThreeBarOneLine()
-        this.drawSumUp(res.data.list, pageVal)
-      })
-    },
-    drawChartUp2: function (pageVal) {
-      let chartUp2 = this.$refs.chartUp2
-      let paramsUp = {
-        label1Show: true,
-        label2Show: false,
-        labelNum: 2
-      }
-      this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
-        chartUp2.setData(res.data.list, paramsUp, pageVal.dateType)
-        chartUp2.drawTwoLineChart()
+        if(pageVal.fbOrQs1 === 1){ //上图 分布
+          if(pageVal.tabletr === 1 || pageVal.tabletr === 3){
+            let chartUp = this.$refs.chartUp
+            let params = {
+              label1Show: true,
+              label2Show: true,
+              labelNum: 1,
+              initSelKey: this.pageVal.pKey1.toString()
+            }
+            chartUp.setData(res.data.list, params)
+          }else if(pageVal.tabletr === 2){
+            let chartUp3 = this.$refs.chartUp3
+            let paramsUp = {
+              label1Show: true,
+              label2Show: true,
+              labelNum: 1,
+              initSelKey: this.pageVal.pKey1.toString()
+            }
+            chartUp3.setData(res.data.list, paramsUp)
+          }
+          this.drawSumUp(res.data.list, pageVal)
+        } else if (pageVal.fbOrQs1 === 2){ //上图趋势
+          let chartUp2 = this.$refs.chartUp2
+          let paramsUp = {
+            label1Show: true,
+            label2Show: false,
+            labelNum: 2
+          }
+          chartUp2.setData(res.data.list, paramsUp, pageVal.dateType)
+        }
       })
     },
     drawSumUp: function (list, pageVal) {
@@ -384,79 +368,74 @@ export default {
       }
     },
     drawChartMid: function (pageVal) {
-      let chartMid = this.$refs.chartMid
-      let paramsMid = {
-        ifShadow: true,
-        shadowNum: 3,
-        label1Show: true,
-        label2Show: false,
-        labelNum: 2,
-        labelColor: false
-      }
       this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
-        let retData = res.data.list
-        let zyCapital = 0
-        let zyShares = 0
-        let sfCapital = 0
-        let sfShares = 0
-        for (let i = 0; i < retData.length; i++) {
-          if (retData[i].KKEY === '4') {
-            zyCapital = retData[i].VALUE1
-            zyShares = retData[i].VALUE2
-          }
-          if (retData[i].KKEY === '5') {
-            sfCapital = retData[i].VALUE1
-            sfShares = retData[i].VALUE2
-          }
-        }
-        for (let i = 0; i < retData.length; i++) {
-          if (zyCapital !== 0 && sfCapital !== 0) {
-            if (retData[i].KKEY === '1' || retData[i].KKEY === '2' || retData[i].KKEY === '3') {
-              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
-              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
+        if(pageVal.fbOrQs1 === 1){ // 中图 分布
+          if(pageVal.tabletr === 1 || pageVal.tabletr === 3){
+            let chartMid = this.$refs.chartMid
+            let paramsMid = {
+              ifShadow: true,
+              shadowNum: 3,
+              label1Show: true,
+              label2Show: false,
+              labelNum: 2,
+              labelColor: false
             }
-            if (retData[i].KKEY === '4' || retData[i].KKEY === '5') {
-              retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / (parseFloat(zyCapital) + parseFloat(sfCapital))) * 100).toFixed(2)
-              retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / (parseFloat(zyShares) + parseFloat(sfShares))) * 100).toFixed(2)
+            let retData = res.data.list
+            let zyCapital = 0
+            let zyShares = 0
+            let sfCapital = 0
+            let sfShares = 0
+            for (let i = 0; i < retData.length; i++) {
+              if (retData[i].KKEY === '4') {
+                zyCapital = retData[i].VALUE1
+                zyShares = retData[i].VALUE2
+              }
+              if (retData[i].KKEY === '5') {
+                sfCapital = retData[i].VALUE1
+                sfShares = retData[i].VALUE2
+              }
             }
-          } else if (sfCapital === 0 && zyCapital !== 0) {
-            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
-            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
-          } else if (sfCapital !== 0 && zyCapital === 0) {
-            retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
-            retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
+            for (let i = 0; i < retData.length; i++) {
+              if (zyCapital !== 0 && sfCapital !== 0) {
+                if (retData[i].KKEY === '1' || retData[i].KKEY === '2' || retData[i].KKEY === '3') {
+                  retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
+                  retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
+                }
+                if (retData[i].KKEY === '4' || retData[i].KKEY === '5') {
+                  retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / (parseFloat(zyCapital) + parseFloat(sfCapital))) * 100).toFixed(2)
+                  retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / (parseFloat(zyShares) + parseFloat(sfShares))) * 100).toFixed(2)
+                }
+              } else if (sfCapital === 0 && zyCapital !== 0) {
+                retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
+                retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
+              } else if (sfCapital !== 0 && zyCapital === 0) {
+                retData[i].RATE1 = ((parseFloat(retData[i].VALUE1) / parseFloat(zyCapital)) * 100).toFixed(2)
+                retData[i].RATE2 = ((parseFloat(retData[i].VALUE2) / parseFloat(zyShares)) * 100).toFixed(2)
+              }
+            }
+            chartMid.setData(retData, paramsMid)
           }
+          if(pageVal.tabletr === 2){
+            let chartMid3 = this.$refs.chartMid3
+            let paramsMid = {
+              ifShadow: true,
+              shadowNum: 3,
+              label1Show: true,
+              label2Show: false,
+              labelNum: 1
+            }
+            chartMid3.setData(res.data.list, paramsMid)
+          }
+          this.drawSumMid(res.data.list, pageVal)
+        } else if(pageVal.fbOrQs1 === 2){ //中图 趋势
+          let chartMid2 = this.$refs.chartMid2
+          let paramsMid = {
+            label1Show: true,
+            label2Show: false,
+            labelNum: 2
+          }
+          chartMid2.setData(res.data.list, paramsMid, pageVal.dateType)
         }
-        chartMid.setData(retData, paramsMid)
-        chartMid.drawTwoBarChart()
-        this.drawSumMid(res.data.list, pageVal)
-      })
-    },
-    drawChartMid3: function (pageVal) {
-      let chartMid3 = this.$refs.chartMid3
-      let paramsMid = {
-        ifShadow: true,
-        shadowNum: 3,
-        label1Show: true,
-        label2Show: false,
-        labelNum: 1
-      }
-      this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
-        chartMid3.setData(res.data.list, paramsMid)
-        chartMid3.drawThreeBarOneLine()
-        this.drawSumMid(res.data.list, pageVal)
-      })
-    },
-    drawChartMid2: function (pageVal) {
-      let chartMid2 = this.$refs.chartMid2
-      let paramsMid = {
-        label1Show: true,
-        label2Show: false,
-        labelNum: 2
-      }
-      this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
-        chartMid2.setData(res.data.list, paramsMid, pageVal.dateType)
-        chartMid2.drawTwoLineChart()
       })
     },
     drawSumMid: function (list, pageVal) {
@@ -499,89 +478,50 @@ export default {
       }
     },
     drawChartDwn: function (pageVal) {
-      let chartDwn = this.$refs.chartDwn
-      let params = {
-        label1Show: true,
-        label2Show: false,
-        labelNum: 1,
-        initSelKey: this.pageVal.pKey3.toString()
-      }
       this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
-        chartDwn.setData(res.data.list, params)
-        chartDwn.drawTwoBarChart()
-      })
-    },
-    drawChartDwn2: function (pageVal) {
-      let chartDwn2 = this.$refs.chartDwn2
-      let params = {
-        label1Show: true,
-        label2Show: false,
-        labelNum: 2,
-        labelColor: true
-      }
-      this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
-        chartDwn2.setData(res.data.list, params, pageVal.dateType)
-        chartDwn2.drawTwoLineChart()
+        if(pageVal.fbOrQs1 === 1){
+          let chartDwn = this.$refs.chartDwn
+          let params = {
+            label1Show: true,
+            label2Show: false,
+            labelNum: 1,
+            initSelKey: this.pageVal.pKey3.toString()
+          }
+          chartDwn.setData(res.data.list, params)
+        } else if(pageVal.fbOrQs1 === 2){
+          let chartDwn2 = this.$refs.chartDwn2
+          let params = {
+            label1Show: true,
+            label2Show: false,
+            labelNum: 2,
+            labelColor: true
+          }
+          chartDwn2.setData(res.data.list, params, pageVal.dateType)
+        }
       })
     },
     drawkehuChart: function (pageVal) {
       let kehuChart = this.$refs.kehuChart
       this.$http.post(this.$API_LIST.hujinKehuChart, pageVal).then(res => {
         kehuChart.setData(res.data.list, pageVal.kehuDateType)
-        kehuChart.drawNLine()
       })
     },
     guimoGetDataAndDraw: function (pageVal, flag) {
-      if (flag === 'INIT') {
-        if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
-          this.drawChartUp(pageVal)
-          this.drawChartMid(pageVal)
-        } else {
-          this.drawChartUp3(pageVal)
-          this.drawChartMid3(pageVal)
-        }
-      } else if (flag === 'ChartUp2') {
-        this.drawChartUp2(pageVal)
-      } else if (flag === 'Up2Mid13') {
-        if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
-          this.drawChartUp2(pageVal)
-          this.drawChartMid(pageVal)
-        } else {
-          this.drawChartUp2(pageVal)
-          this.drawChartMid3(pageVal)
-        }
-      } else if (flag === 'MidChart') {
-        if (pageVal.fbOrQs2 === 1) {
-          if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
-            this.drawChartMid(pageVal)
-          } else {
-            this.drawChartMid3(pageVal)
-          }
-        } else if (pageVal.fbOrQs2 === 2) {
-          this.drawChartMid2(pageVal)
-        }
-      } else if (flag === 'MidDwn') {
-        if (pageVal.fbOrQs2 === 1) {
-          if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
-            this.drawChartMid(pageVal)
-          } else {
-            this.drawChartMid3(pageVal)
-          }
-        } else if (pageVal.fbOrQs2 === 2) {
-          this.drawChartMid2(pageVal)
-        }
+      if (flag === 'up') {
+        this.drawChartUp(pageVal)
+      } else if (flag === 'mid') {
+        this.drawChartMid(pageVal)
+      } else if (flag === 'dwn') {
         this.drawChartDwn(pageVal)
-      } else if (flag === 'MidDwn2') {
-        this.drawChartMid2(pageVal)
-      } else if (flag === 'DwnChart') {
-        if (pageVal.fbOrQs3 === 1) {
-          this.drawChartDwn(pageVal)
-        } else {
-          this.drawChartDwn2(pageVal)
-        }
-      } else if (flag === 'kehuChart') {
+      } else if (flag === 'up_mid') {
+        this.drawChartUp(pageVal)
+        this.drawChartMid(pageVal)
+      } else if (flag === 'mid_dwn') {
+        this.drawChartMid(pageVal)
+        this.drawChartDwn(pageVal)
+      } else if (flag === 'kehu') {
         this.drawkehuChart(pageVal)
-      } else if (flag === 'NO') {
+      } else if (flag === 'no') {
         return false
       }
     },
@@ -599,7 +539,7 @@ export default {
       }
       // dateDiv 重新布局
       this.$refs.dateDiv.changeBottomStyle()
-      return 'NO'
+      return 'no'
     },
     changeTableTr: function (val) {
       this.pageVal.tabletr = val
@@ -621,7 +561,7 @@ export default {
       this.resetCom('fenbuRst1', 'fbOrQs1')
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
-      return 'INIT'
+      return 'up_mid'
     },
     changeProtype: function (val) {
       this.pageVal.proType = val
@@ -649,7 +589,7 @@ export default {
         $('#zhDimDiv').show()
         this.resetCom('zhTypeRst', 'zhType')
       }
-      return 'INIT'
+      return 'up_mid'
     },
     changeGmtype: function (val) {
       this.pageVal.gmType = val
@@ -675,7 +615,7 @@ export default {
       if (this.pageVal.fbOrQs1 === 2) { // 若当前展示趋势图，重画
         this.drawChartUp2(this.pageVal)
       }
-      return 'MidChart'
+      return 'mid'
     },
     changeZhtype: function (val) {
       this.pageVal.zhType = val
@@ -703,7 +643,7 @@ export default {
       if (this.pageVal.fbOrQs1 === 2) { // 若当前展示趋势图，重画
         this.drawChartUp2(this.pageVal)
       }
-      return 'MidChart'
+      return 'mid'
     },
     changeFenbuQushi1: function (val) {
       this.pageVal.fbOrQs1 = val
@@ -722,7 +662,6 @@ export default {
         }
         this.pageVal.dataDate = this.pageVal.BATCHDate
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
-        return 'INIT'
       } else {
         if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
           $('#chartUp2').show()
@@ -733,16 +672,16 @@ export default {
         }
         this.pageVal.fbOrQs2 = 1
         this.$refs.fenbuQushi2.hideButton()
-        return 'ChartUp2'
       }
+      return 'up'
     },
-    onClickChartUp: function (val) {
+    onClickChartUpBar: function (val) {
       this.pageVal.pKey1 = parseInt(val.pKey)
       if (this.pageVal.proType === 1) {
         if (this.pageVal.pKey1 !== 4) {
           this.$refs.proType.changeTheme(this.pageVal.pKey1)
           this.changeProtype(this.pageVal.pKey1)
-          return 'INIT'
+          return 'up_mid'
         }
       } else if (this.pageVal.proType === 2) {
         if (this.pageVal.pKey1 === 999999) { // 重复点击取消选中回到‘全部’
@@ -752,7 +691,7 @@ export default {
           this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
           this.changeGmtype(this.pageVal.pKey1)
         }
-        return 'MidDwn'
+        return 'mid_dwn'
       } else if (this.pageVal.proType === 3) {
         if (this.pageVal.pKey1 === 999999) {
           this.$refs.zhType.changeTheme(-1)
@@ -761,8 +700,16 @@ export default {
           this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
           this.changeZhtype(this.pageVal.pKey1)
         }
-        return 'MidDwn'
+        return 'mid_dwn'
       }
+    },
+    onClickChartUpLine:function(val){
+      this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
+      this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
+      this.pageVal.dataDate = val[0].value.NAMEBAK
+      this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
+      this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
+      return 'mid_dwn'
     },
     changeFenbuQushi2: function (val) {
       this.pageVal.fbOrQs2 = val
@@ -783,7 +730,6 @@ export default {
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
           this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
-          return 'MidChart'
         }
         $('#chartDwn').show()
       } else {
@@ -801,10 +747,10 @@ export default {
           $('#tagMid').slideDown()
         }
         this.changeFenbuQushi3(1)
-        return 'MidChart'
       }
+      return 'mid'
     },
-    onClickChartMid: function (val) {
+    onClickChartMidBar: function (val) {
       this.pageVal.pKey3 = '999999'
       this.pageVal.pKey2 = val.pKey
       this.pageValName.pKey2Name = val.pKeyName !== 'ALL' ? val.pKeyName : '汇总'
@@ -831,11 +777,18 @@ export default {
         } else {
           $('#jlQdDim').hide()
         }
+        return 'dwn'
       } else {
         $('#guimoDivDwn').slideUp()
-        return 'NO'
+        return 'no'
       }
-      return 'DwnChart'
+    },
+    onClickChartMidLine: function(val){
+      this.$refs.sumMid.headData[0].VALUE1 = val[0].data.VALUE1
+      this.$refs.sumMid.headData[0].VALUE2 = val[0].data.VALUE2
+      this.pageVal.dataDate = val[0].value.NAMEBAK
+      this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
+      return 'dwn'
     },
     changeFenbuQushi3: function (val) {
       this.pageVal.fbOrQs3 = val
@@ -849,8 +802,8 @@ export default {
         $('#chartDwn2').show()
         this.$refs.tagDwn.text = this.pageValName.pKey3Name
         $('#tagDwn').slideDown()
-        return 'DwnChart'
       }
+      return 'dwn'
     },
     onClickChartDwn: function (val) {
       this.pageVal.pKey3 = val.pKey
@@ -883,30 +836,21 @@ export default {
       $('#chartUp2,#chartUp3').hide()
       $('#chartMid').show()
       $('#chartMid2,#chartMid3').hide()
-      //
       $('#gmDimDiv,#zhDimDiv').hide()
-      //
       $('#tagMid,#tagDwn').hide()
-      //
       $('#kehuDiv').hide()
-      // 头部 数据 初始化
       let HeadTable1 = this.$refs.HeadTable1
       this.$http.post(this.$API_LIST.hujinHeadData, this.pageVal).then(res => {
         HeadTable1.setData(res.data.list)
       })
-      // 上图 中图 上汇总 中汇总 初始化
-      this.guimoGetDataAndDraw(this.pageVal, 'INIT')
+      this.guimoGetDataAndDraw(this.pageVal, 'up_mid')
     },
     kehuInit: function () {
       let kehuhead = this.$refs.kehuHead
       this.$http.post(this.$API_LIST.hujinKehuHeadData, this.pageVal).then(res => {
         kehuhead.setData(res.data.list)
       })
-      let kehuChart = this.$refs.kehuChart
-      this.$http.post(this.$API_LIST.hujinKehuChart, this.pageVal).then(res => {
-        kehuChart.setData(res.data.list, 1)
-        kehuChart.drawNLine()
-      })
+      this.guimoGetDataAndDraw(this.pageVal, 'kehu')
     }
   },
   mounted () {

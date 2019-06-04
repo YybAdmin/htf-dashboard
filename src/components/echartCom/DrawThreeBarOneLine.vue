@@ -56,6 +56,7 @@ export default {
           this.shadow.colorSeires[i] = 'white'
         }
       }
+      this.drawThreeBarOneLine()
     },
     selectBar: function (kkey) {
       let thisChart = echarts.getInstanceByDom(this.$refs.threeBarOneLine)

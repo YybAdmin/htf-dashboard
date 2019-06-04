@@ -45,6 +45,7 @@ export default {
         this.barLabel.labelNum = (option.labelNum !== undefined ? option.labelNum : 1)
         this.barLabel.labelColor = (option.labelColor !== undefined ? option.labelColor : true)
       }
+      this.drawTwoLineChart()
     },
     changeDate: function (params) {
       this.$emit('comChanged', params)
@@ -97,13 +98,6 @@ export default {
               '<tr><td style="text-align: left;"><span>份额环比：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.RATE2 + '%</span></td></tr>' +
               '</table></div>'
           }
-          // backgroundColor: '#F6F6F6',
-          // borderWidth: 1,
-          // borderColor: '#CCCCCC',
-          // textStyle: {
-          //   color: '#FFFFFF',
-          //   fontSize: '11px'
-          // }
         },
         dataZoom: {
           type: 'inside',
