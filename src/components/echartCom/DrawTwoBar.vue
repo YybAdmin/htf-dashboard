@@ -347,7 +347,7 @@ export default {
       myChart.setOption(myChartOption)
       if (pKey !== '999999') {
         for (var i = 0; i < data.length; i++) {
-          if (data[i].KKEY === pKey) {
+          if (data[i].KKEY === pKey || data[i].KKEY.toString() === pKey) {
             myChart.dispatchAction({
               type: 'highlight',
               dataIndex: i
