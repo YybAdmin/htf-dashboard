@@ -369,7 +369,7 @@ export default {
     },
     drawChartMid: function (pageVal) {
       this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
-        if(pageVal.fbOrQs1 === 1){ // 中图 分布
+        if(pageVal.fbOrQs2 === 1){ // 中图 分布
           if(pageVal.tabletr === 1 || pageVal.tabletr === 3){
             let chartMid = this.$refs.chartMid
             let paramsMid = {
@@ -378,7 +378,8 @@ export default {
               label1Show: true,
               label2Show: false,
               labelNum: 2,
-              labelColor: false
+              labelColor: false,
+              initSelKey: this.pageVal.pKey2.toString()
             }
             let retData = res.data.list
             let zyCapital = 0
@@ -422,12 +423,13 @@ export default {
               shadowNum: 3,
               label1Show: true,
               label2Show: false,
-              labelNum: 1
+              labelNum: 1,
+              initSelKey: this.pageVal.pKey2.toString()
             }
             chartMid3.setData(res.data.list, paramsMid)
           }
           this.drawSumMid(res.data.list, pageVal)
-        } else if(pageVal.fbOrQs1 === 2){ //中图 趋势
+        } else if(pageVal.fbOrQs2 === 2){ //中图 趋势
           let chartMid2 = this.$refs.chartMid2
           let paramsMid = {
             label1Show: true,
@@ -479,7 +481,7 @@ export default {
     },
     drawChartDwn: function (pageVal) {
       this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
-        if(pageVal.fbOrQs1 === 1){
+        if(pageVal.fbOrQs3 === 1){
           let chartDwn = this.$refs.chartDwn
           let params = {
             label1Show: true,
@@ -488,7 +490,7 @@ export default {
             initSelKey: this.pageVal.pKey3.toString()
           }
           chartDwn.setData(res.data.list, params)
-        } else if(pageVal.fbOrQs1 === 2){
+        } else if(pageVal.fbOrQs3 === 2){
           let chartDwn2 = this.$refs.chartDwn2
           let params = {
             label1Show: true,
@@ -675,42 +677,6 @@ export default {
       }
       return 'up'
     },
-    onClickChartUpBar: function (val) {
-      this.pageVal.pKey1 = parseInt(val.pKey)
-      if (this.pageVal.proType === 1) {
-        if (this.pageVal.pKey1 !== 4) {
-          this.$refs.proType.changeTheme(this.pageVal.pKey1)
-          this.changeProtype(this.pageVal.pKey1)
-          return 'up_mid'
-        }
-      } else if (this.pageVal.proType === 2) {
-        if (this.pageVal.pKey1 === 999999) { // 重复点击取消选中回到‘全部’
-          this.$refs.gmType.changeTheme(-1)
-          this.changeGmtype(1)
-        } else {
-          this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
-          this.changeGmtype(this.pageVal.pKey1)
-        }
-        return 'mid_dwn'
-      } else if (this.pageVal.proType === 3) {
-        if (this.pageVal.pKey1 === 999999) {
-          this.$refs.zhType.changeTheme(-1)
-          this.changeZhtype(1)
-        } else {
-          this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
-          this.changeZhtype(this.pageVal.pKey1)
-        }
-        return 'mid_dwn'
-      }
-    },
-    onClickChartUpLine:function(val){
-      this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
-      this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
-      this.pageVal.dataDate = val[0].value.NAMEBAK
-      this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
-      this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
-      return 'mid_dwn'
-    },
     changeFenbuQushi2: function (val) {
       this.pageVal.fbOrQs2 = val
       $('#chartMid,#chartMid2,#chartMid3,#tagMid').hide()
@@ -749,6 +715,42 @@ export default {
         this.changeFenbuQushi3(1)
       }
       return 'mid'
+    },
+    onClickChartUpBar: function (val) {
+      this.pageVal.pKey1 = parseInt(val.pKey)
+      if (this.pageVal.proType === 1) {
+        if (this.pageVal.pKey1 !== 4) {
+          this.$refs.proType.changeTheme(this.pageVal.pKey1)
+          this.changeProtype(this.pageVal.pKey1)
+          return 'up_mid'
+        }
+      } else if (this.pageVal.proType === 2) {
+        if (this.pageVal.pKey1 === 999999) { // 重复点击取消选中回到‘全部’
+          this.$refs.gmType.changeTheme(-1)
+          this.changeGmtype(1)
+        } else {
+          this.$refs.gmType.changeTheme(this.pageVal.pKey1 - 2)
+          this.changeGmtype(this.pageVal.pKey1)
+        }
+        return 'mid_dwn'
+      } else if (this.pageVal.proType === 3) {
+        if (this.pageVal.pKey1 === 999999) {
+          this.$refs.zhType.changeTheme(-1)
+          this.changeZhtype(1)
+        } else {
+          this.$refs.zhType.changeTheme(this.pageVal.pKey1 - 2)
+          this.changeZhtype(this.pageVal.pKey1)
+        }
+        return 'mid_dwn'
+      }
+    },
+    onClickChartUpLine:function(val){
+      this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
+      this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
+      this.pageVal.dataDate = val[0].value.NAMEBAK
+      this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
+      this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
+      return 'mid_dwn'
     },
     onClickChartMidBar: function (val) {
       this.pageVal.pKey3 = '999999'
