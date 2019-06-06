@@ -48,6 +48,7 @@
           <Tag id="tagDwn" ref="tagDwn"/>
           <DrawTwoBar id="chartDwn" ref="chartDwn"  v-bind:chartInfo="this.charData.chartDwn" @comChanged="changePageState($event,'f_chartDwn')"/>
           <DrawTwoLine id="chartDwn2" ref="chartDwn2" v-bind:chartInfo="this.charData.chartDwn"  @comChanged="changePageState($event,'f_chartDwn2')" />
+          <DrawThreeBarOneLine id="chartDwn3" ref="chartDwn3" v-bind:chartInfo="this.charData.chartDwn3"  @comChanged="changePageState($event,'f_chartDwn')" />
           <DivSplit/>
         </div>
       </div>
@@ -173,7 +174,7 @@ export default {
         title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey3, clickParams: []
       }
       let dwnTrans = {
-        title: '流入/流出 (单位:亿)', name: ['流入', '流出'], pKey: this.pageVal.pKey3, clickParams: []
+        title: ['销售额(单位:万元)', '流入流出(单位:万元)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: []
       }
       let kehuChart = {
         title: '客户数 (单位:人)',
@@ -186,7 +187,7 @@ export default {
         }
       } else if (this.pageVal.tabletr === 2) {
         return {
-          chartUp: upFund, chartUp3: upTrans, chartMid: midFund, chartMid3: midTrans, chartDwn: dwnTrans, kehuChart: kehuChart
+          chartUp: upFund, chartUp3: upTrans, chartMid: midFund, chartMid3: midTrans, chartDwn: dwnFund, chartDwn3: dwnTrans, kehuChart: kehuChart
         }
       } else if (this.pageVal.tabletr === 3) {
         return {
@@ -429,7 +430,7 @@ export default {
             chartMid3.setData(res.data.list, paramsMid)
           }
           this.drawSumMid(res.data.list, pageVal)
-        } else if(pageVal.fbOrQs2 === 2){ //中图 趋势
+        } else if(pageVal.fbOrQs2 === 2){ // 中图 趋势
           let chartMid2 = this.$refs.chartMid2
           let paramsMid = {
             label1Show: true,
@@ -481,16 +482,27 @@ export default {
     },
     drawChartDwn: function (pageVal) {
       this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
-        if(pageVal.fbOrQs3 === 1){
-          let chartDwn = this.$refs.chartDwn
-          let params = {
-            label1Show: true,
-            label2Show: false,
-            labelNum: 1,
-            initSelKey: this.pageVal.pKey3.toString()
+        if (pageVal.fbOrQs3 === 1) {
+          if (pageVal.tabletr === 1) {
+            let chartDwn = this.$refs.chartDwn
+            let params = {
+              label1Show: true,
+              label2Show: false,
+              labelNum: 1,
+              initSelKey: this.pageVal.pKey3.toString()
+            }
+            chartDwn.setData(res.data.list, params)
+          } else if (pageVal.tabletr === 2) {
+            let chartDwn3 = this.$refs.chartDwn3
+            let params = {
+              label1Show: true,
+              label2Show: false,
+              labelNum: 1,
+              initSelKey: this.pageVal.pKey3.toString()
+            }
+            chartDwn3.setData(res.data.list, params)
           }
-          chartDwn.setData(res.data.list, params)
-        } else if(pageVal.fbOrQs3 === 2){
+        } else if (pageVal.fbOrQs3 === 2) {
           let chartDwn2 = this.$refs.chartDwn2
           let params = {
             label1Show: true,
@@ -744,7 +756,7 @@ export default {
         return 'mid_dwn'
       }
     },
-    onClickChartUpLine:function(val){
+    onClickChartUpLine: function (val) {
       this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
       this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
       this.pageVal.dataDate = val[0].value.NAMEBAK
@@ -765,7 +777,13 @@ export default {
       } else {
         this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.pKey2Name
       }
-      $('#chartDwn').show()
+      if (this.pageVal.tabletr === 1) {
+        $('#chartDwn').show()
+        $('#chartDwn3').hide()
+      } else if (this.pageVal.tabletr === 2) {
+        $('#chartDwn3').show()
+        $('#chartDwn').hide()
+      }
       $('#tagDwn').hide()
       if (val.pKey !== '999999') {
         if (this.pageVal.fbOrQs1 === 2 && this.pageVal.dataDate !== '999999') {
@@ -794,13 +812,20 @@ export default {
     },
     changeFenbuQushi3: function (val) {
       this.pageVal.fbOrQs3 = val
+      $('#chartDwn,#chartDwn,#chartDwn,#tagDwn').hide()
       if (val === 1) {
         $('#chartDwn2').hide()
-        $('#chartDwn').show()
         $('#tagDwn').slideUp()
-        this.$refs.chartDwn.selectBar(this.pageVal.pKey3) // 保留柱子高亮
+        if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
+          $('#chartDwn').show()
+          this.$refs.chartDwn.selectBar(this.pageVal.pKey3) // 保留柱子高亮
+        } else {
+          $('#chartDwn3').show()
+          this.$refs.chartDwn3.selectBar(this.pageVal.pKey3) // 保留柱子高亮
+        }
       } else if (val === 2) {
         $('#chartDwn').hide()
+        $('#chartDwn3').hide()
         $('#chartDwn2').show()
         this.$refs.tagDwn.text = this.pageValName.pKey3Name
         $('#tagDwn').slideDown()
@@ -823,8 +848,12 @@ export default {
       }
       this.drawChartDwn(this.pageVal)
       $('#chartDwn2').hide()
-      $('#chartDwn').show()
       $('#tagDwn').hide()
+      if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
+        $('#chartDwn').show()
+      } else {
+        $('#chartDwn3').show()
+      }
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
     },
     guimoInit: function () {

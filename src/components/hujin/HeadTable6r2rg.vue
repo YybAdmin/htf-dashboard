@@ -61,8 +61,7 @@ export default {
   data: function () {
     return {
       title: '业绩汇总 (本年度)',
-      annotation: '销售额:销售额是指纳税人销售货物、提供应税劳务或服务，' +
-        '从购买或接受应税劳务方或服务方收取的全部价款和切价外费用，但是不包括向购买方收取的销售税额以及代为',
+      annotation: '总销售额 = 申购 + 定期定额申购 + 认购',
       list: [{VALUE1: '--', VALUE2: '--', VALUE3: '--', VALUE4: '--', VALUE5: '--', VALUE6: '--'},
         {VALUE1: '--', VALUE2: '--', VALUE3: '--', VALUE4: '--', VALUE5: '--', VALUE6: '--'},
         {VALUE1: '--', VALUE2: '--', VALUE3: '--', VALUE4: '--', VALUE5: '--', VALUE6: '--'}]
