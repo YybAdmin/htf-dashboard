@@ -35,16 +35,16 @@
       </tr>
       <tr @click="changeTheme($event , 3,'manual')" class="normalrm">
         <td>
-          <div><span>{{list[2].VALUE1}}</span><span>亿元</span><br/><span>总管理费</span></div>
-          <div><span>{{list[2].VALUE4}}</span><span>亿元</span><br/><span>总净收入</span> </div>
+          <div><span>{{list[2].VALUE1}}</span><span>万元</span><br/><span>总管理费</span></div>
+          <div><span>{{list[2].VALUE4}}</span><span>万元</span><br/><span>总净收入</span> </div>
         </td>
         <td>
-          <div><span>{{list[2].VALUE2}}</span><span>亿元</span><br/><span>自有平台管理费</span></div>
-          <div><span>{{list[2].VALUE5}}</span><span>亿元</span><br/><span>自有平台净收入</span></div>
+          <div><span>{{list[2].VALUE2}}</span><span>万元</span><br/><span>自有平台管理费</span></div>
+          <div><span>{{list[2].VALUE5}}</span><span>万元</span><br/><span>自有平台净收入</span></div>
         </td>
         <td>
-          <div><span>{{list[2].VALUE3}}</span><span>亿元</span><br/><span>三方平台管理费</span></div>
-          <div><span>{{list[2].VALUE6}}</span><span>亿元</span><br/><span>三方平台净收入</span></div>
+          <div><span>{{list[2].VALUE3}}</span><span>万元</span><br/><span>三方平台管理费</span></div>
+          <div><span>{{list[2].VALUE6}}</span><span>万元</span><br/><span>三方平台净收入</span></div>
         </td>
       </tr>
     </table>

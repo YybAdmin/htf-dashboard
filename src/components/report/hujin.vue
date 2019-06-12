@@ -191,7 +191,7 @@ export default {
         }
       } else if (this.pageVal.tabletr === 3) {
         return {
-          // 逻辑预留
+          chartUp: upFee, chartUp3: upTrans, chartMid: upFee, chartMid3: midTrans, chartDwn: upFee, chartDwn3: dwnTrans, kehuChart: kehuChart
         }
       }
     }
