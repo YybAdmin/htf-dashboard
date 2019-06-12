@@ -199,6 +199,7 @@ export default {
             }
           },
           splitLine: {
+            show: false,
             lineStyle: {
               color: '#EEEEEE'
             }
@@ -232,6 +233,7 @@ export default {
             }
           },
           splitLine: {
+            show: false,
             lineStyle: {
               color: '#EEEEEE'
             }

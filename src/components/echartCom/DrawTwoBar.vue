@@ -155,8 +155,9 @@ export default {
         }],
         yAxis: {
           boundaryGap: ['0%', '20%'],
-          splitNumber: 3,
+          splitNumber: 0,
           splitLine: {
+            show:false,
             lineStyle: {
               color: '#EEEEEE'
             }
