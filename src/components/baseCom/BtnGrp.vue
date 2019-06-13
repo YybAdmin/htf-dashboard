@@ -1,14 +1,11 @@
 <template>
   <div class="btngroup">
-    <span>
-      <span class="normal"
-            v-bind:key="i"
+      <span v-bind:key="i"
             v-for="(item,i) in itemList"
             :class="[btnIndex == i ? 'selected' : '', i == 0 ? 'normalLeft' : '', i == (itemList.length - 1)? 'normalRight': '']"
-            @click="changeTheme(i)">
+            @click="changeState(i)">
         {{item.name}}
       </span>
-    </span>
   </div>
 </template>
 
@@ -26,7 +23,7 @@ export default {
     }
   },
   methods: {
-    changeTheme (i) {
+    changeState (i) {
       this.btnIndex = i
       this.$emit('comChanged', i + 1)
     }
@@ -41,7 +38,7 @@ export default {
     text-align: center;
     margin-top:15px;
     margin-bottom:5px;
-    .normal {
+    span {
       color: #ddaf59;
       font-size: 14px;
       line-height: 30px;
