@@ -1,5 +1,5 @@
 <template>
-  <div class="tmpDiv">
+  <div class="btngroup">
     <span>
       <span class="normal"
             v-bind:key="i"
@@ -20,7 +20,7 @@ export default {
       type: Array
     }
   },
-  data() {
+  data () {
     return {
       btnIndex: 0
     }
@@ -36,30 +36,30 @@ export default {
 }
 </script>
 
-<style scoped>
-  .tmpDiv {
+<style scoped lang="less">
+  .btngroup {
     text-align: center;
     margin-top:15px;
     margin-bottom:5px;
-  }
-  .normal {
-    color: #ddaf59;
-    font-size: 14px;
-    line-height: 30px;
-    border: 1px solid #ddaf59;
-    padding:3px 10px;
-    margin-right:-1px;
-  }
-  .normalLeft {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-  }
-  .normalRight {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-  }
-  .selected {
-    background-color: #ddaf59;
-    color: white;
+    .normal {
+      color: #ddaf59;
+      font-size: 14px;
+      line-height: 30px;
+      border: 1px solid #ddaf59;
+      padding:3px 10px;
+      margin-right:-1px;
+    }
+    .normalLeft {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    .normalRight {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+    .selected {
+      background-color: #ddaf59;
+      color: white;
+    }
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="tmpDiv">
+  <div class="tabgroup">
     <table class="tmpTable">
       <tr>
         <td class="normal"
@@ -34,41 +34,41 @@ export default {
   methods: {
     changeTheme (i) {
       this.tabIndex = i
-      this.$emit('comChanged', i+1)
+      this.$emit('comChanged', i + 1)
     }
   }
 }
 </script>
 
-<style scoped>
-  .tmpDiv {
+<style scoped lang="less">
+  .tabgroup {
     text-align: center;
     border-bottom: 1px solid  #F3F3F3;
-  }
-  .tmpTable {
-    width: 100%;
-    table-layout: fixed;
-  }
-  .normal {
-    font-size: 14px;
-    font-weight: 400;
-    color:  #333333;
-    line-height: 38px;
-    text-align: center;
-    margin-right:10px;
-  }
-  .selected {
-    color:#DDAF59;
-    position: relative;
-  }
-  .selected:after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 3px;
-    left: 45%;
-    bottom: 3px;
-    background-color: #DDAF59;
-    border-radius:2px;
+    .tmpTable {
+      width: 100%;
+      table-layout: fixed;
+      .normal {
+        font-size: 14px;
+        font-weight: 400;
+        color:  #333333;
+        line-height: 38px;
+        text-align: center;
+        margin-right:10px;
+      }
+      .selected {
+        color:#DDAF59;
+        position: relative;
+        &:after{
+          content: '';
+          position: absolute;
+          width: 20px;
+          height: 3px;
+          left: 45%;
+          bottom: 3px;
+          background-color: #DDAF59;
+          border-radius:2px;
+        }
+      }
+    }
   }
 </style>
