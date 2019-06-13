@@ -724,7 +724,6 @@ export default {
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
         }
-        this.changeFenbuQushi3(1)
       }
       return 'mid'
     },
