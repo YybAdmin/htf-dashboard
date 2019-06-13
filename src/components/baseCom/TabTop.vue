@@ -1,16 +1,12 @@
 <template>
-  <div class="tabgroup">
-    <table class="tmpTable">
-      <tr>
-        <td class="normal"
-            v-for="(item,i) in itemList"
+  <div class="tabgroup" :class="{themeGold:this.$myUtil.theme,themeCoffee:!this.$myUtil.theme}">
+    <table><tr>
+        <td v-for="(item,i) in itemList"
             :key="i"
             :class="[tabIndex == i ? 'selected':'']"
             @click="changeTheme(i)">
-          {{item.name}}
-        </td>
-      </tr>
-    </table>
+          {{item.name}}</td>
+    </tr></table>
     <DivSplit/>
   </div>
 </template>
@@ -41,22 +37,48 @@ export default {
 </script>
 
 <style scoped lang="less">
+  .themeGold{
+    border-bottom: 1px solid  #F3F3F3;
+    table{
+      td{
+        color:  #333333;
+      }
+      .selected {
+        color:#ddaf59;
+        &:after{
+          background-color: #DDAF59;
+        }
+      }
+    }
+  }
+  .themeCoffee{
+    border-bottom: 1px solid  #F3F3F3;
+    table{
+      td{
+        color:  white;
+      }
+      .selected {
+        background-color: #483c39;
+        color: white;
+        &:after{
+          background-color: white;
+        }
+      }
+    }
+  }
   .tabgroup {
     text-align: center;
-    border-bottom: 1px solid  #F3F3F3;
-    .tmpTable {
+    table {
       width: 100%;
       table-layout: fixed;
-      .normal {
+      td {
         font-size: 14px;
         font-weight: 400;
-        color:  #333333;
         line-height: 38px;
         text-align: center;
         margin-right:10px;
       }
       .selected {
-        color:#DDAF59;
         position: relative;
         &:after{
           content: '';
@@ -65,7 +87,6 @@ export default {
           height: 3px;
           left: 45%;
           bottom: 3px;
-          background-color: #DDAF59;
           border-radius:2px;
         }
       }

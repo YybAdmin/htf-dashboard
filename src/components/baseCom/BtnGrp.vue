@@ -1,5 +1,5 @@
 <template>
-  <div class="btngroup" v-bind:class="{themeGold:this.$myUtil.theme,themeCoffee:!this.$myUtil.theme}">
+  <div class="btngroup" :class="{themeGold:this.$myUtil.theme,themeCoffee:!this.$myUtil.theme}">
       <span v-bind:key="i"
             v-for="(item,i) in itemList"
             :class="[btnIndex == i ? 'selected' : '', i == 0 ? 'normalLeft' : '', i == (itemList.length - 1)? 'normalRight': '']"
