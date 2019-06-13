@@ -17,7 +17,7 @@
         </div>
         <FenbuQushi  v-if="this.switch.fenbuRst1" @comChanged="changePageState($event,'f_fenbuQushi1')"/>
         <DrawTwoBar id="chartUp" ref="chartUp"  v-bind:chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp')"/>
-        <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp2')" />
+        <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.charData.chartUp2" @comChanged="changePageState($event,'f_chartUp2')" />
         <DrawThreeBarOneLine id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.charData.chartUp3" @comChanged="changePageState($event,'f_chartUp')"/>
         <TabDimWidth100Up v-if="this.switch.dateTypeRet" @comChanged="changePageState($event,'f_dateType')" v-bind:itemList="comName.TabDimDateList"></TabDimWidth100Up>
         <HeadTableNoTitle id="sumUp" ref="sumUp" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
@@ -31,7 +31,7 @@
         </table>
         <Tag id="tagMid" ref="tagMid"/>
         <DrawTwoBar id="chartMid" ref="chartMid"  v-bind:chartInfo="this.charData.chartMid"  @comChanged="changePageState($event,'f_chartMid')"/>
-        <DrawTwoLine id="chartMid2" ref="chartMid2" v-bind:chartInfo="this.charData.chartMid"  @comChanged="changePageState($event,'f_chartMid2')" />
+        <DrawTwoLine id="chartMid2" ref="chartMid2" v-bind:chartInfo="this.charData.chartMid2"  @comChanged="changePageState($event,'f_chartMid2')" />
         <DrawThreeBarOneLine id="chartMid3" ref="chartMid3" v-bind:chartInfo="this.charData.chartMid3" @comChanged="changePageState($event,'f_chartMid')"/>
         <div>
           <span style="font-size: 12px;color: #333;">图例解释</span> <help ref="help"></help>
@@ -49,7 +49,7 @@
           </table>
           <Tag id="tagDwn" ref="tagDwn"/>
           <DrawTwoBar id="chartDwn" ref="chartDwn"  v-bind:chartInfo="this.charData.chartDwn" @comChanged="changePageState($event,'f_chartDwn')"/>
-          <DrawTwoLine id="chartDwn2" ref="chartDwn2" v-bind:chartInfo="this.charData.chartDwn"  @comChanged="changePageState($event,'f_chartDwn2')" />
+          <DrawTwoLine id="chartDwn2" ref="chartDwn2" v-bind:chartInfo="this.charData.chartDwn2"  @comChanged="changePageState($event,'f_chartDwn2')" />
           <DrawThreeBarOneLine id="chartDwn3" ref="chartDwn3" v-bind:chartInfo="this.charData.chartDwn3"  @comChanged="changePageState($event,'f_chartDwn')" />
           <DivSplit/>
         </div>
@@ -162,43 +162,33 @@ export default {
   },
   computed: {
     charData: function () {
-      let upFund = {
-        title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], clickParams: []
-      }
-      let upTrans = {
-        title: ['销售额(单位:万元)', '流入流出(单位:万元)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey1, clickParams: []
-      }
-      let upFee = {
-        title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], clickParams: []
-      }
-      let midFund = {
-        title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey2, clickParams: []
-      }
-      let midTrans = {
-        title: ['销售额(单位:万元)', '流入流出(单位:万元)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: []
-      }
-      let dwnFund = {
-        title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey3, clickParams: []
-      }
-      let dwnTrans = {
-        title: ['销售额(单位:万元)', '流入流出(单位:万元)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: []
-      }
-      let kehuChart = {
-        title: '客户数 (单位:人)',
-        name: ['注册客户数', '绑卡客户数', '事实客户数', '有效客户数', '百元有效数', '千元有效数', '日活跃用户', '日充值百元人数'],
+      let fundUp  = { title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], clickParams: [] }
+      let fundMid = { title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey2, clickParams: [] }
+      let fundWwn = { title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey3, clickParams: [] }
+
+      let transUp = { title: ['销售额(单位:万)', '流入流出(单位:万)'], name: ['流入', '流出', '净流入', '销售额'], clickParams: [] }
+      let transMid= { title: ['销售额(单位:万)', '流入流出(单位:万)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: [] }
+      let transWwn= { title: ['销售额(单位:万)', '流入流出(单位:万)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: [] }
+      let transLine={ title: '金额(单位:万)', name:['净流入', '销售额']}
+
+      let feeUp =   { title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], clickParams: [] }
+      let feeMid =  { title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], pKey: this.pageVal.pKey2, clickParams: [] }
+      let feeWwn =  { title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], pKey: this.pageVal.pKey3, clickParams: [] }
+
+      let kehuChart={  title: '客户数 (单位:人)', name: ['注册客户数', '绑卡客户数', '事实客户数', '有效客户数', '百元有效数', '千元有效数', '日活跃用户', '日充值百元人数'],
         selected: [true, false, false, false, false, false, false, false]
       }
       if (this.pageVal.tabletr === 1) {
         return {
-          chartUp: upFund, chartUp3: upTrans, chartMid: midFund, chartMid3: midTrans, chartDwn: dwnFund, kehuChart: kehuChart
+          chartUp: fundUp, chartUp2:fundUp, chartMid: fundMid, chartMid2: fundMid, chartDwn: fundWwn,chartDwn2: fundWwn, kehuChart: kehuChart
         }
       } else if (this.pageVal.tabletr === 2) {
         return {
-          chartUp: upFund, chartUp3: upTrans, chartMid: midFund, chartMid3: midTrans, chartDwn: dwnFund, chartDwn3: dwnTrans, kehuChart: kehuChart
+          chartUp3: transUp,chartUp2:transLine, chartMid3: transMid,chartMid2:transLine,  chartDwn3: transWwn,chartDwn2:transLine, kehuChart: kehuChart
         }
       } else if (this.pageVal.tabletr === 3) {
         return {
-          chartUp: upFee, chartUp3: upTrans, chartMid: upFee, chartMid3: midTrans, chartDwn: upFee, chartDwn3: dwnTrans, kehuChart: kehuChart
+          chartUp: feeUp, chartUp2: feeUp, chartMid: feeMid, chartMid2: feeMid, chartDwn: feeWwn, chartDwn2: feeWwn, kehuChart: kehuChart
         }
       }
     }

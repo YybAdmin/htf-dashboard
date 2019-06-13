@@ -14,8 +14,7 @@ export default {
   props: {
     chartInfo: {
       title: '',
-      name1: '',
-      name2: ''
+      name: ['','']
     },
     toolTipInfo: {
       name: ''
@@ -72,7 +71,7 @@ export default {
         },
         legend: {
           bottom: '1px',
-          data: [this.chartInfo.name1, this.chartInfo.name2]
+          data: [this.chartInfo.name[0], this.chartInfo.name[1]]
         },
         tooltip: {
           trigger: 'axis',
@@ -92,10 +91,10 @@ export default {
             _this.changeDate(params)
             return '<div style="text-align: left;font-size: 11px;color: #FFFFFF">' + params[0].data.NAME + '</div>' +
               '<div"><table style="width: 120px;font-size: 11px;color: #FFFFFF">' +
-              '<tr><td style="text-align: left;"><span>保有量：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE1 + '亿</span></td></tr>' +
-              '<tr><td style="text-align: left;"><span>份额：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE2 + '亿</span></td></tr>' +
-              '<tr><td style="text-align: left;"><span>保有量环比：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.RATE1 + '%</span></td></tr>' +
-              '<tr><td style="text-align: left;"><span>份额环比：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.RATE2 + '%</span></td></tr>' +
+              '<tr><td style="text-align: left;"><span>'+_this.chartInfo.name[0]+'：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE1 + '</span></td></tr>' +
+              '<tr><td style="text-align: left;"><span>'+_this.chartInfo.name[1]+'：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.VALUE2 + '</span></td></tr>' +
+              '<tr><td style="text-align: left;"><span>'+_this.chartInfo.name[0]+'环比：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.RATE1 + '%</span></td></tr>' +
+              '<tr><td style="text-align: left;"><span>'+_this.chartInfo.name[1]+'环比：</span></td>' + '<td style="text-align: right;"><span>' + params[0].data.RATE2 + '%</span></td></tr>' +
               '</table></div>'
           }
         },
@@ -155,7 +154,7 @@ export default {
           }
         },
         series: [{
-          name: this.chartInfo.name1,
+          name: this.chartInfo.name[0],
           type: 'line',
           encode: {
             x: 'NAME',
@@ -202,7 +201,7 @@ export default {
             }
           }
         }, {
-          name: this.chartInfo.name2,
+          name: this.chartInfo.name[1],
           type: 'line',
           encode: {
             x: 'NAME',
