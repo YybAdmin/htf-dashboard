@@ -1,4 +1,5 @@
 var myUtil = {
+  theme: false, // 主题  true 金色 false咖啡色
   watermark: function (settings) {
     // 默认设置
     var defaultSettings = {
@@ -142,16 +143,6 @@ var myUtil = {
       p.removeChild(list[i])
     }
   },
-  // 更改主题
-  changeTheme: function (theme, pageVal) {
-    if (theme === 2) {
-      pageVal.theme = 'customed'
-      document.getElementById('theme').href = '/api/statics/app/css/common.css'
-    } else if (theme === 1) {
-      pageVal.theme = 'customedcoffee'
-      document.getElementById('theme').href = '/api/statics/app/css/common_coffee.css'
-    }
-  },
   // 集成APP用户数据获取
   getAppUserInfo: function (pageVal) {
     let u = navigator.userAgent
@@ -162,13 +153,15 @@ var myUtil = {
       if (isAndroid && window.AndroidHtfPortal) {
         userInfo = window.AndroidHtfPortal.GetSysInfo()
         // 水印
-        var UserInfoJson = JSON.parse(userInfo)
-        var name = UserInfoJson.accountNameCN + ' ' + UserInfoJson.mobilePhone.substring(7, 11)
+        let UserInfoJson = JSON.parse(userInfo)
+        let name = UserInfoJson.accountNameCN + ' ' + UserInfoJson.mobilePhone.substring(7, 11)
         myUtil.watermark({watermark_txt0: name})
-        pageVal.mark = name
         // 主题   1 咖色   2 金色
-        /* var theme = UserInfoJson.theme;
-                myUtil.changeTheme(theme); */
+        if (UserInfoJson.theme === 1) {
+          myUtil.theme = false
+        } else {
+          myUtil.theme = true
+        }
         // 判断是否为函数
         try {
           // chartPermit(UserInfoJson.userCode)
