@@ -14,11 +14,10 @@
 <script>
 import $ from 'jquery'
 export default{
-  name: 'annotationIcon',
-  props: ['message'],
+  name: 'Help',
   data: function () {
     return {
-      // message: '该指标包含归属当前工作日的自有平台实时认购金额和三方渠道BD实时录入数据',
+      message:'' ,
       ifMsg: false,
       navPosition: 20
     }
@@ -47,6 +46,7 @@ export default{
 
 <style scoped>
   .iconDiv{
+    vertical-align: middle;
     display:inline;
   }
   .iconDiv:before { /*扩大div元素可点击区域*/

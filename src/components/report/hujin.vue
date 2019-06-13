@@ -33,7 +33,9 @@
         <DrawTwoBar id="chartMid" ref="chartMid"  v-bind:chartInfo="this.charData.chartMid"  @comChanged="changePageState($event,'f_chartMid')"/>
         <DrawTwoLine id="chartMid2" ref="chartMid2" v-bind:chartInfo="this.charData.chartMid"  @comChanged="changePageState($event,'f_chartMid2')" />
         <DrawThreeBarOneLine id="chartMid3" ref="chartMid3" v-bind:chartInfo="this.charData.chartMid3" @comChanged="changePageState($event,'f_chartMid')"/>
-        <div v-if="pageVal.fbOrQs2 ===1" style="font-size:11px;font-family:PingFangSC-Regular;color: #999999;padding-bottom:9px;padding-top:3px;letter-spacing:1px" >*图中百分比代表保有量环比增长</div>
+        <div>
+          <span style="font-size: 12px;color: #333;">图例解释</span> <help ref="help"></help>
+        </div>
         <HeadTableNoTitle id="sumMid" ref="sumMid" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
         <div id="guimoDivDwn">
           <div  id="jlQdDim">
@@ -89,10 +91,11 @@ import DrawThreeBarOneLine from '@/components/echartCom/DrawThreeBarOneLine'
 import downloadPDF from '@/components/baseCom/downloadPDF'
 import DrawNLine from '@/components/echartCom/DrawNLine'
 import BtnGrop from '@/components/baseCom/BtnGrp'
+import help from '@/components/baseCom/Help'
 
 export default {
   name: 'hujin',
-  components: {TabTop, HeadTable6r2rg, BtnGrop, DivSplit, NameArea, TabDim, swiperOval, swiperOvalNoAll, FenbuQushi, TabDimWidth100Up, HeadTableNoTitle, HeadTable, TabDimWidth100Dwn, DrawTwoBar, DrawTwoLine, DrawThreeBarOneLine, DrawNLine, dateDiv, downloadPDF, Tag},
+  components: {help, TabTop, HeadTable6r2rg, BtnGrop, DivSplit, NameArea, TabDim, swiperOval, swiperOvalNoAll, FenbuQushi, TabDimWidth100Up, HeadTableNoTitle, HeadTable, TabDimWidth100Dwn, DrawTwoBar, DrawTwoLine, DrawThreeBarOneLine, DrawNLine, dateDiv, downloadPDF, Tag},
   data () {
     return {
       comName: {
@@ -150,7 +153,11 @@ export default {
         gmtypeName: '全部',
         zhtypeName: '全部'
       },
-      pdfApi: this.$API_LIST.hujinPdf
+      pdfApi: this.$API_LIST.hujinPdf,
+      help:{
+        ecgropRate:'高净值/大众/企业 三者占比为所占自有平台的比例，自有/三方的占比为两者在总量中所占比例',
+        lineRate:'图中的百分比代表环比增长'
+      }
     }
   },
   computed: {
@@ -713,6 +720,7 @@ export default {
       } else {
         if (val === 1) {
           this.$refs.fenbuQushi3.setData(false, this.pageVal.dataDate)
+          this.$refs.help.setMsg(this.help.ecgropRate);
           $('#tagMid').slideUp()
           if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
             $('#chartMid').show()
@@ -723,6 +731,7 @@ export default {
           $('#chartMid2').show()
           this.$refs.tagMid.text = this.pageValName.pKey2Name
           $('#tagMid').slideDown()
+          this.$refs.help.setMsg(this.help.lineRate);
         }
       }
       return 'mid'
@@ -873,6 +882,7 @@ export default {
       this.$http.post(this.$API_LIST.hujinHeadData, this.pageVal).then(res => {
         HeadTable1.setData(res.data.list)
       })
+      this.$refs.help.setMsg(this.help.ecgropRate)
       this.guimoGetDataAndDraw(this.pageVal, 'up_mid')
     },
     kehuInit: function () {

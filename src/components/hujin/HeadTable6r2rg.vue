@@ -21,7 +21,7 @@
       <tr @click="changeTheme($event , 2,'manual')" class="normalrm">
         <td>
           <div><span>{{list[1].VALUE1}}</span><span>亿元</span><br/>
-            <span>总销售额</span><annotationIcon v-bind:message="this.annotation"/></div>
+            <span>总销售额</span><Help ref="help"></Help></div>
           <div><span>{{list[1].VALUE4}}</span><span>亿份</span><br/><span>净申购总金额</span> </div>
         </td>
         <td>
@@ -54,10 +54,10 @@
 <script>
 import $ from 'jquery'
 import DivSplit from '@/components/baseCom/DivSplit'
-import annotationIcon from '@/components/baseCom/annotationIcon'
+import Help from '@/components/baseCom/Help'
 export default {
   name: 'HeadTable6r2rg',
-  components: {DivSplit, annotationIcon},
+  components: {DivSplit, Help},
   data: function () {
     return {
       title: '业绩汇总 (本年度)',
@@ -92,6 +92,7 @@ export default {
   },
   mounted () {
     $(this.$el.lastChild.firstChild).addClass('selected')
+    this.$refs.help.setMsg(this.annotation)
   }
 }
 </script>
