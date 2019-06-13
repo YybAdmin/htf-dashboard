@@ -54,9 +54,6 @@ export default {
   .themeCoffee{
     border-bottom: 1px solid  #F3F3F3;
     table{
-      td{
-        color:  white;
-      }
       .selected {
         background-color: #483c39;
         color: white;
