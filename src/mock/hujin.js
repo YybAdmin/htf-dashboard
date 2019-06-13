@@ -1,5 +1,12 @@
 import Mock from 'mockjs'
 
+Mock.mock('/report/hujin/dataDate', /post/i, function () {
+  return {
+    'code': '200',
+    'msg': 'success',
+    'BATCHDate': '20190101'
+  }
+})
 Mock.mock('/report/hujin/headData', /post/i, function () {
   return {
     'code': '200',
@@ -204,12 +211,5 @@ Mock.mock('/report/hujin/kehuChart', /post/i, function (req) {
       {'NAME': '20180107', 'VALUE1': '2547', 'VALUE2': '1', 'VALUE3': '2053.32', 'VALUE4': '5.5', 'VALUE5': '2541.25', 'VALUE6': '1.2', 'VALUE7': '2001', 'VALUE8': '5.5'},
       {'NAME': '20180108', 'VALUE1': '2455', 'VALUE2': '2.5', 'VALUE3': '2040', 'VALUE4': '5.5', 'VALUE5': '2541.25', 'VALUE6': '1.2', 'VALUE7': '2001', 'VALUE8': '5.5'},
       {'NAME': '20180109', 'VALUE1': '2541', 'VALUE2': '0.1', 'VALUE3': '2014', 'VALUE4': '5.5', 'VALUE5': '2541.25', 'VALUE6': '1.2', 'VALUE7': '2001', 'VALUE8': '5.5'}]
-  }
-})
-Mock.mock('/report/hujin/dataDate', /post/i, function (req) {
-  return {
-    'code': '200',
-    'msg': 'success',
-    'list': [{'NAME': '20190101'}]
   }
 })
