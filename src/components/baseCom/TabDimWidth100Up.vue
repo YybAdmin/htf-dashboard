@@ -1,9 +1,8 @@
 <template>
     <div>
-      <table class="tmpTable">
+      <table :class="{themeGold:this.$myUtil.theme,themeCoffee:!this.$myUtil.theme}">
         <tr>
-          <td class="normal"
-              v-for="(item, i) in list"
+          <td v-for="(item, i) in list"
               :key="item.id"
               :class="[tdIndex === i ? 'selected':'']"
               @click="changeTheme(i,'self')">
@@ -34,26 +33,38 @@ export default {
 }
 </script>
 
-<style scoped>
-  .tmpTable{
+<style scoped lang="less">
+  @gold : #ddaf59;
+  @coffee : #483c39;
+  .themeGold {
+    .selected{
+      color:@gold;
+      border-bottom: 2px solid @gold;
+    }
+  }
+  .themeCoffee{
+    .selected{
+      color:@coffee;
+      border-bottom: 2px solid @coffee;
+    }
+  }
+  table{
     width:100%;
     table-layout: fixed;
     border-collapse: collapse;
-  }
-  .normal {
-    font-size: 12px;
-    font-weight: 400;
-    color:  #999;
-    line-height: 34px;
-    text-align: center;
-    border: 0.5px solid #EEEEEE;
-    background-color: #FAFAFA;
+    td{
+      font-size: 12px;
+      font-weight: 400;
+      color:  #999;
+      line-height: 34px;
+      text-align: center;
+      border: 0.5px solid #EEEEEE;
+      background-color: #FAFAFA;
+    }
   }
   .selected {
-    color:#DDAF59;
     position: relative;
     border-top: none;
-    border-bottom: 2px solid #DDAF59;
     background-color: white;
   }
 </style>
