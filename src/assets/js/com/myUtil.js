@@ -1,5 +1,5 @@
 var myUtil = {
-  theme: false, // 主题  true 金色 false咖啡色
+  theme: true, // 主题  true 金色 false咖啡色
   mark:'mark 0000',
   watermark: function (settings) {
     // 默认设置
