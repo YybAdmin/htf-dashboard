@@ -541,12 +541,10 @@ export default {
       if (this.pageVal.tabTop === 1) {
         $('#guimoDiv').show()
         $('#kehuDiv').hide()
-        this.$myUtil.watermark({watermark_txt0: 'test 00000'})
       } else if (this.pageVal.tabTop === 2) {
         this.kehuInit()
         $('#guimoDiv').hide()
         $('#kehuDiv').show()
-        this.$myUtil.watermark({watermark_txt0: 'ssss 999999'})
       }
       // dateDiv 重新布局
       this.$refs.dateDiv.changeBottomStyle()
@@ -775,7 +773,7 @@ export default {
       } else {
         this.comName.DwnTitle = '客户经理排名-' + this.comName.TabDimList[this.pageVal.proType - 1].name + '-' + this.pageValName.pKey2Name
       }
-      if (this.pageVal.tabletr === 1) {
+      if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
         $('#chartDwn').show()
         $('#chartDwn3').hide()
       } else if (this.pageVal.tabletr === 2) {
@@ -884,6 +882,7 @@ export default {
     }
   },
   mounted () {
+    this.$myUtil.getAppUserInfo(this.pageVal);
     this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
       this.pageVal.BATCHDate = res.data.BATCHDate
       this.pageVal.dataDate = res.data.BATCHDate
