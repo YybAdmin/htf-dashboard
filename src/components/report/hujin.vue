@@ -274,17 +274,17 @@ export default {
       //
       if (flag === 'p_kehuDate') {
         this.pageVal.kehuDateType = val
-        reflashFlag = 'kehuChart'
+        reflashFlag = 'kehu'
       }
       //
       if (flag === 'p_kehuCusGrp') {
         this.pageVal.kehuEcCusGrp = val
-        reflashFlag = 'kehuChart'
+        reflashFlag = 'kehu'
       }
       //
       if (flag === 'p_kehuMeaType') {
         this.pageVal.kehuMeaType = val
-        reflashFlag = 'kehuChart'
+        reflashFlag = 'kehu'
       }
       // pdf
       if (flag === 'f_pdf') {
