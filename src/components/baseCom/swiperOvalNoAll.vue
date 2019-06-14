@@ -5,7 +5,10 @@
         <td>
           <swiper :options="swiperOption" ref="mySwiper">
             <swiper-slide v-bind:key="item.index" v-for="(item,i) in list">
-              <button v-on:click="changeTheme($event, i+1,'manual')" class="normal normalrm">{{item.name}}</button>
+              <span v-on:click="changeTheme(i,'self')"
+                    :class="[swiperIndex == i ? 'selected' : '', swiperIndex == i ?{themeGold: theme ,themeCoffee:!theme}:'']">
+                {{item.name}}
+              </span>
             </swiper-slide>
           </swiper>
         </td>
@@ -25,6 +28,8 @@ export default {
   props: ['itemList'],
   data () {
     return {
+      swiperIndex: 0,
+      theme : this.$myUtil.theme,
       swiperOption: {
         slidesPerView: 4
       },
@@ -32,42 +37,44 @@ export default {
     }
   },
   methods: {
-    changeTheme (ev, i, flag) {
-      let enable
-      enable = this.itemList[i - 1].clickDisable === undefined ? false : this.itemList[i - 1].clickDisable
-      if (!enable) {
-        let rmgrp = $(this.$el).find('button')
-        $(rmgrp).each(function () {
-          $(this).removeClass('selected')
-        })
-        ev.target.classList.add('selected')
-        if (flag === 'manual') {
-          this.$emit('comChanged', i)
-        }
+    changeTheme (i, flag) {
+      this.swiperIndex = i
+      if (flag === 'self') {
+        this.$emit('comChanged', i + 1)
       }
     }
-  },
-  mounted () {
-    $(this.$el).find('button').first().addClass('selected')
   }
 }
 </script>
-<style scoped>
-  .normal {
+<style scoped lang="less">
+  @gold : #ddaf59;
+  @goldBack: #fefee9;
+  @coffee : #483c39;
+  @coffeeFont: #666;
+  @coffeeBack: #e9e2e0;
+  .themeGold{
+    border: 1px solid @gold;
+    color: @gold;
+    background-color: @goldBack;
+  }
+  .themeCoffee{
+    border: 1px solid @coffee;
+    color: @coffee;
+    background-color: @coffeeBack;
+  }
+  span {
     background-color: white;
     color: #999999;
     font-size: 13px;
-    border: 1px solid transparent;
-    padding: 3px 11px;
-    outline: none;
-    margin-top: 3px;
+    padding: 2px 11px;
+    margin: auto;
+    border: none;
   }
-
-  .selected {
-    border-radius: 13px;
-    border: 1px solid #CCCCCC;
-    color: #ddaf59;
-    background-color: #FEF7E9;
-    border-color: #ddaf59;
+  .selected{
+    border-radius:10px;
+    outline: none;
+  }
+  .swiper-container{
+    height:23px;
   }
 </style>
