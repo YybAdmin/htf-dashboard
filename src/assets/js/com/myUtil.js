@@ -1,5 +1,6 @@
 var myUtil = {
   theme: false, // 主题  true 金色 false咖啡色
+  mark:'mark 0000',
   watermark: function (settings) {
     // 默认设置
     var defaultSettings = {
@@ -155,13 +156,9 @@ var myUtil = {
         // 水印
         let UserInfoJson = JSON.parse(userInfo)
         let name = UserInfoJson.accountNameCN + ' ' + UserInfoJson.mobilePhone.substring(7, 11)
-        myUtil.watermark({watermark_txt0: name})
+        myUtil.mark = name
         // 主题   1 咖色   2 金色
-        if (UserInfoJson.theme === 1) {
-          myUtil.theme = false
-        } else {
-          myUtil.theme = true
-        }
+        if (UserInfoJson.theme === 1) { myUtil.theme = false } else { myUtil.theme = true }
         // 判断是否为函数
         try {
           // chartPermit(UserInfoJson.userCode)
@@ -174,11 +171,9 @@ var myUtil = {
           // 水印
           var UserInfoJson = JSON.parse(userInfo)
           var name = UserInfoJson.accountNameCN + ' ' + UserInfoJson.mobilePhone.substring(7, 11)
-          myUtil.watermark({watermark_txt0: name})
-          pageVal.mark = name
+          myUtil.mark = name
           // 主题   1 咖色   2 金色
-          /* var theme = UserInfoJson.theme;
-                    myUtil.changeTheme(theme); */
+          if (UserInfoJson.theme === 1) { myUtil.theme = false } else {  myUtil.theme = true }
           try {
           //  chartPermit(UserInfoJson.userCode)
           } catch (e) {

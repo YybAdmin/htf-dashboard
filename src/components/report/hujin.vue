@@ -541,10 +541,12 @@ export default {
       if (this.pageVal.tabTop === 1) {
         $('#guimoDiv').show()
         $('#kehuDiv').hide()
+        this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
       } else if (this.pageVal.tabTop === 2) {
         this.kehuInit()
         $('#guimoDiv').hide()
         $('#kehuDiv').show()
+        this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
       }
       // dateDiv 重新布局
       this.$refs.dateDiv.changeBottomStyle()
@@ -872,6 +874,7 @@ export default {
       })
       this.$refs.help.setMsg(this.help.ecgropRate)
       this.guimoGetDataAndDraw(this.pageVal, 'up_mid')
+      this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
     },
     kehuInit: function () {
       let kehuhead = this.$refs.kehuHead
@@ -881,8 +884,10 @@ export default {
       this.guimoGetDataAndDraw(this.pageVal, 'kehu')
     }
   },
-  mounted () {
+  beforeCreate(){
     this.$myUtil.getAppUserInfo(this.pageVal);
+  },
+  mounted () {
     this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
       this.pageVal.BATCHDate = res.data.BATCHDate
       this.pageVal.dataDate = res.data.BATCHDate
