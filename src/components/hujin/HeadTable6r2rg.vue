@@ -1,5 +1,5 @@
 <template>
-  <div class="tmpDiv">
+  <div class="tmpDiv" :class="{themeGold:this.$myUtil.theme,themeCoffee:!this.$myUtil.theme}">
     <div class="titleDiv">
       <span class="normal">{{title}}</span>
     </div>
@@ -97,57 +97,59 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@gold : #ddaf59;
+@goldBack: #fefee9;
+@coffee : #483c39;
+@coffeeFont: #666;
+@coffeeBack: #e9e2e0;
+@font : #333;
+@white : white;
+.themeGold{
+  .titleDiv{
+    span{ color: @gold; background: @goldBack; }
+  }
+  table{
+    .selected { color:@gold; background-color: @goldBack; }
+  }
+}
+.themeCoffee{
+  .titleDiv{
+    span{ color: @coffee; background: @coffeeBack; }
+  }
+  table{
+    .selected { color:@coffee; background-color: @coffeeBack; }
+  }
+}
 .tmpDiv {
-  margin-top:15px;
-  margin-bottom: 10px;
-}
-.titleDiv{
-  height:30px;
-  text-align: left;
-  margin-bottom: 10px;
-}
-.normal {
-  line-height: 30px;
-  font-size: 15px;
-  color: #DDAF59;
-  background:rgba(254,247,233,1);
-  border-radius:0px 100px 100px 0px;
-  padding:3px 10px 3px 10px;
-}
-.tmpTable{
-  width: 100%;
-  table-layout: fixed;
-  border-spacing: unset;
-  text-align: center;
-  color: #333;
-}
-.tmpTable tr {
-  height:114px;
-}
-.tmpTable tr div{
-  height:50px;
-  vertical-align: middle;
-}
-.tmpTable tr td:nth-of-type(1){
-  border-right:1px solid #EEE;
-}
-.tmpTable tr td:nth-of-type(2){
-  border-right:1px solid #EEE;
-}
-.tmpTable tr td div span:nth-of-type(1){
-  font-size: 16px;
-}
-.tmpTable tr td div span:nth-of-type(2){
-  font-size: 14px;
-}
-.tmpTable tr td div span:nth-of-type(3){
-  font-size: 13px;
-  color: #999;
-}
-.selected {
-  color:#DDAF59;
-  background-color: #FEF7E9;
-  position: relative;
+  margin:15px 0px 10px 0px;
+  .titleDiv{
+    height:30px;
+    text-align: left;
+    margin-bottom: 10px;
+    span {
+      line-height: 30px;
+      font-size: 15px;
+      border-radius:0px 100px 100px 0px;
+      padding:3px 10px 3px 10px;
+    }
+  }
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: unset;
+    text-align: center;
+    color: #333;
+    tr{
+      height:114px;
+      div{ height:50px; vertical-align: middle; }
+      td:nth-of-type(1){ border-right:1px solid #EEE; }
+      td:nth-of-type(2){ border-right:1px solid #EEE; }
+      td div span:nth-of-type(1){ font-size: 16px; }
+      td div span:nth-of-type(2){ font-size: 14px; }
+      td div span:nth-of-type(3){ font-size: 13px; color: #999; }
+    }
+    .selected{ position: relative; }
+  }
 }
 </style>
