@@ -39,6 +39,8 @@ export default {
 <style scoped lang="less">
   @gold : #ddaf59;
   @coffee : #483c39;
+  @coffeeFont: #666;
+  @coffeeBack: #e9e2e0;
   @font : #333;
   @white : white;
   .themeGold{
@@ -58,11 +60,13 @@ export default {
   .themeCoffee{
     border-bottom: 1px solid  @coffee;
     table{
+      td{
+        color: @coffeeFont;
+      }
       .selected {
-        background-color: @coffee;
-        color: @white;
+        color: @coffee;
         &:after{
-          background-color: @white;
+          background-color: @coffee;
         }
       }
     }
