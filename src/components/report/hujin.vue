@@ -480,7 +480,7 @@ export default {
     drawChartDwn: function (pageVal) {
       this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
         if (pageVal.fbOrQs3 === 1) {
-          if (pageVal.tabletr === 1) {
+          if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
             let chartDwn = this.$refs.chartDwn
             let params = {
               label1Show: true,
