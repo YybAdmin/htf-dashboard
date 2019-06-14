@@ -37,28 +37,32 @@ export default {
 </script>
 
 <style scoped lang="less">
+  @gold : #ddaf59;
+  @coffee : #483c39;
+  @font : #333;
+  @white : white;
   .themeGold{
-    border-bottom: 1px solid  #F3F3F3;
+    border-bottom: 1px solid  @gold;
     table{
       td{
-        color:  #333333;
+        color: @font;
       }
       .selected {
-        color:#ddaf59;
+        color: @gold;
         &:after{
-          background-color: #DDAF59;
+          background-color: @gold;
         }
       }
     }
   }
   .themeCoffee{
-    border-bottom: 1px solid  #F3F3F3;
+    border-bottom: 1px solid  @coffee;
     table{
       .selected {
-        background-color: #483c39;
-        color: white;
+        background-color: @coffee;
+        color: @white;
         &:after{
-          background-color: white;
+          background-color: @white;
         }
       }
     }

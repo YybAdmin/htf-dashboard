@@ -1,12 +1,12 @@
 <template>
-  <div class="btngroup">
+  <div class="btngroup" :class="{themeGold:this.$myUtil.theme,themeCoffee:!this.$myUtil.theme}">
     <div :class="{'hide': ifHide}">
-      <button class="normal btn-left"
+      <span class="normal btn-left"
               :class="[btnIndex == 0 ? 'selected':'']"
-              @click="changeTheme(0)">分布</button>
-      <button class="normal btn-right"
+              @click="changeTheme(0)">分布</span>
+      <span class="normal btn-right"
               :class="[btnIndex == 1 ? 'selected':'']"
-              @click="changeTheme(1)">趋势</button>
+              @click="changeTheme(1)">趋势</span>
     </div>
     <div :class="{'hide': !ifHide}">
       <div class="normal2">数据日期:<span>{{this.dataDate}}</span></div>
@@ -45,21 +45,49 @@ export default {
 </script>
 
 <style scoped lang="less">
+   @gold : #ddaf59;
+   @coffee : #483c39;
+   @white : white;
+  .themeGold{
+    .normal{
+      border: 1px solid @gold;
+      color: @gold;
+      background-color: @white;
+    }
+    .selected{
+      color:@white;
+      background-color: @gold;
+    }
+    .normal2{
+      background-color: @white;
+    }
+  }
+  .themeCoffee{
+    .normal{
+      border: 1px solid @coffee;
+      color: @coffee;
+      background-color: @white;
+    }
+    .selected{
+      color: @white;
+      background-color: @coffee;
+    }
+    .normal2{
+      background-color: @white;
+    }
+  }
   .btngroup{
     text-align: right;
+    padding: 13px 15px 0px 0px;
+    color: #999999;
     .hide{
       display: none;
     }
     .normal {
-      background-color: white;
-      color: #ddaf59;
       font-size: 12px;
-      margin: 13px 0px 5px -6px;
-      width: 50px;
-      line-height: 25px;
-      border: 1px solid #ddaf59;
-      padding: 0px;
-      outline: none;
+      line-height: 30px;
+      padding:3px 10px;
+      margin-right:-6px;
     }
     .btn-left{
       border-top-left-radius: 4px;
@@ -68,19 +96,10 @@ export default {
     .btn-right{
       border-bottom-right-radius: 4px;
       border-top-right-radius: 4px;
-      margin-right: 15px;
-    }
-    .selected {
-      color:white;
-      background-color: #DDAF59;
     }
     .normal2 {
-      background-color: white;
-      color: #999999;
       font-size: 12px;
-      margin: 15px 15px 5px 0px;
       line-height: 25px;
-      padding: 0px;
     }
   }
 </style>

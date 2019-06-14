@@ -31,24 +31,27 @@ export default {
 </script>
 
 <style scoped lang="less">
+  @gold : #ddaf59;
+  @coffee : #483c39;
+  @white : white;
   .themeGold{
     span{
-      color: #ddaf59;
-      border: 1px solid #ddaf59;
+      color: @gold;
+      border: 1px solid @gold;
     }
     .selected {
-      background-color: #ddaf59;
-      color: white;
+      background-color: @gold;
+      color: @white;
     }
   }
   .themeCoffee{
     span{
-      color: #483c39;
-      border: 1px solid #483c39;
+      color: @coffee;
+      border: 1px solid @coffee;
     }
     .selected {
-      background-color: #483c39;
-      color: white;
+      background-color: @coffee;
+      color: @white;
     }
   }
   .btngroup {
