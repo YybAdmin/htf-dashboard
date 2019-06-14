@@ -1,7 +1,6 @@
 <template>
-    <div class="tmpDiv">
-      <span class="normal"
-            v-for="(item,i) in list"
+    <div class="tabgroup" :class="{themeGold:this.$myUtil.theme,themeCoffee:!this.$myUtil.theme}">
+      <span v-for="(item,i) in list"
             :key="i"
             :class="[tabIndex == i ? 'selected':'']"
             @click="changeTheme(i+1, 'self')">
@@ -42,31 +41,55 @@ export default {
 }
 </script>
 
-<style scoped>
-  .tmpDiv {
+<style scoped lang="less">
+  @gold : #ddaf59;
+  @coffee : #483c39;
+  @coffeeFont: #666;
+  @font : #333;
+  .themeGold {
+    border-bottom: 1px solid @gold;
+    span {
+      color: @font;
+    }
+    .selected {
+      color: @gold;
+      &:after {
+        background-color: @gold;
+      }
+    }
+  }
+  .themeCoffee{
+    border-bottom: 1px solid  @coffee;
+    span{
+      color: @coffeeFont;
+    }
+    .selected{
+      color: @coffee;
+      &:after{
+        background-color: @coffee;
+      }
+    }
+  }
+  .tabgroup {
     text-align: left;
     padding-left: 10px;
-    border-bottom: 1px solid  #F3F3F3;
-  }
-  .normal {
-    font-size: 16px;
-    font-weight: 400;
-    color:  #333333;
-    line-height: 40px;
-    text-align: center;
-    margin-right:10px;
-  }
-  .selected {
-    color:#DDAF59;
-    position: relative;
-  }
-  .selected:after {
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 2px;
-    left: 25%;
-    bottom: -5px;
-    background-color: #DDAF59;
+    span {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 40px;
+      text-align: center;
+      margin-right:10px;
+    }
+    .selected {
+      position: relative;
+      &:after{
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 2px;
+        left: 25%;
+        bottom: -5px;
+      }
+    }
   }
 </style>
