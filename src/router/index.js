@@ -20,11 +20,6 @@ export default new Router({
       path: '/jingpin',
       name: 'jingpin',
       component: resolve => require(['@/components/report/jingpin'], resolve)
-    },
-    {
-      path: '/testyyw',
-      name: 'testyyw',
-      component: resolve => require(['@/components/report/testyyw'], resolve)
     }
   ]
 })
