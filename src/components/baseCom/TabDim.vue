@@ -87,8 +87,9 @@ export default {
         position: absolute;
         width: 50%;
         height: 2px;
-        left: 25%;
+        left: 20%;
         bottom: -5px;
+        border-radius: 1px;
       }
     }
   }

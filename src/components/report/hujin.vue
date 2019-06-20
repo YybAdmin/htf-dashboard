@@ -757,7 +757,8 @@ export default {
     onClickChartUpLine: function (val) {
       this.$refs.sumUp.headData[0].VALUE1 = val[0].data.VALUE1
       this.$refs.sumUp.headData[0].VALUE2 = val[0].data.VALUE2
-      this.pageVal.dataDate = val[0].value.NAMEBAK
+      //this.pageVal.dataDate = val[0].value.NAMEBAK
+      this.pageVal.dataDate = val[0].value.NAMEBAK.substring(0, 4) + '-' + val[0].value.NAMEBAK.substring(4, 6) + '-' + val[0].value.NAMEBAK.substring(6, 8)
       this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
       this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
       return 'mid_dwn'
@@ -804,7 +805,8 @@ export default {
     onClickChartMidLine: function(val){
       this.$refs.sumMid.headData[0].VALUE1 = val[0].data.VALUE1
       this.$refs.sumMid.headData[0].VALUE2 = val[0].data.VALUE2
-      this.pageVal.dataDate = val[0].value.NAMEBAK
+      //this.pageVal.dataDate = val[0].value.NAMEBAK
+      this.pageVal.dataDate = val[0].value.NAMEBAK.substring(0, 4) + '-' + val[0].value.NAMEBAK.substring(4, 6) + '-' + val[0].value.NAMEBAK.substring(6, 8)
       this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
       return 'dwn'
     },

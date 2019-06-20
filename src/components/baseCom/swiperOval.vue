@@ -61,6 +61,7 @@ export default {
     border: 1px solid @gold;
     color: @gold;
     background-color: @goldBack;
+    white-space: nowrap;
   }
   .themeCoffee{
     border: 1px solid @coffee;

@@ -78,7 +78,7 @@ export default {
   }
   .btngroup{
     text-align: right;
-    padding: 13px 15px 0px 0px;
+    padding: 13px 5px 0px 0px;
     color: #999999;
     .hide{
       display: none;

@@ -131,7 +131,7 @@ export default {
       line-height: 30px;
       font-size: 15px;
       border-radius:0px 100px 100px 0px;
-      padding:3px 10px 3px 10px;
+      padding:5px 10px 5px 10px;
     }
   }
   table {
