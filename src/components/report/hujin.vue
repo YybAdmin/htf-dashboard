@@ -19,7 +19,8 @@
         <DrawTwoBar id="chartUp" ref="chartUp"  v-bind:chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp')"/>
         <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.charData.chartUp2" @comChanged="changePageState($event,'f_chartUp2')" />
         <DrawThreeBarOneLine id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.charData.chartUp3" @comChanged="changePageState($event,'f_chartUp')"/>
-        <TabDimWidth100Up v-if="this.switch.dateTypeRet" @comChanged="changePageState($event,'f_dateType')" v-bind:itemList="comName.TabDimDateList"></TabDimWidth100Up>
+        <TabDimWidth100Up  id="dateDim" @comChanged="changePageState($event,'f_dateType')" v-bind:itemList="comName.TabDimDateList"></TabDimWidth100Up>
+        <TabDimWidth100Up  id="dateDim2" @comChanged="changePageState($event,'f_dateType2')" v-bind:itemList="comName.TabDimDateList2"></TabDimWidth100Up>
         <HeadTableNoTitle id="sumUp" ref="sumUp" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
         <table style="width:100%;">
           <tr>
@@ -105,6 +106,7 @@ export default {
         gmTypeList: [{name: '货币'}, {name: '权益'}, {name: '债券'}, {name: '理财'}],
         zhTypeList: [{name: '货币'}, {name: '权益'}],
         TabDimDateList: [{name: '当日'}, {name: '月度'}, {name: '季度'}, {name: '年度'}],
+        TabDimDateList2: [{name: '月度'}, {name: '季度'}, {name: '年度'}],
         SumMeaList: [{name: '总保有量(亿元)'}, {name: '总份额(亿份)'}],
         SumMeaList2: [{name: '总销售额(万元)'}, {name: '净申购金额(万元)'}],
         SumMeaList3: [{name: '总管理费(万元)'}, {name: '净收入(万元)'}],
@@ -121,7 +123,6 @@ export default {
         proTypeRet: true,
         gmTypeRst: true,
         zhTypeRst: true,
-        dateTypeRet: true,
         fenbuRst1: true,
         fenbuRst2: true,
         fenbuRst3: true,
@@ -245,6 +246,11 @@ export default {
       // chartUp 日期切换
       if (flag === 'f_dateType') {
         this.pageVal.dateType = val
+        reflashFlag = 'up_mid'
+      }
+      // chartUp 日期2切换
+      if (flag === 'f_dateType2') {
+        this.pageVal.dateType = val + 1
         reflashFlag = 'up_mid'
       }
       // chartMid 分布趋势切换
@@ -565,6 +571,13 @@ export default {
         $('#chartUp3').show()
         $('#chartMid3').show()
       }
+      if(val === 1 || val === 2){
+        $("#dateDim2").hide()
+        $("#dateDim").show()
+      }else if(val === 3){
+        $("#dateDim").hide()
+        $("#dateDim2").show()
+      }
       this.pageVal.pKey1 = '999999'
       this.pageVal.pKey2 = '999999'
       this.pageVal.pKey3 = '999999'
@@ -857,6 +870,9 @@ export default {
       this.resetCom('fenbuRst3', 'fbOrQs3', 'fenbuQushi3Div')
     },
     guimoInit: function () {
+      // 日月季年  月季年
+      $("#dateDim").show()
+      $("#dateDim2").hide()
       // 规模 经理渠道 初始化隐藏
       $('#jlQdDim').hide()
       $('#chartDwn2').hide()
