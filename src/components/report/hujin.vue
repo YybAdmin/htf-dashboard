@@ -135,6 +135,8 @@ export default {
         gmType: 1,
         zhType: 1,
         dateType: 1,
+        dateType1: 1,
+        dateType2: 2,
         fbOrQs1: 1,
         pKey1: '999999',
         fbOrQs2: 1,
@@ -245,12 +247,12 @@ export default {
       }
       // chartUp 日期切换
       if (flag === 'f_dateType') {
-        this.pageVal.dateType = val
+        this.pageVal.dateType1 = val
         reflashFlag = 'up_mid'
       }
       // chartUp 日期2切换
       if (flag === 'f_dateType2') {
-        this.pageVal.dateType = val + 1
+        this.pageVal.dateType2 = val + 1
         reflashFlag = 'up_mid'
       }
       // chartMid 分布趋势切换
@@ -524,6 +526,11 @@ export default {
       })
     },
     guimoGetDataAndDraw: function (pageVal, flag) {
+      if(pageVal.tabletr == 1 || pageVal.tabletr == 2  ){
+        pageVal.dateType =  pageVal.dateType1
+      } else if(pageVal.tabletr == 3){
+        pageVal.dateType =  pageVal.dateType2
+      }
       if (flag === 'up') {
         this.drawChartUp(pageVal)
       } else if (flag === 'mid') {
@@ -575,6 +582,7 @@ export default {
         $("#dateDim2").hide()
         $("#dateDim").show()
       }else if(val === 3){
+
         $("#dateDim").hide()
         $("#dateDim2").show()
       }
