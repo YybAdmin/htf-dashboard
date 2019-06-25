@@ -9,17 +9,17 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: resolve => require(['@/components/home/index'], resolve)
+      component: resolve => require(['@/home/index'], resolve)
     },
     {
       path: '/hujin',
       name: 'hujin',
-      component: resolve => require(['@/components/report/hujin'], resolve)
+      component: resolve => require(['@/report/hujin'], resolve)
     },
     {
       path: '/jingpin',
       name: 'jingpin',
-      component: resolve => require(['@/components/report/jingpin'], resolve)
+      component: resolve => require(['@/report/jingpin'], resolve)
     }
   ]
 })
