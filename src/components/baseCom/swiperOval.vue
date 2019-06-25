@@ -67,6 +67,7 @@ export default {
     border: 1px solid @coffee;
     color: @coffee;
     background-color: @coffeeBack;
+    white-space: nowrap;
   }
   span {
     background-color: white;
