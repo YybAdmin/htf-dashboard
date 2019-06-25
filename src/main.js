@@ -17,6 +17,7 @@ Vue.prototype.$http = axios
 if(Vue.prototype.$API_LIST.state == 0){
   require('@/mock/hujin')
   require('@/mock/jingpin')
+  require('@/mock/datagrid')
 }
 
 /* eslint-disable no-new */

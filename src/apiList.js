@@ -15,9 +15,12 @@ let API_LIST = {
   'hujinKehuHeadData': href + '/hujin/hujinKehuHeadData',
   'hujinPdf': href + '/report/pdf/hujinPdf',
   'hujinKehuChart': href + '/hujin/kehuChart',
+
   'jingpinHeadData': href + '/jingpin/headData',
   'jingpinChartUp': href + '/jingpin/chartUp',
   'jingpinChartMid': href + '/jingpin/chartMid',
-  'jingpinChartDwn': href + '/jingpin/chartDwn'
+  'jingpinChartDwn': href + '/jingpin/chartDwn',
+
+  'dataGridDemo': href + '/dataGrid/getData'
 }
 export default API_LIST

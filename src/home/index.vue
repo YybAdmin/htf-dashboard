@@ -8,6 +8,9 @@
       <li>
         <router-link to="jingpin">竞品月活动分析</router-link>
       </li>
+      <li>
+        <router-link to="datagrid">dataGridDemo</router-link>
+      </li>
     </ul>
   </div>
 </template>
