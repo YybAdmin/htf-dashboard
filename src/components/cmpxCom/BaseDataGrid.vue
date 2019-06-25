@@ -1,19 +1,23 @@
 <template>
   <div>
-    <h2>Frozen Column</h2>
-    <DataGrid :data="data" style="width:600px;height:250px">
-      <GridColumn field="itemid" title="Item ID" :frozen="true"></GridColumn>
-      <GridColumn field="name" title="Name" :frozen="true"></GridColumn>
-      <GridColumn field="listprice" title="List Price" align="right" width="100"></GridColumn>
-      <GridColumn field="unitcost" title="Unit Cost" align="right" width="100"></GridColumn>
-      <GridColumn field="attr" title="Attribute" width="200"></GridColumn>
-      <GridColumn field="status" title="Status" width="100"></GridColumn>
+    <DataGrid :data="data" style="width:100%;">
+      <GridColumn field="NAME" title="产品名称" :frozen="true"></GridColumn>
+      <GridColumn field="VALUE1" title="保有量(亿元)" align="right" width="100"></GridColumn>
+      <GridColumn field="VALUE2" title="份额(亿份)" align="right" width="100"></GridColumn>
+      <GridColumn field="VALUE3" title="净收入(万元)" align="right" width="100"></GridColumn>
     </DataGrid>
   </div>
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
+  nama:'dataGrid',
+  props:{
+    itemList:{
+      type:Array
+    }
+  },
   data() {
     return {
       data: []
@@ -23,6 +27,14 @@ export default {
     setData:function (data) {
       this.data = data
     }
+  },
+  mounted() {
+    $('.datagrid-view1').css('width','100px')
   }
 };
 </script>
+<style scoped lang="less">
+  .panel-header, .panel-body {
+    border-color: #f6f6f6;
+  }
+</style>
