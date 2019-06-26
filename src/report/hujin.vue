@@ -796,6 +796,7 @@ export default {
       this.pageVal.dateType1 = val
       this.pageVal.pKey2 = '999999'
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
+      $('#guimoDivDwn').hide()
       $('#chartMid,#chartMid2,#chartMid3').hide()
       if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
         $('#chartMid').show()
@@ -808,6 +809,7 @@ export default {
       this.pageVal.dateType2 = val + 1
       this.pageVal.pKey2 = '999999'
       this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
+      $('#guimoDivDwn').hide()
       $('#chartMid,#chartMid2,#chartMid3').hide()
       if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
         $('#chartMid').show()
