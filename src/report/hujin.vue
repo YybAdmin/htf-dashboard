@@ -247,13 +247,11 @@ export default {
       }
       // chartUp 日期切换
       if (flag === 'f_dateType') {
-        this.pageVal.dateType1 = val
-        reflashFlag = 'up_mid'
+        reflashFlag = this.changeDateType(val)
       }
       // chartUp 日期2切换
       if (flag === 'f_dateType2') {
-        this.pageVal.dateType2 = val + 1
-        reflashFlag = 'up_mid'
+        reflashFlag = this.changeDateType2(val)
       }
       // chartMid 分布趋势切换
       if (flag === 'f_fenbuQushi2') {
@@ -388,6 +386,17 @@ export default {
               initSelKey: this.pageVal.pKey2.toString()
             }
             let retData = res.data.list
+            if(pageVal.tabletr == 3){ //费用的时候，造出自有的数据
+              let zy = {'KKEY':'4','VALUE1':0,'VALUE2':0,'NAME':'自有'}
+              for (let i = 0; i < 3; i++) {
+                zy.VALUE1 = parseFloat(retData[i].VALUE1)+zy.VALUE1
+                zy.VALUE2 = parseFloat(retData[i].VALUE2)+zy.VALUE2
+              }
+              zy.VALUE1 = (zy.VALUE1).toFixed(2).toString()
+              zy.VALUE2 = (zy.VALUE2).toFixed(2).toString()
+              retData.splice(3, 0, zy);
+              console.log(retData)
+            }
             let zyCapital = 0
             let zyShares = 0
             let sfCapital = 0
@@ -421,8 +430,7 @@ export default {
               }
             }
             chartMid.setData(retData, paramsMid)
-          }
-          if(pageVal.tabletr === 2){
+          }else if(pageVal.tabletr === 2){
             let chartMid3 = this.$refs.chartMid3
             let paramsMid = {
               ifShadow: true,
@@ -783,6 +791,30 @@ export default {
       this.$refs.fenbuQushi2.setData(true, this.pageVal.dataDate)
       this.$refs.fenbuQushi3.setData(true, this.pageVal.dataDate)
       return 'mid_dwn'
+    },
+    changeDateType: function(val){
+      this.pageVal.dateType1 = val
+      this.pageVal.pKey2 = '999999'
+      this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
+      $('#chartMid,#chartMid2,#chartMid3').hide()
+      if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
+        $('#chartMid').show()
+      } else {
+        $('#chartMid3').show()
+      }
+      return 'up_mid'
+    },
+    changeDateType2: function(val){
+      this.pageVal.dateType2 = val + 1
+      this.pageVal.pKey2 = '999999'
+      this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
+      $('#chartMid,#chartMid2,#chartMid3').hide()
+      if (this.pageVal.tabletr === 1 || this.pageVal.tabletr === 3) {
+        $('#chartMid').show()
+      } else {
+        $('#chartMid3').show()
+      }
+      return 'up_mid'
     },
     onClickChartMidBar: function (val) {
       this.pageVal.pKey3 = '999999'
