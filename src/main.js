@@ -38,5 +38,5 @@ setTimeout(function () {
     components: { App },
     template: '<App/>'
   })
-},500)
+},100)
 
