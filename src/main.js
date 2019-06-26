@@ -29,9 +29,14 @@ if(Vue.prototype.$API_LIST.state == 0){
 }
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+Vue.prototype.$myUtil.getAppUserInfo();
+
+setTimeout(function () {
+  new Vue({
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
+  })
+},500)
+
