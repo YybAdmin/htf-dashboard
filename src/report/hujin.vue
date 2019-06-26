@@ -99,7 +99,6 @@ export default {
   components: {help, TabTop, HeadTable6r2rg, BtnGrop, DivSplit, NameArea, TabDim, swiperOval, swiperOvalNoAll, FenbuQushi, TabDimWidth100Up, HeadTableNoTitle, HeadTable, TabDimWidth100Dwn, DrawTwoBar, DrawTwoLine, DrawThreeBarOneLine, DrawNLine, dateDiv, downloadPDF, Tag},
   data () {
     return {
-      ifReady:false,
       comName: {
         tabTopList: [{name: '规模'}, {name: '客户数'}],
         TopTitle: '规模对比',
