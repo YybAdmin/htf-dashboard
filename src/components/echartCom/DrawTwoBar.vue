@@ -96,6 +96,13 @@ export default {
             color: '#999999'
           }
         },
+        tooltip: {
+          trigger: 'axis',
+          triggerOn: 'click',
+          textStyle: {
+            align: 'left'
+          }
+        },
         legend: {
           bottom: '1px',
           data: [this.chartInfo.name[0], this.chartInfo.name[1]]

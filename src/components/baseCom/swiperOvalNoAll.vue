@@ -48,7 +48,7 @@ export default {
 </script>
 <style scoped lang="less">
   @gold : #ddaf59;
-  @goldBack: #fefee9;
+  @goldBack: #fef7e9;
   @coffee : #483c39;
   @coffeeFont: #666;
   @coffeeBack: #e9e2e0;
