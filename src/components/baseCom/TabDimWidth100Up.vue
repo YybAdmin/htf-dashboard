@@ -50,6 +50,7 @@ export default {
   }
   table{
     width:100%;
+    margin-top: 20px;
     table-layout: fixed;
     border-collapse: collapse;
     td{
