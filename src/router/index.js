@@ -25,6 +25,11 @@ export default new Router({
       path: '/datagrid',
       name: 'datagrid',
       component: resolve => require(['@/report/dataGrid'], resolve)
+    },
+    {
+      path: '/treegrid',
+      name: 'treegrid',
+      component: resolve => require(['@/report/treegrid'], resolve)
     }
   ]
 })

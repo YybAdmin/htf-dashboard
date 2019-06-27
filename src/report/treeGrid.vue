@@ -1,11 +1,15 @@
 <template>
-
+  <div>
+    <BaseTreeGrid></BaseTreeGrid>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "treeGrid"
-    }
+import BaseTreeGrid from '@/components/cmpxCom/BaseTreeGrid'
+export default {
+  name: "treeGrid",
+  components:{BaseTreeGrid}
+}
 </script>
 
 <style scoped>
