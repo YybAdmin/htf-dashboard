@@ -99,8 +99,16 @@ export default {
         tooltip: {
           trigger: 'axis',
           triggerOn: 'click',
-          textStyle: {
-            align: 'left'
+          axisPointer: {
+            type: 'line',
+            label: {
+              show: false
+            },
+            lineStyle: {
+              opacity: 0,
+              color: '#BABABA',
+              type: 'dashed'
+            }
           }
         },
         legend: {
