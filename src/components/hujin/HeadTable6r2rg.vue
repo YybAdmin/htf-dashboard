@@ -142,7 +142,7 @@ export default {
     color: #333;
     tr{
       height:114px;
-      div{ height:50px; vertical-align: middle; }
+      div{ height:45px; margin-top: 5px; vertical-align: middle; }
       td:nth-of-type(1){ border-right:1px solid #EEE; }
       td:nth-of-type(2){ border-right:1px solid #EEE; }
       td div span:nth-of-type(1){ font-size: 16px; }

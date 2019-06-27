@@ -71,7 +71,8 @@ export default {
       tr {
         height:64px;
         div{
-          height:50px;
+          height:45px;
+          margin-top: 5px;
           vertical-align: middle;
         }
         td:nth-of-type(1) div{ border-right:1px solid #EEE; }
