@@ -5,7 +5,7 @@
               :data="data" :footerData="footerData" :showFooter="true" idField="id" treeField="region">
       <GridColumnGroup :frozen="true">
         <GridHeaderRow>
-          <GridColumn field="region" title="Region"  :width="100"></GridColumn>
+          <GridColumn field="region" title="Region"></GridColumn>
         </GridHeaderRow>
       </GridColumnGroup>
       <GridColumnGroup>
@@ -153,6 +153,9 @@
           ]
         };
       }
+    },
+    mounted() {
+      document.getElementsByClassName('datagrid-view1').style.width = '120px'
     }
   };
 </script>
