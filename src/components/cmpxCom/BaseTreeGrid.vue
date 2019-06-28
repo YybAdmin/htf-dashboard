@@ -25,8 +25,6 @@
 </template>
 
 <script>
-  import $ from 'jquery'
-
   export default {
     data() {
       return {
@@ -37,14 +35,10 @@
     methods: {
       setData() {
         try {
-          $.ajaxSetup({async: false})
-          this.$http.post(this.$API_LIST.treeGridDemo, {'gridLv': 1}).then(res => {
+          this.$http.post(this.$API_LIST.treeGridDemo, {'gridLv': 1,'gridParaId':'0'}).then(res => {
             this.data = res.data.list
           })
-          $.ajaxSetup({async: true})
         } catch (e) {
-          $.ajaxSetup({async: true})
-          console.log(e)
         }
       }
     },

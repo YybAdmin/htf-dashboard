@@ -1,3 +1,9 @@
 .panel-header, .panel-body {
   border-color: #f6f6f6;
 }
+.datagrid-td-rownumber {
+  background: linear-gradient(to bottom,white 0,white 100%);
+}
+.tree-icon{
+  display:none
+}

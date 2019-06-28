@@ -12,7 +12,19 @@ Mock.mock('/report/treeGrid/getData', /post/i, function () {
       'VALUE1': '232,32.23',
       'VALUE2': '231,243.23',
       'VALUE3': '232,32.23',
-      'VALUE4': '231,243.23'
+      'VALUE4': '231,243.23',
+      children: [
+        {
+          'NUM':'1',
+          'ID': '1111',
+          'STATE':'open',
+          'NAME': '测试1111',
+          'VALUE1': '232,32.00',
+          'VALUE2': '21,243.23',
+          'VALUE3': '12,32.23',
+          'VALUE4': '1,243.23'
+        }
+        ]
     },
     {
       'NUM': '2',
