@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="group">
     <TreeGrid id="myTreeGrid"
               :data="data"
               style="height:300px"
+              :frozenWidth="width"
               idField="ID"
               treeField="NAME">
       <GridColumnGroup :frozen="true">
@@ -24,33 +25,38 @@
 </template>
 
 <script>
-import $ from 'jquery'
+  import $ from 'jquery'
+
   export default {
     data() {
       return {
-        data: []
+        data: [],
+        width: '170px'
       };
     },
     methods: {
-      setData(){
+      setData() {
         try {
-          $.ajaxSetup({ async: false })
-          this.$http.post(this.$API_LIST.treeGridDemo,{'gridLv':1}).then(res=>{
+          $.ajaxSetup({async: false})
+          this.$http.post(this.$API_LIST.treeGridDemo, {'gridLv': 1}).then(res => {
             this.data = res.data.list
           })
-          $.ajaxSetup({ async: true })
-        }catch (e) {
-          $.ajaxSetup({ async: true })
+          $.ajaxSetup({async: true})
+        } catch (e) {
+          $.ajaxSetup({async: true})
           console.log(e)
         }
       }
     },
-    mounted() {
-      document.getElementsByClassName('datagrid-view1')[0].style.width = '170px'
+    beforeMount() {
       this.setData()
-    },
-    beforeCreate() {
-
     }
   };
 </script>
+<style scoped lang="less">
+  .group {
+    .datagrid-view1 {
+      width: 170px;
+    }
+  }
+</style>

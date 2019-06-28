@@ -1,6 +1,7 @@
 <template>
   <div>
-    <DataGrid :data="data" style="width:100%;">
+    <DataGrid :data="data"
+              :frozenWidth="width">
       <GridColumn field="NAME" title="产品名称" :frozen="true"></GridColumn>
       <GridColumn field="VALUE1" title="保有量(亿元)" align="right" width="100" sortable
                   formatter="stf"></GridColumn>
@@ -11,44 +12,28 @@
 </template>
 
 <script>
-  import $ from 'jquery'
-
   export default {
     nama: 'dataGrid',
-    props: {
-      itemList: {
-        type: Array
-      }
-    },
     data() {
       return {
-        data: []
+        data: [],
+        width: '150px'
       };
     },
     methods: {
       setData: function (data) {
         let _this = this
         try {
-          $.ajaxSetup({async: false})
           this.$http.post(this.$API_LIST.dataGridDemo).then(res => {
             _this.data = res.data.list
           })
-          $.ajaxSetup({async: true})
         } catch (e) {
-          $.ajaxSetup({async: true})
           console.log(e)
         }
-
-      },
-      stf: function (a, b, c) {
-        console.log(a + b + c)
       }
     },
     beforeMount() {
       this.setData()
-    } ,
-    mounted() {
-      $('.datagrid-view1').css('width', '100px')
     }
   };
 </script>
