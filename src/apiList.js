@@ -21,6 +21,7 @@ let API_LIST = {
   'jingpinChartMid': href + '/jingpin/chartMid',
   'jingpinChartDwn': href + '/jingpin/chartDwn',
 
-  'dataGridDemo': href + '/dataGrid/getData'
+  'dataGridDemo': href + '/dataGrid/getData',
+  'treeGridDemo': href + '/treeGrid/getData'
 }
 export default API_LIST
