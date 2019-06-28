@@ -22,14 +22,9 @@ export default new Router({
       component: resolve => require(['@/report/jingpin'], resolve)
     },
     {
-      path: '/datagrid',
-      name: 'datagrid',
-      component: resolve => require(['@/report/dataGrid'], resolve)
-    },
-    {
-      path: '/treegrid',
-      name: 'treegrid',
-      component: resolve => require(['@/report/treegrid'], resolve)
+      path: '/grid',
+      name: 'grid',
+      component: resolve => require(['@/report/grid'], resolve)
     }
   ]
 })

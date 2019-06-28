@@ -26,6 +26,7 @@ if(Vue.prototype.$API_LIST.state == 0){
   require('@/mock/hujin')
   require('@/mock/jingpin')
   require('@/mock/datagrid')
+  require('@/mock/treegrid')
 }
 
 /* eslint-disable no-new */
