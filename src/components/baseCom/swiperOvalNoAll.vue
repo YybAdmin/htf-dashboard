@@ -31,7 +31,7 @@ export default {
       swiperIndex: 0,
       theme : this.$myUtil.theme,
       swiperOption: {
-        slidesPerView: 4
+        slidesPerView : 4
       },
       list: this.itemList
     }
@@ -53,12 +53,12 @@ export default {
   @coffeeFont: #666;
   @coffeeBack: #e9e2e0;
   .themeGold{
-    border: 1px solid @gold;
+    border-color: @gold;
     color: @gold;
     background-color: @goldBack;
   }
   .themeCoffee{
-    border: 1px solid @coffee;
+    border-color: @coffee;
     color: @coffee;
     background-color: @coffeeBack;
   }
@@ -68,13 +68,17 @@ export default {
     font-size: 13px;
     padding: 2px 11px;
     margin: auto;
-    border: none;
+    border: 1px solid white;
   }
   .selected{
     border-radius:10px;
     outline: none;
   }
-  .swiper-container{
+  .swiper-container {
     height:23px;
+    max-width: 310px;
+  }
+  .swiper-slide {
+    text-align: center;
   }
 </style>

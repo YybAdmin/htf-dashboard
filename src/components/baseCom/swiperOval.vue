@@ -58,13 +58,13 @@ export default {
   @coffeeFont: #666;
   @coffeeBack: #e9e2e0;
   .themeGold{
-    border: 1px solid @gold;
+    border-color:@gold;
     color: @gold;
     background-color: @goldBack;
     white-space: nowrap;
   }
   .themeCoffee{
-    border: 1px solid @coffee;
+    border-color:@coffee;
     color: @coffee;
     background-color: @coffeeBack;
     white-space: nowrap;
@@ -76,12 +76,17 @@ export default {
     padding: 2px 11px;
     margin: auto;
     border: none;
+    border: 1px solid white;
   }
   .selected{
     border-radius:10px;
     outline: none;
   }
-  .swiper-container{
+  .swiper-container {
     height:23px;
+    max-width: 310px;
+  }
+  .swiper-slide {
+    text-align: center;
   }
 </style>
