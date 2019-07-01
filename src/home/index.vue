@@ -6,6 +6,9 @@
         <router-link to="hujin">互金首页改版</router-link>
       </li>
       <li>
+        <router-link to="chanpin">产品实时监控</router-link>
+      </li>
+      <li>
         <router-link to="jingpin">竞品月活动分析</router-link>
       </li>
       <li>
