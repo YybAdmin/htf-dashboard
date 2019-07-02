@@ -1,40 +1,43 @@
 <template>
-  <div class="group">
-    <table>
-      <tr>
-        <td v-for="(item,i) in itemList"
-            :key="i"
-            :class="[tdIndex === i? 'selected':'']"
-            @click="changeSel(i,item.value)"
-        ><span>{{item.name}}</span>
-          <img style="width: 12px;height:8px;position: absolute;top:19px;"
-               src="@/assets/img/noOrder.svg">
-          <img style="width: 12px;height:8px;position: absolute;top:13px;transform:rotate(180deg);"
-               src="@/assets/img/noOrder.svg">
-        </td>
-      </tr>
-    </table>
+  <div class="group" @click="changeSel">
+    <span>{{item.name}}</span>
+    <span v-bind:is="whichOrder"></span>
   </div>
 </template>
 
 <script>
+  import orderState1 from '@/components/baseCom/child/orderState1'
+  import orderState2 from '@/components/baseCom/child/orderState2'
+  import orderState3 from '@/components/baseCom/child/orderState3'
+
   export default {
     name: "BtnOrder",
+    components: {orderState1, orderState2, orderState3},
     props: {
-      itemList: {
-        type: Array,
-        default: []
+      item: {
+        type: Object,
+        default: {name: '--', value: 1}
       }
     },
     data() {
       return {
-        tdIndex: 0
+        clickNum: 0,
+        whichOrder: 'orderState1'
       }
     },
     methods: {
-      changeSel: function (i, value) {
-        this.tdIndex = i
-        this.$emit('comChanged', value)
+      changeSel: function () {
+        this.clickNum = this.clickNum % 3 + 1
+        if (this.clickNum === 1) {
+          this.whichOrder = 'orderState2'
+        } else if (this.clickNum === 2) {
+          this.whichOrder = 'orderState3'
+        } else if (this.clickNum === 3) {
+          this.whichOrder = 'orderState1'
+        } else {
+          this.whichOrder = 'orderState1'
+        }
+        this.$emit('comChanged', this.item.value)
       }
     }
   }
@@ -42,13 +45,9 @@
 
 <style scoped lang="less">
   .group {
-    table {
-      width: 100%;
-      table-layout: fixed;
-      font-size: 14px;
-      line-height: 34px;
-      position: relative;
-    }
+    position: relative;
+    font-size: 14px;
+    line-height: 30px;
 
     .selected {
       color: #ddaf59;

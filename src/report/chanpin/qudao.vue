@@ -19,8 +19,7 @@
       </tr>
     </table>
     <LineSplit></LineSplit>
-    <BtnOrder v-show="this.switch.orderGroup" :itemList="comName.orderList1" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder>
-    <BtnOrder v-show="!this.switch.orderGroup" :itemList="comName.orderList2" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder>
+    <BtnOrder :item="comName.orderItem[0]" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder>
     <DivSplit></DivSplit>
   </div>
 </template>
@@ -40,8 +39,7 @@
           channelList:[{name: '全部'}, {name: '自有'}, {name: '三方'}],
           orderList:[{name: '规模'}, {name: '资金'}],
           productList:[{name: '全部'}, {name: '重点'}],
-          orderList1:[{name:'保有量',value:1},{name:'份额',value:2}],
-          orderList2:[{name:'申购',value:3},{name:'净收入',value:4}]
+          orderItem:[{name:'保有量',value:1},{name:'份额',value:2},{name:'申购',value:3},{name:'净收入',value:4}],
         },
         switch:{
           orderGroup:true
