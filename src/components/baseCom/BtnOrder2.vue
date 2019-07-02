@@ -8,11 +8,10 @@
 <script>
   import orderState1 from '@/components/baseCom/child/orderState1'
   import orderState2 from '@/components/baseCom/child/orderState2'
-  import orderState3 from '@/components/baseCom/child/orderState3'
 
   export default {
     name: "BtnOrder",
-    components: {orderState1, orderState2, orderState3},
+    components: {orderState1, orderState2},
     props: {
       item: {
         type: Object,
@@ -27,17 +26,21 @@
     },
     methods: {
       changeSel: function () {
-        this.clickNum = this.clickNum % 3 + 1
+        this.clickNum = this.clickNum % 2 + 1
         if (this.clickNum === 1) {
           this.whichOrder = 'orderState2'
-        } else if (this.clickNum === 2) {
-          this.whichOrder = 'orderState3'
-        } else if (this.clickNum === 3) {
-          this.whichOrder = 'orderState1'
         } else {
           this.whichOrder = 'orderState1'
         }
         this.$emit('comChanged', this.item.value)
+      },
+      reSet: function () {
+        this.whichOrder = 'orderState1'
+        this.clickNum = 0
+      },
+      init: function () {
+        this.whichOrder = 'orderState2'
+        this.clickNum = 1
       }
     }
   }

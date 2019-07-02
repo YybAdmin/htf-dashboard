@@ -19,16 +19,26 @@
       </tr>
     </table>
     <LineSplit></LineSplit>
-    <BtnOrder :item="comName.orderItem[0]" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder>
+    <table style="table-layout: fixed;width: 100%;">
+      <tr id="orderG1">
+        <td><BtnOrder ref="order1" :item="comName.orderItem[0]" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder></td>
+        <td><BtnOrder ref="order2" :item="comName.orderItem[1]" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder></td>
+      </tr>
+      <tr id="orderG2" style="display: none;">
+        <td><BtnOrder ref="order3" :item="comName.orderItem[2]" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder></td>
+        <td><BtnOrder ref="order4" :item="comName.orderItem[3]" @comChanged="changePageState($event,'f_orderChild')"></BtnOrder></td>
+      </tr>
+    </table>
     <DivSplit></DivSplit>
   </div>
 </template>
 
 <script>
+  import $ from 'jquery'
   import DivSplit from '@/components/baseCom/DivSplit'
   import LineSplit from '@/components/baseCom/LineSplit'
   import dateDim from '@/components/baseCom/swiperOvalNoAll'
-  import BtnOrder from '@/components/baseCom/BtnOrder'
+  import BtnOrder from '@/components/baseCom/BtnOrder2'
   export default {
     name: "qudao",
     components:{DivSplit,LineSplit,dateDim,BtnOrder},
@@ -51,14 +61,28 @@
         if(flag === 'f_dateType'){}
         if(flag === 'f_channel'){}
         if(flag === 'f_order'){
-            if(i === 1){
-              this.switch.orderGroup = true
-            } else {
-              this.switch.orderGroup = false
+            if(i===1){
+              $("#orderG1").show()
+              $("#orderG2").hide()
+              this.$refs.order1.init()
+              this.$refs.order2.reSet()
+            }else{
+              $("#orderG2").show()
+              $("#orderG1").hide()
+              this.$refs.order3.init()
+              this.$refs.order4.reSet()
             }
         }
         if(flag === 'f_orderChild'){
-          console.log(i)
+          if(i===1){
+            this.$refs.order2.reSet()
+          }else if(i===2){
+            this.$refs.order1.reSet()
+          }else if(i===3){
+            this.$refs.order4.reSet()
+          }else if(i===4){
+            this.$refs.order3.reSet()
+          }
         }
         if(flag === 'f_product'){}
       }
