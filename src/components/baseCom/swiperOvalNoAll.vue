@@ -25,13 +25,13 @@ import {swiper, swiperSlide} from 'vue-awesome-swiper'
 export default {
   name: 'ButtonSwiper',
   components: { swiper, swiperSlide },
-  props: ['itemList'],
+  props: ['itemList','slidesPerView'],
   data () {
     return {
       swiperIndex: 0,
       theme : this.$myUtil.theme,
       swiperOption: {
-        slidesPerView : 4
+        slidesPerView : this.slidesPerView
       },
       list: this.itemList
     }

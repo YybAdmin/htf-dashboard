@@ -60,7 +60,7 @@
         <DivSplit/>
         <BtnGrop @comChanged="changePageState($event,'p_kehuDate')" v-bind:itemList="comName.TabDimDateList"/>
         <TabDim  @comChanged="changePageState($event,'p_kehuCusGrp')" v-bind:itemList="comName.EcCusGrpList"></TabDim>
-        <swiperOvalNoAll  @comChanged="changePageState($event,'p_kehuMeaType')" style="margin-top:10px;" v-bind:itemList="comName.kehuMeaType"></swiperOvalNoAll>
+        <swiperOvalNoAll  @comChanged="changePageState($event,'p_kehuMeaType')" :slidesPerView="4" style="margin-top:10px;" v-bind:itemList="comName.kehuMeaType"></swiperOvalNoAll>
         <DrawNLine ref="kehuChart" v-bind:chartInfo="this.charData.kehuChart"/>
         <DivSplit/>
       </div>

@@ -3,7 +3,7 @@
     <table>
       <tr>
         <td style="word-break: keep-all;margin-top:12px;">周期:</td>
-        <td><dateDim :itemList="comName.dataList" @comChanged="changePageState($event,'f_gmtype')"> </dateDim></td>
+        <td><dateDim :itemList="comName.dataList" :slidesPerView="5" @comChanged="changePageState($event,'f_gmtype')"> </dateDim></td>
       </tr>
     </table>
   </div>
