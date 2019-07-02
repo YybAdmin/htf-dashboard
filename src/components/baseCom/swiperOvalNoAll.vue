@@ -18,50 +18,54 @@
 </template>
 
 <script>
-import $ from 'jquery'
-import 'swiper/dist/css/swiper.css'
-import {swiper, swiperSlide} from 'vue-awesome-swiper'
+  import $ from 'jquery'
+  import 'swiper/dist/css/swiper.css'
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
-export default {
-  name: 'ButtonSwiper',
-  components: { swiper, swiperSlide },
-  props: ['itemList','slidesPerView'],
-  data () {
-    return {
-      swiperIndex: 0,
-      theme : this.$myUtil.theme,
-      swiperOption: {
-        slidesPerView : this.slidesPerView
-      },
-      list: this.itemList
-    }
-  },
-  methods: {
-    changeTheme (i, flag) {
-      this.swiperIndex = i
-      if (flag === 'self') {
-        this.$emit('comChanged', i + 1)
+  export default {
+    name: 'ButtonSwiper',
+    components: {swiper, swiperSlide},
+    props: {
+      itemList: {type: Array, default: []}, slidesPerView: {type: Number, default: 4}
+    },
+    data() {
+      return {
+        swiperIndex: 0,
+        theme: this.$myUtil.theme,
+        swiperOption: {
+          slidesPerView: this.slidesPerView
+        },
+        list: this.itemList
+      }
+    },
+    methods: {
+      changeTheme(i, flag) {
+        this.swiperIndex = i
+        if (flag === 'self') {
+          this.$emit('comChanged', i + 1)
+        }
       }
     }
   }
-}
 </script>
 <style scoped lang="less">
-  @gold : #ddaf59;
+  @gold: #ddaf59;
   @goldBack: #fef7e9;
-  @coffee : #483c39;
+  @coffee: #483c39;
   @coffeeFont: #666;
   @coffeeBack: #e9e2e0;
-  .themeGold{
+  .themeGold {
     border-color: @gold;
     color: @gold;
     background-color: @goldBack;
   }
-  .themeCoffee{
+
+  .themeCoffee {
     border-color: @coffee;
     color: @coffee;
     background-color: @coffeeBack;
   }
+
   span {
     background-color: white;
     color: #999999;
@@ -70,14 +74,17 @@ export default {
     margin: auto;
     border: 1px solid white;
   }
-  .selected{
-    border-radius:10px;
+
+  .selected {
+    border-radius: 10px;
     outline: none;
   }
+
   .swiper-container {
-    height:23px;
+    height: 23px;
     width: 310px;
   }
+
   .swiper-slide {
     text-align: center;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow: hidden">
+  <div class="group" style="overflow: hidden">
     <title>产品实时监控</title>
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -43,5 +43,7 @@
 </script>
 
 <style scoped>
-
+  .group{
+    color: #333;
+  }
 </style>
