@@ -76,7 +76,7 @@ export default {
   }
   .swiper-container {
     height:23px;
-    max-width: 310px;
+    width: 310px;
   }
   .swiper-slide {
     text-align: center;
