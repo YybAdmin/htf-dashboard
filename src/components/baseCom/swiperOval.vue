@@ -61,13 +61,11 @@ export default {
     border-color:@gold;
     color: @gold;
     background-color: @goldBack;
-    white-space: nowrap;
   }
   .themeCoffee{
     border-color:@coffee;
     color: @coffee;
     background-color: @coffeeBack;
-    white-space: nowrap;
   }
   span {
     background-color: white;
@@ -77,6 +75,7 @@ export default {
     margin: auto;
     border: none;
     border: 1px solid white;
+    white-space: nowrap;
   }
   .selected{
     border-radius:10px;

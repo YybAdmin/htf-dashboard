@@ -1,9 +1,10 @@
-let state = 0
+let state = 1
 let hrefArr = [
   '',
   'https://iapp.htffund.com/microservice/iapp-dashboard/api'
 ]
-let href = hrefArr[state] + '/report'
+let href = hrefArr[state] + '/dev'
+let href2 = hrefArr[state] + '/report'
 
 let API_LIST = {
    state:state,
@@ -13,7 +14,7 @@ let API_LIST = {
   'hujinChartMid': href + '/hujin/chartMid',
   'hujinChartDwn': href + '/hujin/chartDwn',
   'hujinKehuHeadData': href + '/hujin/hujinKehuHeadData',
-  'hujinPdf': href + '/report/pdf/hujinPdf',
+  'hujinPdf': href2 + '/pdf/hujinPdf',
   'hujinKehuChart': href + '/hujin/kehuChart',
 
   'jingpinHeadData': href + '/jingpin/headData',
