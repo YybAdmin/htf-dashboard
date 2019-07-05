@@ -30,6 +30,11 @@ export default new Router({
       path: '/grid',
       name: 'grid',
       component: resolve => require(['@/report/grid'], resolve)
+    },
+    {
+      path:'/search',
+      name:'search',
+      component: resolve => require(['@/components/cmpxCom/search'], resolve)
     }
   ]
 })

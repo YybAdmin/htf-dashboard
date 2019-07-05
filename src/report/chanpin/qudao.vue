@@ -3,19 +3,19 @@
     <table style="padding-left:10px;word-break: keep-all;">
       <tr>
         <td>周期:</td>
-        <td><dateDim :itemList="comName.dateList" :slidesPerView="5" @comChanged="changePageState($event,'f_dateType')"> </dateDim></td>
+        <td><selDim :itemList="comName.dateList" :slidesPerView="5" @comChanged="changePageState($event,'f_dateType')"> </selDim></td>
       </tr>
       <tr>
         <td>渠道:</td>
-        <td><dateDim :itemList="comName.channelList" :slidesPerView="5" @comChanged="changePageState($event,'f_channel')"> </dateDim></td>
+        <td><selDim :itemList="comName.channelList" :slidesPerView="5" @comChanged="changePageState($event,'f_channel')"> </selDim></td>
       </tr>
       <tr>
         <td>排序:</td>
-        <td><dateDim :itemList="comName.orderList" :slidesPerView="5" @comChanged="changePageState($event,'f_order')"> </dateDim></td>
+        <td><selDim :itemList="comName.orderList" :slidesPerView="5" @comChanged="changePageState($event,'f_order')"> </selDim></td>
       </tr>
       <tr>
-        <td>产品:</td>
-        <td><dateDim :itemList="comName.productList" :slidesPerView="5" @comChanged="changePageState($event,'f_product')"> </dateDim></td>
+        <td>自选:</td>
+        <td><selDim v-bind:itemList="comName.productList" @comChanged="changePageState($event,'f_product')"></selDim></td>
       </tr>
     </table>
     <LineSplit></LineSplit>
@@ -37,19 +37,19 @@
   import $ from 'jquery'
   import DivSplit from '@/components/baseCom/DivSplit'
   import LineSplit from '@/components/baseCom/LineSplit'
-  import dateDim from '@/components/baseCom/swiperOvalNoAll'
+  import selDim from '@/components/baseCom/swiperOvalNoAll'
   import BtnOrder from '@/components/baseCom/BtnOrder2'
   export default {
     name: "qudao",
-    components:{DivSplit,LineSplit,dateDim,BtnOrder},
+    components:{DivSplit,LineSplit,selDim,BtnOrder},
     data() {
       return {
         comName:{
           dateList:[{name: '每日'}, {name: '每周'}, {name: '月度'}, {name: '季度'}, {name: '年度'}],
           channelList:[{name: '全部'}, {name: '自有'}, {name: '三方'}],
           orderList:[{name: '规模'}, {name: '资金'}],
-          productList:[{name: '全部'}, {name: '重点'}],
           orderItem:[{name:'保有量',value:1},{name:'份额',value:2},{name:'申购',value:3},{name:'净收入',value:4}],
+          productList: [{name: '全部'}, {name: '重点产品'}, {name: '自选产品>'}]
         },
         switch:{
           orderGroup:true
@@ -84,7 +84,9 @@
             this.$refs.order3.reSet()
           }
         }
-        if(flag === 'f_product'){}
+        if(flag === 'f_product'){
+          this.$router.push('/search')
+        }
       }
     }
   }

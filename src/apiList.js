@@ -1,9 +1,9 @@
-let state = 1
+let state = 0
 let hrefArr = [
   '',
   'https://iapp.htffund.com/microservice/iapp-dashboard/api'
 ]
-let href = hrefArr[state] + '/dev'
+let href = hrefArr[state] + '/report'
 let href2 = hrefArr[state] + '/report'
 
 let API_LIST = {
