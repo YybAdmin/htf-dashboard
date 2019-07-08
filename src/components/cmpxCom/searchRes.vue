@@ -22,7 +22,7 @@
             <div>{{item.name}}</div>
             <div>{{item.kkey}}</div>
           </td>
-          <td style="text-align: center;">
+          <td style="text-align: center;width:50px;">
             <button @click="change(item)">{{item.flag}}</button>
           </td>
         </tr>
