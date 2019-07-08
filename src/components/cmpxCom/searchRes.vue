@@ -1,12 +1,13 @@
 <template>
   <div>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <div style="position: fixed;top:0px;background: white;width: 100%;">
       <table style="width: 100%;line-height: 44px;">
         <tr>
           <td>
             <div>
-              <input id="tags" type="text" class="inputsty"  v-model="search"
+              <input id="tags" type="text" class="inputsty" v-model="search"
                      placeholder="基金名称/基金代码" autofocus="autofocus"></input>
             </div>
           </td>
@@ -21,8 +22,8 @@
         <table>
           <tr v-for="(item,i) in items">
             <td style="width: 90%;">
-              <div>{{item.name}}</div>
-              <div>{{item.kkey}}</div>
+              <div class="lname">{{item.name}}</div>
+              <div class="lkey">{{item.kkey}}</div>
             </td>
             <td style="text-align: center;width:50px;">
               <button @click="change(item)">{{item.flag}}</button>
@@ -51,13 +52,13 @@
     components: {DivSplit, LineSplit},
     data() {
       return {
-        list:[],
-        search:'',
+        list: [],
+        search: '',
         searchImg: require("@/assets/img/searchadd.png"),
       }
     },
-    computed:{
-      items: function() {
+    computed: {
+      items: function () {
         var _search = this.search
         if (_search) {
           var reg = new RegExp(_search, 'ig')
@@ -70,21 +71,31 @@
         return this.list
       }
     },
+    watch: {
+      items: function (e) {
+        this.$nextTick(function () {
+          var obj2 = document.getElementsByClassName("lkey")
+          for (let i = 0; i < obj2.length; i++) {
+            obj2[i].innerHTML = obj2[i].innerHTML.replace(this.search,"<font color='red'>"+this.search+"</font>")
+          }
+        })
+      }
+    },
     methods: {
       // 展示索搜结果列表
-      retSelf:function () {
-        this.$router.push({path:'/search'})
+      retSelf: function () {
+        this.$router.push({path: '/search'})
       },
-      change:function (item) {
-        if(item.flag === '-'){
+      change: function (item) {
+        if (item.flag === '-') {
           item.flag = '+'
-          updateSelPro(item,'N',function (res) {
+          updateSelPro(item, 'N', function (res) {
             //后期添加 消息框
           })
-        }else if(item.flag === '+'){
+        } else if (item.flag === '+') {
           item.flag = '-'
-          updateSelPro(item,'Y',function (res) {
-           //后期添加 消息框
+          updateSelPro(item, 'Y', function (res) {
+            //后期添加 消息框
           })
         }
       }
@@ -93,11 +104,11 @@
       let allProList = this.$route.query.dataList
       let res = new Array()
       for (let i = 0; i < allProList.length; i++) {
-          let name = allProList[i].split(' ')[0]
-          let kkey = allProList[i].split(' ')[1]
-          let flag = allProList[i].split(' ')[2] ==='Y'?'-':'+'
-          let item = {"name": name, "kkey": kkey, "flag":flag}
-          res.push(item)
+        let name = allProList[i].split(' ')[0]
+        let kkey = allProList[i].split(' ')[1]
+        let flag = allProList[i].split(' ')[2] === 'Y' ? '-' : '+'
+        let item = {"name": name, "kkey": kkey, "flag": flag}
+        res.push(item)
       }
       this.list = res
       //隐藏调试用的样式
@@ -122,21 +133,25 @@
     background-repeat: no-repeat;
     background-position: 4px center;
   }
+
   .retList {
     padding-left: 15px;
+
     table {
       line-height: 30px;
       width: 100%;
       text-align: left;
+
       tr {
         height: 60px;
         border-bottom: 1px solid #EEE;
         display: table-caption;
-        td{
-          button{
-            border:1px solid #DDAF59;
+
+        td {
+          button {
+            border: 1px solid #DDAF59;
             width: 20px;
-            height:20px;
+            height: 20px;
             margin: 0px;
             padding: 0px;
             outline: none;
