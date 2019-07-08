@@ -32,6 +32,7 @@
         <div>点击添加</div>
       </div>
     </div>
+    <div id="reg"></div>
   </div>
 </template>
 
@@ -59,15 +60,16 @@
         this.$router.push({path: '/searchRes', query: {dataList: this.availableTags}})
       },
       change:function (item) {
+        let _this =this
         if(item.flag === '-'){
           item.flag = '+'
           updateSelPro(item,'N',function (res) {
-            alert(res.status)
+            //后期添加 消息框
           })
         }else if(item.flag === '+'){
           item.flag = '-'
           updateSelPro(item,'Y',function (res) {
-            alert(res.status)
+            //后期添加 消息框
           })
         }
       }

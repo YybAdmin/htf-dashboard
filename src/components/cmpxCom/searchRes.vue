@@ -79,12 +79,12 @@
         if(item.flag === '-'){
           item.flag = '+'
           updateSelPro(item,'N',function (res) {
-            alert(res.status)
+            //后期添加 消息框
           })
         }else if(item.flag === '+'){
           item.flag = '-'
           updateSelPro(item,'Y',function (res) {
-            alert(res.status)
+           //后期添加 消息框
           })
         }
       }
