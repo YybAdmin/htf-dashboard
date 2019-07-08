@@ -1,21 +1,23 @@
 <template>
   <div>
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <table style="width: 100%;table-layout: auto;line-height: 44px;">
       <tr>
-        <td style="width: 54px;"><img style="width: 20px; height: 20px;vertical-align: middle;"
-                                      src="@/assets/img/searchback.png"></td>
+        <td style="width: 54px;" @click="retSelf()"><img style="width: 20px; height: 20px;vertical-align: middle;"
+                 src="@/assets/img/searchback.png"></td>
         <td>
-          <div style="width:100%;text-align: center;">自选产品</div>
+          <div style="width:100%;">
+            <input id="tags" type="text" class="inputsty"
+                   placeholder="基金名称/基金代码" autofocus="autofocus"></input>
+          </div>
         </td>
-        <td style="width: 54px;" @click="goSearch()">搜索</td>
+        <td style="width: 54px;" @click="sousuo()">搜索</td>
       </tr>
     </table>
     <DivSplit></DivSplit>
-    <div class="retList" :class="[selfList.length != 0?'showDiv':'hideDiv']">
+    <div class="retList" :class="[resList.length != 0?'showDiv':'hideDiv']">
       <table>
-        <tr v-if="selfList.length" v-for="(item,i) in selfList">
+        <tr v-if="resList.length" v-for="(item,i) in resList">
           <td>
             <div>{{item.name}}</div>
             <div>{{item.kkey}}</div>
@@ -26,10 +28,10 @@
         </tr>
       </table>
     </div>
-    <div ref="addItem" :class="[selfList.length === 0?'showDiv':'hideDiv']">
+    <div ref="noItem" :class="[resList.length === 0?'showDiv':'hideDiv']">
       <div style="height: 100%;">
-        <img @click="goSearch()" style="height:126px;width: 126px;margin-top:200px;" src="@/assets/img/searchadd.png"/>
-        <div>点击添加</div>
+        <img style="height:126px;width: 126px;margin-top:200px;" src="@/assets/img/searchno.png"/>
+        <div>暂无索搜记录</div>
       </div>
     </div>
   </div>
@@ -43,20 +45,35 @@
   import {updateSelPro} from "../../report/service/comApi";
 
   export default {
-    name: "search",
+    name: "searchRes",
     components: {DivSplit, LineSplit},
     data() {
       return {
         searchImg: require("@/assets/img/searchadd.png"),
         //所有产品
         availableTags: [],
-        //自选产品列表
-        selfList: []
+        //查询结果列表
+        resList: [],
       }
     },
     methods: {
-      goSearch: function () {
-        this.$router.push({path: '/searchRes', query: {dataList: this.availableTags}})
+      // 展示索搜结果列表
+      sousuo: function () {
+        let text = $("#tags").val()
+        let res = new Array()
+        for (let i = 0; i < this.availableTags.length; i++) {
+          if (this.availableTags[i].indexOf(text) != -1) {
+            let name = this.availableTags[i].split(' ')[0]
+            let kkey = this.availableTags[i].split(' ')[1]
+            let flag = this.availableTags[i].split(' ')[2] ==='Y'?'-':'+'
+            let item = {"name": name, "kkey": kkey, "flag":flag}
+            res.push(item)
+          }
+        }
+        this.resList = res
+      },
+      retSelf:function () {
+        this.$router.push({path:'/search'})
       },
       change:function (item) {
         if(item.flag === '-'){
@@ -73,30 +90,13 @@
       }
     },
     mounted() {
-      let _this = this
-      //从接口读取的数据
-      this.$http.post('/api/report/selPro/getUserPro',{'sheetName':'test','tabSel':'1','userCode':'297'}).then(retData=>{
-        let apiData = retData.data.list
-        let res = new Array()
-        //构造便捷查询数据
-        let searchData = new Array();
-        for (let i = 0; i < apiData.length; i++) {
-          searchData[i] = apiData[i].productname + ' ' + apiData[i].productcode + ' ' + apiData[i].flag
-          if (apiData[i].flag === 'Y') {
-            let item = {"name": apiData[i].productname, "kkey": apiData[i].productcode, "flag":'-'}
-            res.push(item)
-          }
-        }
-        _this.selfList = res
-        //初始化查询组件
-        _this.availableTags = searchData
-        $("#tags").autocomplete({
-          source: searchData
-        });
-        //隐藏调试用的样式
-        $(".ui-helper-hidden-accessible").hide()
-        $("#ui-id-1").css({"background": 'white'})
-      })
+      this.availableTags = this.$route.query.dataList
+      $("#tags").autocomplete({
+        source: this.availableTags
+      });
+      //隐藏调试用的样式
+      $(".ui-helper-hidden-accessible").hide()
+      $("#ui-id-1").css({"background": 'white'})
     }
   }
 </script>
@@ -116,7 +116,6 @@
     background-repeat: no-repeat;
     background-position: 4px center;
   }
-
   .retList {
     padding-left: 15px;
     table {
@@ -126,12 +125,11 @@
       tr {
         height: 60px;
         border-bottom: 1px solid #EEE;
-
-        td {
-          button {
-            border: 1px solid #DDAF59;
+        td{
+          button{
+            border:1px solid #DDAF59;
             width: 20px;
-            height: 20px;
+            height:20px;
             margin: 0px;
             padding: 0px;
             outline: none;

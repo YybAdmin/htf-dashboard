@@ -1,10 +1,11 @@
-let state = 0
+let state = 2
 let hrefArr = [
   '',
-  'https://iapp.htffund.com/microservice/iapp-dashboard/api'
+  'https://iapp.htffund.com/microservice/iapp-dashboard/api',
+  'http://localhost:18080/api'
 ]
 let href = hrefArr[state] + '/report'
-let href2 = hrefArr[state] + '/report'
+let href2 = hrefArr[state] + '/dev'
 
 let API_LIST = {
    state:state,
@@ -23,6 +24,8 @@ let API_LIST = {
   'jingpinChartDwn': href + '/jingpin/chartDwn',
 
   'dataGridDemo': href + '/dataGrid/getData',
-  'treeGridDemo': href + '/treeGrid/getData'
+  'treeGridDemo': href + '/treeGrid/getData',
+
+  'allUserPro': href + '/selPro/getUserPro'
 }
 export default API_LIST
