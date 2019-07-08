@@ -8,7 +8,7 @@
             <img style="width: 20px; height: 20px;vertical-align: middle;" src="@/assets/img/searchback.png"></td>
           <td>
             <div style="width:100%;">
-              <input id="tags" type="text" class="inputsty"
+              <input id="tags" type="text" class="inputsty"  v-model="search"
                      placeholder="基金名称/基金代码" autofocus="autofocus"></input>
             </div>
           </td>
@@ -19,9 +19,9 @@
     </div>
     <div style="height:70px;"></div>
     <div>
-      <div class="retList" :class="[resList.length != 0?'showDiv':'hideDiv']">
+      <div class="retList" :class="[items.length != 0?'showDiv':'hideDiv']">
         <table>
-          <tr v-if="resList.length" v-for="(item,i) in availableTags">
+          <tr v-for="(item,i) in items">
             <td>
               <div>{{item.name}}</div>
               <div>{{item.kkey}}</div>
@@ -32,7 +32,7 @@
           </tr>
         </table>
       </div>
-      <div ref="noItem" :class="[resList.length === 0?'showDiv':'hideDiv']">
+      <div ref="noItem" :class="[items.length === 0?'showDiv':'hideDiv']">
         <div style="height: 100%;">
           <img style="height:126px;width: 126px;margin-top:200px;" src="@/assets/img/searchno.png"/>
           <div>暂无索搜记录</div>
@@ -53,24 +53,20 @@
     components: {DivSplit, LineSplit},
     data() {
       return {
+        list:[],
+        search:'',
         searchImg: require("@/assets/img/searchadd.png"),
       }
     },
     computed:{
-      //过滤方法
-      availableTags: function() {
-        var _search = this.search;
+      items: function() {
+        var _search = this.search
         if (_search) {
-          //不区分大小写处理
           var reg = new RegExp(_search, 'ig')
-          //es6 filter过滤匹配，有则返回当前，无则返回所有
           return this.list.filter(function (e) {
-            //匹配所有字段
             return Object.keys(e).some(function (key) {
               return e[key].match(reg);
             })
-            //匹配某个字段
-            //  return e.name.match(reg);
           })
         }
         return this.list
@@ -78,20 +74,6 @@
     },
     methods: {
       // 展示索搜结果列表
-      sousuo: function () {
-        let text = $("#tags").val()
-        let res = new Array()
-        for (let i = 0; i < this.availableTags.length; i++) {
-          if (this.availableTags[i].indexOf(text) != -1) {
-            let name = this.availableTags[i].split(' ')[0]
-            let kkey = this.availableTags[i].split(' ')[1]
-            let flag = this.availableTags[i].split(' ')[2] ==='Y'?'-':'+'
-            let item = {"name": name, "kkey": kkey, "flag":flag}
-            res.push(item)
-          }
-        }
-        this.availableTags = res
-      },
       retSelf:function () {
         this.$router.push({path:'/search'})
       },
@@ -110,16 +92,16 @@
       }
     },
     mounted() {
-      this.availableTags = this.$route.query.dataList
+      let allProList = this.$route.query.dataList
       let res = new Array()
-      for (let i = 0; i < this.availableTags.length; i++) {
-          let name = this.availableTags[i].split(' ')[0]
-          let kkey = this.availableTags[i].split(' ')[1]
-          let flag = this.availableTags[i].split(' ')[2] ==='Y'?'-':'+'
+      for (let i = 0; i < allProList.length; i++) {
+          let name = allProList[i].split(' ')[0]
+          let kkey = allProList[i].split(' ')[1]
+          let flag = allProList[i].split(' ')[2] ==='Y'?'-':'+'
           let item = {"name": name, "kkey": kkey, "flag":flag}
           res.push(item)
       }
-      this.resList = res
+      this.list = res
       //隐藏调试用的样式
       $(".ui-helper-hidden-accessible").hide()
       $("#ui-id-1").css({"background": 'white'})
