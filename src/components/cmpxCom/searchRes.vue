@@ -2,10 +2,10 @@
   <div>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <div style="position: fixed;top:0px;background: white;width: 100%;">
-      <table style="width: 100%;table-layout: auto;line-height: 44px;">
+      <table style="width: 100%;line-height: 44px;">
         <tr>
           <td>
-            <div style="width:100%;">
+            <div>
               <input id="tags" type="text" class="inputsty"  v-model="search"
                      placeholder="基金名称/基金代码" autofocus="autofocus"></input>
             </div>
