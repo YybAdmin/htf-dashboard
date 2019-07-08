@@ -1,37 +1,42 @@
 <template>
   <div>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <table style="width: 100%;table-layout: auto;line-height: 44px;">
-      <tr>
-        <td style="width: 54px;" @click="retSelf()"><img style="width: 20px; height: 20px;vertical-align: middle;"
-                 src="@/assets/img/searchback.png"></td>
-        <td>
-          <div style="width:100%;">
-            <input id="tags" type="text" class="inputsty"
-                   placeholder="基金名称/基金代码" autofocus="autofocus"></input>
-          </div>
-        </td>
-        <td style="width: 54px;" @click="sousuo()">搜索</td>
-      </tr>
-    </table>
-    <DivSplit></DivSplit>
-    <div class="retList" :class="[resList.length != 0?'showDiv':'hideDiv']">
-      <table>
-        <tr v-if="resList.length" v-for="(item,i) in resList">
+    <div style="position: fixed;top:0px;background: white;width: 100%;">
+      <table style="width: 100%;table-layout: auto;line-height: 44px;">
+        <tr>
+          <td style="width: 54px;" @click="retSelf()">
+            <img style="width: 20px; height: 20px;vertical-align: middle;" src="@/assets/img/searchback.png"></td>
           <td>
-            <div>{{item.name}}</div>
-            <div>{{item.kkey}}</div>
+            <div style="width:100%;">
+              <input id="tags" type="text" class="inputsty"
+                     placeholder="基金名称/基金代码" autofocus="autofocus"></input>
+            </div>
           </td>
-          <td style="text-align: center;width:50px;">
-            <button @click="change(item)">{{item.flag}}</button>
-          </td>
+          <td style="width: 54px;" @click="sousuo()">搜索</td>
         </tr>
       </table>
+      <DivSplit></DivSplit>
     </div>
-    <div ref="noItem" :class="[resList.length === 0?'showDiv':'hideDiv']">
-      <div style="height: 100%;">
-        <img style="height:126px;width: 126px;margin-top:200px;" src="@/assets/img/searchno.png"/>
-        <div>暂无索搜记录</div>
+    <div style="height:70px;"></div>
+    <div>
+      <div class="retList" :class="[resList.length != 0?'showDiv':'hideDiv']">
+        <table>
+          <tr v-if="resList.length" v-for="(item,i) in availableTags">
+            <td>
+              <div>{{item.name}}</div>
+              <div>{{item.kkey}}</div>
+            </td>
+            <td style="text-align: center;width:50px;">
+              <button @click="change(item)">{{item.flag}}</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div ref="noItem" :class="[resList.length === 0?'showDiv':'hideDiv']">
+        <div style="height: 100%;">
+          <img style="height:126px;width: 126px;margin-top:200px;" src="@/assets/img/searchno.png"/>
+          <div>暂无索搜记录</div>
+        </div>
       </div>
     </div>
   </div>
@@ -41,7 +46,6 @@
   import DivSplit from '@/components/baseCom/DivSplit'
   import LineSplit from '@/components/baseCom/LineSplit'
   import $ from 'jquery'
-  import 'jquery-ui-dist/jquery-ui'
   import {updateSelPro} from "../../report/service/comApi";
 
   export default {
@@ -50,10 +54,26 @@
     data() {
       return {
         searchImg: require("@/assets/img/searchadd.png"),
-        //所有产品
-        availableTags: [],
-        //查询结果列表
-        resList: [],
+      }
+    },
+    computed:{
+      //过滤方法
+      availableTags: function() {
+        var _search = this.search;
+        if (_search) {
+          //不区分大小写处理
+          var reg = new RegExp(_search, 'ig')
+          //es6 filter过滤匹配，有则返回当前，无则返回所有
+          return this.list.filter(function (e) {
+            //匹配所有字段
+            return Object.keys(e).some(function (key) {
+              return e[key].match(reg);
+            })
+            //匹配某个字段
+            //  return e.name.match(reg);
+          })
+        }
+        return this.list
       }
     },
     methods: {
@@ -70,7 +90,7 @@
             res.push(item)
           }
         }
-        this.resList = res
+        this.availableTags = res
       },
       retSelf:function () {
         this.$router.push({path:'/search'})
@@ -91,9 +111,15 @@
     },
     mounted() {
       this.availableTags = this.$route.query.dataList
-      $("#tags").autocomplete({
-        source: this.availableTags
-      });
+      let res = new Array()
+      for (let i = 0; i < this.availableTags.length; i++) {
+          let name = this.availableTags[i].split(' ')[0]
+          let kkey = this.availableTags[i].split(' ')[1]
+          let flag = this.availableTags[i].split(' ')[2] ==='Y'?'-':'+'
+          let item = {"name": name, "kkey": kkey, "flag":flag}
+          res.push(item)
+      }
+      this.resList = res
       //隐藏调试用的样式
       $(".ui-helper-hidden-accessible").hide()
       $("#ui-id-1").css({"background": 'white'})
