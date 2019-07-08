@@ -16,7 +16,7 @@
     <div class="retList" :class="[selfList.length != 0?'showDiv':'hideDiv']">
       <table>
         <tr v-if="selfList.length" v-for="(item,i) in selfList">
-          <td>
+          <td style="width: 90%;">
             <div>{{item.name}}</div>
             <div>{{item.kkey}}</div>
           </td>
@@ -128,7 +128,7 @@
       tr {
         height: 60px;
         border-bottom: 1px solid #EEE;
-
+        display: table-caption;
         td {
           button {
             border: 1px solid #DDAF59;

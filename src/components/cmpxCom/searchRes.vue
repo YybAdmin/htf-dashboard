@@ -20,7 +20,7 @@
       <div id="retL" class="retList" :class="[items.length != 0?'showDiv':'hideDiv']">
         <table>
           <tr v-for="(item,i) in items">
-            <td>
+            <td style="width: 90%;">
               <div>{{item.name}}</div>
               <div>{{item.kkey}}</div>
             </td>
@@ -131,6 +131,7 @@
       tr {
         height: 60px;
         border-bottom: 1px solid #EEE;
+        display: table-caption;
         td{
           button{
             border:1px solid #DDAF59;
