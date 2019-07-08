@@ -73,11 +73,14 @@
     },
     watch: {
       items: function (e) {
+        let _this = this
         this.$nextTick(function () {
-          var obj2 = document.getElementsByClassName("lkey")
-          for (let i = 0; i < obj2.length; i++) {
-            obj2[i].innerHTML = obj2[i].innerHTML.replace(this.search,"<font color='red'>"+this.search+"</font>")
-          }
+          setTimeout(function () {
+            var obj2 = document.getElementsByClassName("lkey")
+            for (let i = 0; i < obj2.length; i++) {
+              obj2[i].innerHTML = obj2[i].innerHTML.replace(_this.search,"<font color='red'>"+this.search+"</font>")
+            }
+          },100)
         })
       }
     },
