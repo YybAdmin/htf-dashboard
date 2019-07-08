@@ -4,22 +4,20 @@
     <div style="position: fixed;top:0px;background: white;width: 100%;">
       <table style="width: 100%;table-layout: auto;line-height: 44px;">
         <tr>
-          <td style="width: 54px;" @click="retSelf()">
-            <img style="width: 20px; height: 20px;vertical-align: middle;" src="@/assets/img/searchback.png"></td>
           <td>
             <div style="width:100%;">
               <input id="tags" type="text" class="inputsty"  v-model="search"
                      placeholder="基金名称/基金代码" autofocus="autofocus"></input>
             </div>
           </td>
-          <td style="width: 54px;" @click="sousuo()">搜索</td>
+          <td style="width: 54px;" @click="retSelf()">取消</td>
         </tr>
       </table>
       <DivSplit></DivSplit>
     </div>
     <div style="height:70px;"></div>
     <div>
-      <div class="retList" :class="[items.length != 0?'showDiv':'hideDiv']">
+      <div id="retL" class="retList" :class="[items.length != 0?'showDiv':'hideDiv']">
         <table>
           <tr v-for="(item,i) in items">
             <td>
