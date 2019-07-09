@@ -85,6 +85,10 @@
                 let newhtml = obj2[i].innerHTML.replace(_this.search, "<font color='red'>" + _this.search + "</font>")
                 console.log(_this.search)
                 obj2[i].innerHTML = newhtml
+              }else{
+                let newhtml = obj2[i].innerHTML.replace("<font color=\"red\">", "")
+                newhtml = newhtml.replace("</font>", "")
+                obj2[i].innerHTML = newhtml
               }
             }
           }, 1000)
