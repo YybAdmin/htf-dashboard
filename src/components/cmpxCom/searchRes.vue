@@ -53,6 +53,7 @@
     data() {
       return {
         list: [],
+        listbak:[],
         search: '',
         searchImg: require("@/assets/img/searchadd.png"),
       }
@@ -60,6 +61,7 @@
     computed: {
       items: function () {
         var _search = this.search
+        this.list = this.listbak
         if (_search) {
           var reg = new RegExp(_search, 'ig')
           return this.list.filter(function (e) {
@@ -67,20 +69,25 @@
               return e[key].match(reg);
             })
           })
+        }else{
+          return this.list
         }
-        return this.list
       }
     },
     watch: {
-      items: function (e) {
+      search: function (e) {
         let _this = this
         this.$nextTick(function () {
           setTimeout(function () {
             var obj2 = document.getElementsByClassName("lkey")
             for (let i = 0; i < obj2.length; i++) {
-              obj2[i].innerHTML = obj2[i].innerHTML.replace(_this.search, "<font color='red'>" + this.search + "</font>")
+              if(_this.search.length >= 1){
+                let newhtml = obj2[i].innerHTML.replace(_this.search, "<font color='red'>" + _this.search + "</font>")
+                console.log(_this.search)
+                obj2[i].innerHTML = newhtml
+              }
             }
-          }, 100)
+          }, 1000)
         })
       }
     },
@@ -114,6 +121,7 @@
         res.push(item)
       }
       this.list = res
+      this.listbak = res
       //隐藏调试用的样式
       $(".ui-helper-hidden-accessible").hide()
       $("#ui-id-1").css({"background": 'white'})
