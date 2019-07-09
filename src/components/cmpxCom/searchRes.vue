@@ -75,7 +75,7 @@
       }
     },
     watch: {
-      search: function (e) {
+      items: function (e) {
         let _this = this
         this.$nextTick(function () {
           setTimeout(function () {
