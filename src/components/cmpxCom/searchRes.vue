@@ -78,9 +78,9 @@
           setTimeout(function () {
             var obj2 = document.getElementsByClassName("lkey")
             for (let i = 0; i < obj2.length; i++) {
-              obj2[i].innerHTML = obj2[i].innerHTML.replace(_this.search,"<font color='red'>"+this.search+"</font>")
+              obj2[i].innerHTML = obj2[i].innerHTML.replace(_this.search, "<font color='red'>" + this.search + "</font>")
             }
-          },100)
+          }, 100)
         })
       }
     },
@@ -92,12 +92,12 @@
       change: function (item) {
         if (item.flag === '-') {
           item.flag = '+'
-          updateSelPro(item, 'N', function (res) {
+          updateSelPro('test', '1', '297', item.kkey, 'N', function (res) {
             //后期添加 消息框
           })
         } else if (item.flag === '+') {
           item.flag = '-'
-          updateSelPro(item, 'Y', function (res) {
+          updateSelPro('test', '1', '297', item.kkey, 'Y', function (res) {
             //后期添加 消息框
           })
         }

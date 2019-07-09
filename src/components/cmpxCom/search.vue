@@ -41,7 +41,7 @@
   import LineSplit from '@/components/baseCom/LineSplit'
   import $ from 'jquery'
   import 'jquery-ui-dist/jquery-ui'
-  import {updateSelPro} from "../../report/service/comApi";
+  import {getUserPro, updateSelPro} from "../../report/service/comApi";
 
   export default {
     name: "search",
@@ -59,16 +59,16 @@
       goSearch: function () {
         this.$router.push({path: '/searchRes', query: {dataList: this.availableTags}})
       },
-      change:function (item) {
-        let _this =this
-        if(item.flag === '-'){
+      change: function (item) {
+        let _this = this
+        if (item.flag === '-') {
           item.flag = '+'
-          updateSelPro(item,'N',function (res) {
+          updateSelPro('test', '1', '297', item.kkey, 'N', function (res) {
             //后期添加 消息框
           })
-        }else if(item.flag === '+'){
+        } else if (item.flag === '+') {
           item.flag = '-'
-          updateSelPro(item,'Y',function (res) {
+          updateSelPro('test', '1', '297', item.kkey, 'Y', function (res) {
             //后期添加 消息框
           })
         }
@@ -77,7 +77,7 @@
     mounted() {
       let _this = this
       //从接口读取的数据
-      this.$http.post('/api/report/selPro/getUserPro',{'sheetName':'test','tabSel':'1','userCode':'297'}).then(retData=>{
+      getUserPro('test', '1', '297', function (retData) {
         let apiData = retData.data.list
         let res = new Array()
         //构造便捷查询数据
@@ -85,7 +85,7 @@
         for (let i = 0; i < apiData.length; i++) {
           searchData[i] = apiData[i].productname + ' ' + apiData[i].productcode + ' ' + apiData[i].flag
           if (apiData[i].flag === 'Y') {
-            let item = {"name": apiData[i].productname, "kkey": apiData[i].productcode, "flag":'-'}
+            let item = {"name": apiData[i].productname, "kkey": apiData[i].productcode, "flag": '-'}
             res.push(item)
           }
         }
@@ -121,14 +121,17 @@
 
   .retList {
     padding-left: 15px;
+
     table {
       line-height: 30px;
       width: 100%;
       text-align: left;
+
       tr {
         height: 60px;
         border-bottom: 1px solid #EEE;
         display: table-caption;
+
         td {
           button {
             border: 1px solid #DDAF59;

@@ -1,12 +1,21 @@
 import axios from 'axios'
-export function updateSelPro(item, flag, success) {
+export function updateSelPro(sheetName, tabSel,userCode,productCode,flag,success) {
   axios.post('/api/report/selPro/updateUserPro', {
-    'sheetName': 'test',
-    'tabSel': '1',
-    'userCode': '297',
-    'productCode': item.kkey,
+    'sheetName': sheetName,
+    'tabSel': tabSel,
+    'userCode': userCode,
+    'productCode': productCode,
     'ifadd': flag
   }).then(res => {
+    success(res)
+  })
+}
+export function getUserPro(sheetName,tabSel,userCode,success) {
+  axios.post('/api/report/selPro/getUserPro',{
+    'sheetName':sheetName,
+    'tabSel':tabSel,
+    'userCode':userCode
+  }).then(res=>{
     success(res)
   })
 }
