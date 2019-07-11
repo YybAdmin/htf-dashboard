@@ -4,10 +4,15 @@
       <div class="split"></div>
       <div class="card">
         <div class="cardUp">
-          <span class="channel">{{item.name1}}</span><span class="split">|</span><span
-          class="product">{{item.name2}}</span>
-          <span></span>
-          <span class="btn lc">流出份额</span><span class="btn xk">新客/个人</span>
+          <table>
+            <tr>
+              <td class="c1">{{item.name1}}</td>
+              <td class="c2">{{item.name2}}</td>
+              <td class="c3"><span class="btn lc">流出份额</span></td>
+              <td class="cs"></td>
+              <td class="c4"><span class="btn xk">新客/个人</span></td>
+            </tr>
+          </table>
         </div>
         <div class="cardMid">
           <div class="midL">
@@ -17,17 +22,17 @@
           <div><span cla="sx"> </span></div>
           <div class="midR">
             <div class="midRC">
-              <div>近7天均值：<span class="v2">{{item.value2}}</span></div>
-              <div>近30天均值：<span class="v2">{{item.value3}}</span></div>
+              <div>近7天均值:<span class="v2">{{item.value2}}万</span></div>
+              <div>近30天均值:<span class="v2">{{item.value3}}万</span></div>
             </div>
           </div>
         </div>
         <div class="cardDwn">
           <table>
             <tr>
-              <td class="d1">上界：{{item.value4}}万</td>
-              <td class="d2">下界：{{item.value5}}万</td>
-              <td class="d3">波动率：{{item.value6}}%</td>
+              <td class="d1">上界:{{item.value4}}万</td>
+              <td class="d2">下界:{{item.value5}}万</td>
+              <td class="d3">波动率:{{item.value6}}%</td>
             </tr>
           </table>
         </div>
@@ -91,40 +96,49 @@
           text-align: left;
           position: relative;
           height: 23px;
+          table{
+            width:100%;
+            border-spacing: 0px;
+            .c1 {
+              color: #333;
+              font-size: 15px;
+              font-weight: 600;
+              width: 40px;
+              white-space: nowrap;
+            }
+            .c2 {
+              font-size: 14px;
+              text-align: center;
+              border-left:1px solid #eee;
+            }
+            .c3{
+              width:66px;
+            }
+            .cs{
+              width:8px;
+            }
+            .c4{
+              width:72px;
+            }
+            .btn {
+              font-size: 12px;
+              line-height: 12px;
+              border: 1px solid;
+              border-radius: 11px;
+              padding: 3px 7px 3px 7px;
+              height: 23px;
+            }
 
-          .channel {
-            color: #333;
-            font-size: 15px;
-            font-weight: 600;
-          }
+            .lc {
+              background: #ddaf59;
+              border-color: #ddaf59;
+              color: white;
+            }
 
-          .split {
-            margin: 0px 10px;
-          }
-
-          .product {
-            font-size: 14px;
-          }
-
-          .btn {
-            font-size: 12px;
-            border: 1px solid;
-            border-radius: 11px;
-            padding: 3px 7px 3px 7px;
-            height: 23px;
-            position: absolute;
-          }
-
-          .lc {
-            background: #ddaf59;
-            border-color: #ddaf59;
-            color: white;
-            right: 71px;
-          }
-
-          .xk {
-            border-color: #F1F0F1;
-            right: 0px;
+            .xk {
+              border-color: #F1F0F1;
+              right: 0px;
+            }
           }
         }
 
@@ -175,6 +189,7 @@
 
           table{
             width:100%;
+            border-spacing: 0px;
             table-layout: fixed;
             .d1 {
               text-align: left;
