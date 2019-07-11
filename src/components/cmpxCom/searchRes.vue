@@ -19,7 +19,7 @@
     <div style="height:70px;"></div>
     <div>
       <div id="retL" class="retList" :class="[items.length != 0?'showDiv':'hideDiv']">
-        <table>
+        <table id="tab">
           <tr v-for="(item,i) in items">
             <td style="width: 90%;">
               <div class="lname">{{item.name}}</div>
@@ -62,13 +62,30 @@
       items: function () {
         var _search = this.search
         this.list = this.listbak
+        var list = this.list
+        console.log(_search)
         if (_search) {
           var reg = new RegExp(_search, 'ig')
-          return this.list.filter(function (e) {
-            return Object.keys(e).some(function (key) {
-              return e[key].match(reg);
-            })
-          })
+          var arr = new Array()
+          for(var i=0;i<list.length;i++){
+            if(list[i].name.match(reg)){
+              arr.push(list[i])
+              console.log(list[i].name)
+              continue
+            }
+            if(list[i].kkey.match(reg)){
+              arr.push(list[i])
+              console.log(list[i].kkey)
+              continue
+            }
+          }
+          console.log(arr)
+          return arr
+          // return this.list.filter(function (e) {
+          //   return Object.keys(e).some(function (key) {
+          //     return e[key].match(reg);
+          //   })
+          // })
         }else{
           return this.list
         }
@@ -79,15 +96,16 @@
         let _this = this
         this.$nextTick(function () {
           setTimeout(function () {
-            var obj2 = document.getElementsByClassName("lkey")
+            var obj2 = $(".lkey")
             for (let i = 0; i < obj2.length; i++) {
-              if(_this.search.length >= 1){
-                let newhtml = obj2[i].innerHTML.replace(_this.search, "<font color='red'>" + _this.search + "</font>")
-                console.log(_this.search)
-                obj2[i].innerHTML = newhtml
+              if(_this.search.length >= 0){
+                let newhtml = obj2[i].innerHTML.toString().split("<font color=\"red\">").join("")
+                newhtml = newhtml.split("</font>").join("")
+                let rephtml = newhtml.replace(_this.search.toString(),"<font color='red'>" + _this.search.toString() + "</font>")
+                obj2[i].innerHTML = rephtml
               }else{
-                let newhtml = obj2[i].innerHTML.replace("<font color=\"red\">", "")
-                newhtml = newhtml.replace("</font>", "")
+                let newhtml = obj2[i].innerHTML.split("<font color=\"red\">").join("")
+                newhtml = newhtml.split("</font>").join("")
                 obj2[i].innerHTML = newhtml
               }
             }
