@@ -53,23 +53,24 @@
     data() {
       return {
         list: [],
-        listbak:[],
+        listbak: [],
         search: '',
+        listObj: [],
         searchImg: require("@/assets/img/searchadd.png"),
       }
     },
     computed: {
       items: function () {
         var _search = this.search
-        this.list = this.listbak
         if (_search) {
-          var reg = new RegExp(_search, 'ig')
-          return this.list.filter(function (e) {
+          let reg = new RegExp(_search, 'ig')
+          let arr = JSON.parse(JSON.stringify(this.list.filter(function (e) {
             return Object.keys(e).some(function (key) {
               return e[key].match(reg);
             })
-          })
-        }else{
+          })))
+          return arr
+        } else {
           return this.list
         }
       }
@@ -78,20 +79,18 @@
       items: function (e) {
         let _this = this
         this.$nextTick(function () {
-          setTimeout(function () {
-            var obj2 = document.getElementsByClassName("lkey")
-            for (let i = 0; i < obj2.length; i++) {
-              if(_this.search.length >= 1){
-                let newhtml = obj2[i].innerHTML.replace(_this.search, "<font color='red'>" + _this.search + "</font>")
-                console.log(_this.search)
-                obj2[i].innerHTML = newhtml
-              }else{
-                let newhtml = obj2[i].innerHTML.replace("<font color=\"red\">", "")
-                newhtml = newhtml.replace("</font>", "")
-                obj2[i].innerHTML = newhtml
-              }
+          let arr = JSON.parse(JSON.stringify(_this.items))
+          // 每次进来都回到没选中的状态
+          for (let i = 0; i < arr.length; i++) {
+            document.getElementsByClassName("lkey")[i].innerHTML = arr[i].kkey
+          }
+          //上色吧
+          let obj2 = document.getElementsByClassName("lkey")
+          for (let i = 0; i < obj2.length; i++) {
+            if (_this.search.length >= 1) {
+              obj2[i].innerHTML = obj2[i].innerHTML.replace(_this.search, "<font color='red'>" + _this.search + "</font>")
             }
-          }, 1000)
+          }
         })
       }
     },
@@ -124,8 +123,8 @@
         let item = {"name": name, "kkey": kkey, "flag": flag}
         res.push(item)
       }
-      this.list = res
-      this.listbak = res
+      this.list = JSON.parse(JSON.stringify(res))
+      this.listbak = JSON.parse(JSON.stringify(res))
       //隐藏调试用的样式
       $(".ui-helper-hidden-accessible").hide()
       $("#ui-id-1").css({"background": 'white'})
