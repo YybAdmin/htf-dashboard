@@ -66,9 +66,6 @@
     <div>
       <datacard></datacard>
     </div>
-    <div>
-      <tablist></tablist>
-    </div>
   </div>
 </template>
 
@@ -78,11 +75,10 @@ import swiperOval from '@/components/baseCom/swiperOval'
 import swiperOvalNoAll from '@/components/baseCom/swiperOvalNoAll'
 import divSplit from '@/components/baseCom/DivSplit'
 import ydsummary from '@/components/yidong/dataSummary'
-import tablist from '@/report/yidong/tablist'
 import datacard from '@/components/yidong/dataCard'
 export default {
   name: "yidong",
-  components: {swiperOval,swiperOvalNoAll,divSplit,ydsummary,tablist,datacard},
+  components: {swiperOval,swiperOvalNoAll,divSplit,ydsummary,datacard},
   data(){
       return {
         comName:{
