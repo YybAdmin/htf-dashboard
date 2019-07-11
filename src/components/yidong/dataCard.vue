@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="cardDwn">
-          <table>
+          <table style="border-top: 1px solid #EEEEEE">
             <tr>
               <td class="d1">上界:{{item.value4}}万</td>
               <td class="d2">下界:{{item.value5}}万</td>
