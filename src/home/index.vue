@@ -14,6 +14,9 @@
       <li>
         <router-link to="grid">表格示例</router-link>
       </li>
+      <li>
+        <router-link to="yidong">渠道异动监控</router-link>
+      </li>
     </ul>
   </div>
 </template>

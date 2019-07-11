@@ -30,14 +30,15 @@ export default {
   name: 'ButtonSwiper',
   components: { swiper, swiperSlide },
   props: {
-    itemList: Array
+    itemList: Array,
+    slidesPerView:{type: Number, default: 5}
   },
   data () {
     return {
       swiperIndex: -1,
       theme:this.$myUtil.theme,
       SwiperOptions: {
-        slidesPerView: 5
+        slidesPerView: this.slidesPerView
       }
     }
   },
