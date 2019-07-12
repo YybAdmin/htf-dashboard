@@ -6,10 +6,7 @@
       <table style="width: 100%;line-height: 44px;">
         <tr>
           <td>
-            <div>
-              <input id="tags" type="text" class="inputsty"
-                     placeholder="渠道名称/产品名称/产品代码" autofocus="autofocus"></input>
-            </div>
+            <search :searchInfo="comName.searchInfo"></search>
           </td>
           <td style="color: #999999;font-size: 13px;text-align:right;width: 112px;" @click="choseLv($event,0)">异动敏感度<span id="lv" class="lvsty">高</span></td>
           <td><span class="spsty"></span></td>
@@ -76,12 +73,14 @@ import swiperOvalNoAll from '@/components/baseCom/swiperOvalNoAll'
 import divSplit from '@/components/baseCom/DivSplit'
 import ydsummary from '@/components/yidong/dataSummary'
 import datacard from '@/components/yidong/dataCard'
+import search from '@/components/baseCom/InputSearch'
 export default {
   name: "yidong",
-  components: {swiperOval,swiperOvalNoAll,divSplit,ydsummary,datacard},
+  components: {search,swiperOval,swiperOvalNoAll,divSplit,ydsummary,datacard},
   data(){
       return {
         comName:{
+          searchInfo:{placeholder:"渠道名称/产品名称/产品代码",pagePath:'/jingpin',ifGoOtherPage:true},
           pinDu:[{name:'当日'},{name:'连续两日'},{name:'连续三日'}],
           proType:[{name:'股票型'},{name:'货币型'}],
           platform:[{name:'自有平台'},{name:'三方三大平台'}],
@@ -172,21 +171,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-  .inputsty {
-    width: 100%;
-    height: 30px;
-    padding-left: 28px;
-    text-align: left;
-    border: none;
-    margin-left: 15px;
-    border-radius: 13px;
-    outline: none;
-    background-image: url("../assets/img/search.png");
-    background-color: #f6f6f6;
-    background-size: auto 15px;
-    background-repeat: no-repeat;
-    background-position: 4px center;
-  }
   .lvsty{
     color: #F4333C;
     font-size: 13px;
