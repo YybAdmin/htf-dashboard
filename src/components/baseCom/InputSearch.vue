@@ -1,7 +1,7 @@
 <template>
   <div>
     <input id="tags" type="text" class="inputsty" @click="goPage()"
-           :placeholder="searchInfo.placeholder"  autofocus="autofocus"/>
+           :placeholder="searchInfo.placeholder"  autofocus="autofocus" v-model="val"/>
   </div>
 </template>
 
@@ -20,6 +20,11 @@
           type: Boolean,
           default: false
         }
+      }
+    },
+    data(){
+      return{
+        val:''
       }
     },
     methods: {

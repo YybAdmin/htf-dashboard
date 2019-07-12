@@ -45,6 +45,11 @@ export default new Router({
       path:'/searchRes',
       name:'searchRes',
       component: resolve => require(['@/components/cmpxCom/searchRes'], resolve)
+    },
+    {
+      path:'/ydSearch',
+      name:'ydSearch',
+      component: resolve => require(['@/report/yidong/ydSearch'], resolve)
     }
   ]
 })

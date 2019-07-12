@@ -17,6 +17,9 @@
       <li>
         <router-link to="yidong">渠道异动监控</router-link>
       </li>
+      <li>
+        <router-link to="ydSearch">渠道异动搜索</router-link>
+      </li>
     </ul>
   </div>
 </template>

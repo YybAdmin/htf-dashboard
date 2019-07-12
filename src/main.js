@@ -22,11 +22,12 @@ Vue.prototype.$API_LIST = API_LIST
 Vue.prototype.$myUtil = myUtil
 Vue.prototype.$echartUtil = echartUtil
 
-if(Vue.prototype.$API_LIST.state == 0){
+if(Vue.prototype.$API_LIST.state == 3){
   require('@/mock/hujin')
   require('@/mock/jingpin')
   require('@/mock/datagrid')
   require('@/mock/treegrid')
+  require('@/mock/yidong')
 }
 
 /* eslint-disable no-new */

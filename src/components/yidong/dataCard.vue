@@ -47,7 +47,7 @@
     name: "dataCard",
     data() {
       return {
-        itemList: [{
+        itemList: [/*{
           name1: '腾讯',
           name2: '全额宝',
           value1: '10',
@@ -65,7 +65,7 @@
           value4: '5,000.89',
           value5: '1000.90',
           value6: '80'
-        }]
+        }*/]
       }
     }
   }
