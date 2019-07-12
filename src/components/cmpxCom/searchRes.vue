@@ -45,7 +45,7 @@
   import DivSplit from '@/components/baseCom/DivSplit'
   import LineSplit from '@/components/baseCom/LineSplit'
   import $ from 'jquery'
-  import {updateSelPro} from "../../report/service/comApi";
+  import {updateSelPro} from "../../service/comApi";
 
   export default {
     name: "searchRes",

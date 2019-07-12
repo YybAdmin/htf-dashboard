@@ -1,57 +1,82 @@
 <template>
   <div style="overflow: hidden">
     <title>互金业务数据</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <div id="chartContent">
       <tab-top @comChanged="changePageState($event,'f_tabtop')" v-bind:itemList="comName.tabTopList"></tab-top>
       <div id="guimoDiv">
         <HeadTable6r2rg @comChanged="changePageState($event,'f_tabletr')" ref="HeadTable1"></HeadTable6r2rg>
         <DivSplit/>
         <NameArea v-bind:item="comName.TopTitle"></NameArea>
-        <TabDim v-if="this.switch.proTypeRet"  ref="proType" @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.TabDimList"></TabDim>
+        <TabDim v-if="this.switch.proTypeRet" ref="proType" @comChanged="changePageState($event,'f_protype')"
+                v-bind:itemList="comName.TabDimList"></TabDim>
         <div id="gmDimDiv">
-          <swiperOval v-if="this.switch.gmTypeRst" ref="gmType" @comChanged="changePageState($event,'f_gmtype')" v-bind:itemList="comName.gmTypeList"></swiperOval>
+          <swiperOval v-if="this.switch.gmTypeRst" ref="gmType" @comChanged="changePageState($event,'f_gmtype')"
+                      v-bind:itemList="comName.gmTypeList"></swiperOval>
         </div>
         <div id="zhDimDiv">
-          <swiperOval v-if="this.switch.zhTypeRst" ref="zhType"  @comChanged="changePageState($event,'f_zhtype')" v-bind:itemList="comName.zhTypeList"></swiperOval>
+          <swiperOval v-if="this.switch.zhTypeRst" ref="zhType" @comChanged="changePageState($event,'f_zhtype')"
+                      v-bind:itemList="comName.zhTypeList"></swiperOval>
         </div>
-        <FenbuQushi  v-if="this.switch.fenbuRst1" @comChanged="changePageState($event,'f_fenbuQushi1')"/>
-        <DrawTwoBar id="chartUp" ref="chartUp"  v-bind:chartInfo="this.charData.chartUp" @comChanged="changePageState($event,'f_chartUp')"/>
-        <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.charData.chartUp2" @comChanged="changePageState($event,'f_chartUp2')" />
-        <DrawThreeBarOneLine id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.charData.chartUp3" @comChanged="changePageState($event,'f_chartUp')"/>
-        <TabDimWidth100Up  id="dateDim" @comChanged="changePageState($event,'f_dateType')" v-bind:itemList="comName.TabDimDateList"></TabDimWidth100Up>
-        <TabDimWidth100Up  id="dateDim2" @comChanged="changePageState($event,'f_dateType2')" v-bind:itemList="comName.TabDimDateList2"></TabDimWidth100Up>
+        <FenbuQushi v-if="this.switch.fenbuRst1" @comChanged="changePageState($event,'f_fenbuQushi1')"/>
+        <DrawTwoBar id="chartUp" ref="chartUp" v-bind:chartInfo="this.charData.chartUp"
+                    @comChanged="changePageState($event,'f_chartUp')"/>
+        <DrawTwoLine id="chartUp2" ref="chartUp2" :chartInfo="this.charData.chartUp2"
+                     @comChanged="changePageState($event,'f_chartUp2')"/>
+        <DrawThreeBarOneLine id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.charData.chartUp3"
+                             @comChanged="changePageState($event,'f_chartUp')"/>
+        <TabDimWidth100Up id="dateDim" @comChanged="changePageState($event,'f_dateType')"
+                          v-bind:itemList="comName.TabDimDateList"></TabDimWidth100Up>
+        <TabDimWidth100Up id="dateDim2" @comChanged="changePageState($event,'f_dateType2')"
+                          v-bind:itemList="comName.TabDimDateList2"></TabDimWidth100Up>
         <HeadTableNoTitle id="sumUp" ref="sumUp" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
         <table style="width:100%;">
           <tr>
             <td style="width: 63%;">
-              <NameArea v-bind:item="comName.MidTitle" id="MidTitle"></NameArea></td>
+              <NameArea v-bind:item="comName.MidTitle" id="MidTitle"></NameArea>
+            </td>
             <td style="width: 37%;">
-              <FenbuQushi v-if="this.switch.fenbuRst2" ref="fenbuQushi2" @comChanged="changePageState($event,'f_fenbuQushi2')" /> </td>
+              <FenbuQushi v-if="this.switch.fenbuRst2" ref="fenbuQushi2"
+                          @comChanged="changePageState($event,'f_fenbuQushi2')"/>
+            </td>
           </tr>
         </table>
         <Tag id="tagMid" ref="tagMid"/>
-        <DrawTwoBar id="chartMid" ref="chartMid"  v-bind:chartInfo="this.charData.chartMid"  @comChanged="changePageState($event,'f_chartMid')"/>
-        <DrawTwoLine id="chartMid2" ref="chartMid2" v-bind:chartInfo="this.charData.chartMid2"  @comChanged="changePageState($event,'f_chartMid2')" />
-        <DrawThreeBarOneLine id="chartMid3" ref="chartMid3" v-bind:chartInfo="this.charData.chartMid3" @comChanged="changePageState($event,'f_chartMid')"/>
+        <DrawTwoBar id="chartMid" ref="chartMid" v-bind:chartInfo="this.charData.chartMid"
+                    @comChanged="changePageState($event,'f_chartMid')"/>
+        <DrawTwoLine id="chartMid2" ref="chartMid2" v-bind:chartInfo="this.charData.chartMid2"
+                     @comChanged="changePageState($event,'f_chartMid2')"/>
+        <DrawThreeBarOneLine id="chartMid3" ref="chartMid3" v-bind:chartInfo="this.charData.chartMid3"
+                             @comChanged="changePageState($event,'f_chartMid')"/>
         <div>
-          <span style="font-size: 12px;color: #333;">图例解释</span> <help id="icon2" ref="help"></help>
+          <span style="font-size: 12px;color: #333;">图例解释</span>
+          <help id="icon2" ref="help"></help>
         </div>
         <HeadTableNoTitle id="sumMid" ref="sumMid" v-bind:itemList="comName.SumMeaList"></HeadTableNoTitle>
         <div id="guimoDivDwn">
-          <div  id="jlQdDim">
-            <TabDimWidth100Dwn v-if="this.switch.jliOrQdRst" @comChanged="changePageState($event,'f_jingliQudao')" v-bind:itemList="comName.TabDimJlOrQdList"></TabDimWidth100Dwn>
+          <div id="jlQdDim">
+            <TabDimWidth100Dwn v-if="this.switch.jliOrQdRst" @comChanged="changePageState($event,'f_jingliQudao')"
+                               v-bind:itemList="comName.TabDimJlOrQdList"></TabDimWidth100Dwn>
           </div>
           <table style="width:100%;">
             <tr>
-              <td style="width: 65%;"><NameArea v-bind:item="comName.DwnTitle"></NameArea></td>
-              <td style="width: 35%;"><FenbuQushi v-if="this.switch.fenbuRst3" ref="fenbuQushi3"  @comChanged="changePageState($event,'f_fenbuQushi3')" /></td>
+              <td style="width: 65%;">
+                <NameArea v-bind:item="comName.DwnTitle"></NameArea>
+              </td>
+              <td style="width: 35%;">
+                <FenbuQushi v-if="this.switch.fenbuRst3" ref="fenbuQushi3"
+                            @comChanged="changePageState($event,'f_fenbuQushi3')"/>
+              </td>
             </tr>
           </table>
           <Tag id="tagDwn" ref="tagDwn"/>
-          <DrawTwoBar id="chartDwn" ref="chartDwn"  v-bind:chartInfo="this.charData.chartDwn" @comChanged="changePageState($event,'f_chartDwn')"/>
-          <DrawTwoLine id="chartDwn2" ref="chartDwn2" v-bind:chartInfo="this.charData.chartDwn2"  @comChanged="changePageState($event,'f_chartDwn2')" />
-          <DrawThreeBarOneLine id="chartDwn3" ref="chartDwn3" v-bind:chartInfo="this.charData.chartDwn3"  @comChanged="changePageState($event,'f_chartDwn')" />
+          <DrawTwoBar id="chartDwn" ref="chartDwn" v-bind:chartInfo="this.charData.chartDwn"
+                      @comChanged="changePageState($event,'f_chartDwn')"/>
+          <DrawTwoLine id="chartDwn2" ref="chartDwn2" v-bind:chartInfo="this.charData.chartDwn2"
+                       @comChanged="changePageState($event,'f_chartDwn2')"/>
+          <DrawThreeBarOneLine id="chartDwn3" ref="chartDwn3" v-bind:chartInfo="this.charData.chartDwn3"
+                               @comChanged="changePageState($event,'f_chartDwn')"/>
           <DivSplit/>
         </div>
       </div>
@@ -59,8 +84,9 @@
         <HeadTable ref="kehuHead" v-bind:itemList="this.comName.kehuHeadList"/>
         <DivSplit/>
         <BtnGrop @comChanged="changePageState($event,'p_kehuDate')" v-bind:itemList="comName.TabDimDateList"/>
-        <TabDim  @comChanged="changePageState($event,'p_kehuCusGrp')" v-bind:itemList="comName.EcCusGrpList"></TabDim>
-        <swiperOvalNoAll  @comChanged="changePageState($event,'p_kehuMeaType')" :slidesPerView="4" style="margin-top:10px;" v-bind:itemList="comName.kehuMeaType"></swiperOvalNoAll>
+        <TabDim @comChanged="changePageState($event,'p_kehuCusGrp')" v-bind:itemList="comName.EcCusGrpList"></TabDim>
+        <swiperOvalNoAll @comChanged="changePageState($event,'p_kehuMeaType')" :slidesPerView="4"
+                         style="margin-top:10px;" v-bind:itemList="comName.kehuMeaType"></swiperOvalNoAll>
         <DrawNLine ref="kehuChart" v-bind:chartInfo="this.charData.kehuChart"/>
         <DivSplit/>
       </div>
@@ -93,11 +119,40 @@
   import DrawNLine from '@/components/echartCom/DrawNLine'
   import BtnGrop from '@/components/baseCom/BtnGrp'
   import help from '@/components/baseCom/Help'
+  import {
+    getDataDate,
+    getChartUpData,
+    getChartMidData,
+    getChartDwnData,
+    getChartKHChartData
+  } from "../service/hujinApi";
 
   export default {
     name: 'hujin',
-    components: {help, TabTop, HeadTable6r2rg, BtnGrop, DivSplit, NameArea, TabDim, swiperOval, swiperOvalNoAll, FenbuQushi, TabDimWidth100Up, HeadTableNoTitle, HeadTable, TabDimWidth100Dwn, DrawTwoBar, DrawTwoLine, DrawThreeBarOneLine, DrawNLine, dateDiv, downloadPDF, Tag},
-    data () {
+    components: {
+      help,
+      TabTop,
+      HeadTable6r2rg,
+      BtnGrop,
+      DivSplit,
+      NameArea,
+      TabDim,
+      swiperOval,
+      swiperOvalNoAll,
+      FenbuQushi,
+      TabDimWidth100Up,
+      HeadTableNoTitle,
+      HeadTable,
+      TabDimWidth100Dwn,
+      DrawTwoBar,
+      DrawTwoLine,
+      DrawThreeBarOneLine,
+      DrawNLine,
+      dateDiv,
+      downloadPDF,
+      Tag
+    },
+    data() {
       return {
         comName: {
           tabTopList: [{name: '规模'}, {name: '客户数'}],
@@ -157,41 +212,70 @@
           zhtypeName: '全部'
         },
         pdfApi: this.$API_LIST.hujinPdf,
-        help:{
-          ecgropRate:'高净值/大众/企业 三者占比为所占自有平台的比例，自有/三方的占比为两者在总量中所占比例',
-          lineRate:'图中的百分比代表环比增长'
+        help: {
+          ecgropRate: '高净值/大众/企业 三者占比为所占自有平台的比例，自有/三方的占比为两者在总量中所占比例',
+          lineRate: '图中的百分比代表环比增长'
         }
       }
     },
     computed: {
       charData: function () {
-        let fundUp  = { title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], clickParams: [] }
-        let fundMid = { title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey2, clickParams: [] }
-        let fundWwn = { title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey3, clickParams: [] }
+        let fundUp = {title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], clickParams: []}
+        let fundMid = {title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey2, clickParams: []}
+        let fundWwn = {title: '保有量/份额 (单位:亿)', name: ['保有量', '份额'], pKey: this.pageVal.pKey3, clickParams: []}
 
-        let transUp = { title: ['销售额(单位:万)', '流入流出(单位:万)'], name: ['流入', '流出', '净流入', '销售额'], clickParams: [] }
-        let transMid= { title: ['销售额(单位:万)', '流入流出(单位:万)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: [] }
-        let transWwn= { title: ['销售额(单位:万)', '流入流出(单位:万)'], name: ['流入', '流出', '净流入', '销售额'], pKey: this.pageVal.pKey2, clickParams: [] }
-        let transLine={ title: '金额(单位:万)', name:['净流入', '销售额']}
+        let transUp = {title: ['销售额(单位:万)', '流入流出(单位:万)'], name: ['流入', '流出', '净流入', '销售额'], clickParams: []}
+        let transMid = {
+          title: ['销售额(单位:万)', '流入流出(单位:万)'],
+          name: ['流入', '流出', '净流入', '销售额'],
+          pKey: this.pageVal.pKey2,
+          clickParams: []
+        }
+        let transWwn = {
+          title: ['销售额(单位:万)', '流入流出(单位:万)'],
+          name: ['流入', '流出', '净流入', '销售额'],
+          pKey: this.pageVal.pKey2,
+          clickParams: []
+        }
+        let transLine = {title: '金额(单位:万)', name: ['净流入', '销售额']}
 
-        let feeUp =   { title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], clickParams: [] }
-        let feeMid =  { title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], pKey: this.pageVal.pKey2, clickParams: [] }
-        let feeWwn =  { title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], pKey: this.pageVal.pKey3, clickParams: [] }
+        let feeUp = {title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], clickParams: []}
+        let feeMid = {title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], pKey: this.pageVal.pKey2, clickParams: []}
+        let feeWwn = {title: '管理费/净收入 (单位:万)', name: ['管理费', '净收入'], pKey: this.pageVal.pKey3, clickParams: []}
 
-        let kehuChart={  title: '客户数 (单位:人)', name: ['注册客户数', '绑卡客户数', '事实客户数', '有效客户数', '百元有效数', '千元有效数', '日活跃用户', '日充值百元人数'],
+        let kehuChart = {
+          title: '客户数 (单位:人)', name: ['注册客户数', '绑卡客户数', '事实客户数', '有效客户数', '百元有效数', '千元有效数', '日活跃用户', '日充值百元人数'],
           selected: [true, false, false, false, false, false, false, false]
         }
         if (this.pageVal.tabletr === 1) {
           return {
-            chartUp: fundUp, chartUp2:fundUp, chartMid: fundMid, chartMid2: fundMid, chartDwn: fundWwn,chartDwn2: fundWwn, kehuChart: kehuChart
+            chartUp: fundUp,
+            chartUp2: fundUp,
+            chartMid: fundMid,
+            chartMid2: fundMid,
+            chartDwn: fundWwn,
+            chartDwn2: fundWwn,
+            kehuChart: kehuChart
           }
         } else if (this.pageVal.tabletr === 2) {
           return {
-            chartUp3: transUp,chartUp2:transLine, chartMid3: transMid,chartMid2:transLine,  chartDwn3: transWwn,chartDwn2:transLine, kehuChart: kehuChart
+            chartUp3: transUp,
+            chartUp2: transLine,
+            chartMid3: transMid,
+            chartMid2: transLine,
+            chartDwn3: transWwn,
+            chartDwn2: transLine,
+            kehuChart: kehuChart
           }
         } else if (this.pageVal.tabletr === 3) {
           return {
-            chartUp: feeUp, chartUp2: feeUp, chartMid: feeMid, chartMid2: feeMid, chartDwn: feeWwn, chartDwn2: feeWwn, kehuChart: kehuChart
+            chartUp: feeUp,
+            chartUp2: feeUp,
+            chartMid: feeMid,
+            chartMid2: feeMid,
+            chartDwn: feeWwn,
+            chartDwn2: feeWwn,
+            kehuChart: kehuChart
           }
         }
       }
@@ -305,30 +389,31 @@
         this.guimoGetDataAndDraw(this.pageVal, reflashFlag)
       },
       drawChartUp: function (pageVal) {
-        this.$http.post(this.$API_LIST.hujinChartUp, pageVal).then(res => {
-          if(pageVal.fbOrQs1 === 1){ //上图 分布
-            if(pageVal.tabletr === 1 || pageVal.tabletr === 3){
-              let chartUp = this.$refs.chartUp
+        let _this = this
+        getChartUpData(pageVal, function (res) {
+          if (pageVal.fbOrQs1 === 1) { //上图 分布
+            if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
+              let chartUp = _this.$refs.chartUp
               let params = {
                 label1Show: true,
                 label2Show: true,
                 labelNum: 1,
-                initSelKey: this.pageVal.pKey1.toString()
+                initSelKey: pageVal.pKey1.toString()
               }
               chartUp.setData(res.data.list, params)
-            }else if(pageVal.tabletr === 2){
-              let chartUp3 = this.$refs.chartUp3
+            } else if (pageVal.tabletr === 2) {
+              let chartUp3 = _this.$refs.chartUp3
               let paramsUp = {
                 label1Show: true,
                 label2Show: true,
                 labelNum: 1,
-                initSelKey: this.pageVal.pKey1.toString()
+                initSelKey: pageVal.pKey1.toString()
               }
               chartUp3.setData(res.data.list, paramsUp)
             }
-            this.drawSumUp(res.data.list, pageVal)
-          } else if (pageVal.fbOrQs1 === 2){ //上图趋势
-            let chartUp2 = this.$refs.chartUp2
+            _this.drawSumUp(res.data.list, pageVal)
+          } else if (pageVal.fbOrQs1 === 2) { //上图趋势
+            let chartUp2 = _this.$refs.chartUp2
             let paramsUp = {
               label1Show: true,
               label2Show: false,
@@ -340,7 +425,8 @@
       },
       drawSumUp: function (list, pageVal) {
         let sumUp = this.$refs.sumUp
-        let val1 = 0; let val2 = 0
+        let val1 = 0;
+        let val2 = 0
         if (pageVal.tabletr === 1) {
           for (let i = 0; i < list.length; i++) {
             val1 = val1 + parseFloat(list[i].VALUE1)
@@ -372,10 +458,11 @@
         }
       },
       drawChartMid: function (pageVal) {
-        this.$http.post(this.$API_LIST.hujinChartMid, pageVal).then(res => {
-          if(pageVal.fbOrQs2 === 1){ // 中图 分布
-            if(pageVal.tabletr === 1 || pageVal.tabletr === 3){
-              let chartMid = this.$refs.chartMid
+        let _this= this
+        getChartMidData(pageVal, function (res) {
+          if (pageVal.fbOrQs2 === 1) { // 中图 分布
+            if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
+              let chartMid = _this.$refs.chartMid
               let paramsMid = {
                 ifShadow: true,
                 shadowNum: 3,
@@ -383,14 +470,14 @@
                 label2Show: false,
                 labelNum: 2,
                 labelColor: false,
-                initSelKey: this.pageVal.pKey2.toString()
+                initSelKey: pageVal.pKey2.toString()
               }
               let retData = res.data.list
-              if(pageVal.tabletr == 3){ //费用的时候，造出自有的数据
-                let zy = {'KKEY':'4','VALUE1':0,'VALUE2':0,'NAME':'自有'}
+              if (pageVal.tabletr == 3) { //费用的时候，造出自有的数据
+                let zy = {'KKEY': '4', 'VALUE1': 0, 'VALUE2': 0, 'NAME': '自有'}
                 for (let i = 0; i < 3; i++) {
-                  zy.VALUE1 = parseFloat(retData[i].VALUE1)+zy.VALUE1
-                  zy.VALUE2 = parseFloat(retData[i].VALUE2)+zy.VALUE2
+                  zy.VALUE1 = parseFloat(retData[i].VALUE1) + zy.VALUE1
+                  zy.VALUE2 = parseFloat(retData[i].VALUE2) + zy.VALUE2
                 }
                 zy.VALUE1 = (zy.VALUE1).toFixed(2).toString()
                 zy.VALUE2 = (zy.VALUE2).toFixed(2).toString()
@@ -430,21 +517,21 @@
                 }
               }
               chartMid.setData(retData, paramsMid)
-            }else if(pageVal.tabletr === 2){
-              let chartMid3 = this.$refs.chartMid3
+            } else if (pageVal.tabletr === 2) {
+              let chartMid3 = _this.$refs.chartMid3
               let paramsMid = {
                 ifShadow: true,
                 shadowNum: 3,
                 label1Show: true,
                 label2Show: false,
                 labelNum: 1,
-                initSelKey: this.pageVal.pKey2.toString()
+                initSelKey: pageVal.pKey2.toString()
               }
               chartMid3.setData(res.data.list, paramsMid)
             }
-            this.drawSumMid(res.data.list, pageVal)
-          } else if(pageVal.fbOrQs2 === 2){ // 中图 趋势
-            let chartMid2 = this.$refs.chartMid2
+            _this.drawSumMid(res.data.list, pageVal)
+          } else if (pageVal.fbOrQs2 === 2) { // 中图 趋势
+            let chartMid2 = _this.$refs.chartMid2
             let paramsMid = {
               label1Show: true,
               label2Show: false,
@@ -456,7 +543,8 @@
       },
       drawSumMid: function (list, pageVal) {
         let sumMid = this.$refs.sumMid
-        let val1 = 0; let val2 = 0
+        let val1 = 0;
+        let val2 = 0
         if (pageVal.tabletr === 1) {
           for (let i = 0; i < list.length; i++) {
             if (list[i].NAME === '自有' || list[i].NAME === '三方') {
@@ -494,29 +582,30 @@
         }
       },
       drawChartDwn: function (pageVal) {
-        this.$http.post(this.$API_LIST.hujinChartDwn, pageVal).then(res => {
+        let _this = this
+        getChartDwnData(pageVal, function (res) {
           if (pageVal.fbOrQs3 === 1) {
             if (pageVal.tabletr === 1 || pageVal.tabletr === 3) {
-              let chartDwn = this.$refs.chartDwn
+              let chartDwn = _this.$refs.chartDwn
               let params = {
                 label1Show: true,
                 label2Show: false,
                 labelNum: 1,
-                initSelKey: this.pageVal.pKey3.toString()
+                initSelKey: pageVal.pKey3.toString()
               }
               chartDwn.setData(res.data.list, params)
             } else if (pageVal.tabletr === 2) {
-              let chartDwn3 = this.$refs.chartDwn3
+              let chartDwn3 = _this.$refs.chartDwn3
               let params = {
                 label1Show: true,
                 label2Show: false,
                 labelNum: 1,
-                initSelKey: this.pageVal.pKey3.toString()
+                initSelKey: pageVal.pKey3.toString()
               }
               chartDwn3.setData(res.data.list, params)
             }
           } else if (pageVal.fbOrQs3 === 2) {
-            let chartDwn2 = this.$refs.chartDwn2
+            let chartDwn2 = _this.$refs.chartDwn2
             let params = {
               label1Show: true,
               label2Show: false,
@@ -529,15 +618,15 @@
       },
       drawkehuChart: function (pageVal) {
         let kehuChart = this.$refs.kehuChart
-        this.$http.post(this.$API_LIST.hujinKehuChart, pageVal).then(res => {
+        getChartKHChartData(pageVal, function (res) {
           kehuChart.setData(res.data.list, pageVal.kehuDateType)
         })
       },
       guimoGetDataAndDraw: function (pageVal, flag) {
-        if(pageVal.tabletr == 1 || pageVal.tabletr == 2  ){
-          pageVal.dateType =  pageVal.dateType1
-        } else if(pageVal.tabletr == 3){
-          pageVal.dateType =  pageVal.dateType2
+        if (pageVal.tabletr == 1 || pageVal.tabletr == 2) {
+          pageVal.dateType = pageVal.dateType1
+        } else if (pageVal.tabletr == 3) {
+          pageVal.dateType = pageVal.dateType2
         }
         if (flag === 'up') {
           this.drawChartUp(pageVal)
@@ -586,10 +675,10 @@
           $('#chartUp3').show()
           $('#chartMid3').show()
         }
-        if(val === 1 || val === 2){
+        if (val === 1 || val === 2) {
           $("#dateDim2").hide()
           $("#dateDim").show()
-        }else if(val === 3){
+        } else if (val === 3) {
 
           $("#dateDim").hide()
           $("#dateDim2").show()
@@ -798,7 +887,7 @@
         this.$refs.fenbuQushi3.setData(true, dateStr)
         return 'mid_dwn'
       },
-      changeDateType: function(val){
+      changeDateType: function (val) {
         this.pageVal.dateType1 = val
         this.pageVal.pKey2 = '999999'
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
@@ -811,7 +900,7 @@
         }
         return 'up_mid'
       },
-      changeDateType2: function(val){
+      changeDateType2: function (val) {
         this.pageVal.dateType2 = val + 1
         this.pageVal.pKey2 = '999999'
         this.resetCom('fenbuRst2', 'fbOrQs2', 'fenbuQushi2Div')
@@ -865,7 +954,7 @@
           return 'no'
         }
       },
-      onClickChartMidLine: function(val){
+      onClickChartMidLine: function (val) {
         this.$refs.sumMid.headData[0].VALUE1 = val[0].data.VALUE1
         this.$refs.sumMid.headData[0].VALUE2 = val[0].data.VALUE2
         this.pageVal.dataDate = val[0].value.NAMEBAK
@@ -960,13 +1049,14 @@
         this.guimoGetDataAndDraw(this.pageVal, 'kehu')
       }
     },
-    mounted () {
-      this.$http.post(this.$API_LIST.hujinDataDate, this.pageVal).then(res => {
-        this.pageVal.BATCHDate = res.data.BATCHDate
-        this.pageVal.dataDate = res.data.BATCHDate
-        this.$refs.dateDiv.setDate(this.pageVal.dataDate.substring(0, 4) + '-' +
-          this.pageVal.dataDate.substring(4, 6) + '-' + this.pageVal.dataDate.substring(6, 8))
-        this.guimoInit()
+    mounted() {
+      let _this = this
+      getDataDate(this.pageVal, function (res) {
+        _this.pageVal.BATCHDate = res.data.BATCHDate
+        _this.pageVal.dataDate = res.data.BATCHDate
+        _this.$refs.dateDiv.setDate(_this.pageVal.dataDate.substring(0, 4) + '-' +
+          _this.pageVal.dataDate.substring(4, 6) + '-' + _this.pageVal.dataDate.substring(6, 8))
+        _this.guimoInit()
       })
     }
   }
