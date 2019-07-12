@@ -31,13 +31,22 @@
   export default {
       name: "dataSummary",
       components:{nameArea},
-      props:['ydList','ifshow'],
+      props:{
+        ifshow:{
+          default:true
+        }
+      },
       data(){
           return{
             isshow:this.ifshow,
             item:'异动数据汇总',
-            itemList:this.ydList
+            itemList:[]
           }
+      },
+      methods:{
+        setData:function (items) {
+          this.itemList = items
+        }
       }
     }
 </script>

@@ -40,8 +40,8 @@
       </tr>
     </table>
     <divSplit></divSplit>
-    <ydsummary v-bind:ydList="test.sum"></ydsummary>
-    <datacard></datacard>
+    <ydsummary ref="sm"></ydsummary>
+    <datacard ref="dc"></datacard>
   </div>
 </template>
 
@@ -72,14 +72,8 @@
           proType: 1,
           platform: 1,
           target: 1
-        },
-        test: {
-          sum: [{VALUE1: '3', VALUE2: '5', VALUE3: '50', VALUE4: '900'}]
         }
       }
-    },
-    mounted() {
-
     },
     methods: {
       getDataAndDraw: function (pageVal, flag) {
@@ -132,6 +126,37 @@
 
         return 'target'
       }
+    },
+    mounted() {
+      let _this = this
+/*      this.$http.post('/api/report/summary',this.pageVal).then(res=>{
+        let items = res.data.list
+      })*/
+      let items = [{VALUE1: '3', VALUE2: '5', VALUE3: '50', VALUE4: '900'}]
+      this.$refs.sm.setData(items)
+/*      this.$http.post('/api/report/dataCard',this.pageVal).then(res=>{
+        let items = res.data.list
+      })*/
+      let list = [{
+        name1: '腾讯',
+        name2: '全额宝',
+        value1: '10',
+        value2: '3000',
+        value3: '3000',
+        value4: '5,000.89',
+        value5: '1000.90',
+        value6: '80'
+      }, {
+        name1: '无锡市民卡...',
+        name2: '全额宝',
+        value1: '10',
+        value2: '3000',
+        value3: '3000',
+        value4: '5,000.89',
+        value5: '1000.90',
+        value6: '80'
+      }]
+      this.$refs.dc.setData(list)
     }
   }
 </script>

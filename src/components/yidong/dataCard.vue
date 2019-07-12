@@ -67,6 +67,11 @@
           value6: '80'
         }*/]
       }
+    },
+    methods:{
+      setData:function (list) {
+        this.itemList = list
+      }
     }
   }
 </script>
