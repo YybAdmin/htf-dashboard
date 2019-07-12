@@ -1,47 +1,41 @@
 <template>
-  <div style="overflow-x: hidden;">
+  <div style="overflow-x: hidden;" class="pageContent">
     <title>渠道异动监控</title>
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <div style="background: white;">
-      <table style="width: 100%;line-height: 44px;">
-        <tr>
-          <td>
-            <search :searchInfo="comName.searchInfo"></search>
-          </td>
-          <td style="color: #999999;font-size: 13px;text-align:right;width: 112px;" @click="choseLv($event,0)">
-            异动敏感度<span id="lv" class="lvsty">高</span></td>
-          <td><span class="spsty"></span></td>
-        </tr>
-      </table>
-    </div>
-    <table style="width: 100%;table-layout: fixed;margin-bottom: 10px;">
+    <table class="searchTable">
+      <tr>
+        <td>
+          <search :searchInfo="comName.searchInfo"></search>
+        </td>
+        <td style="color: #999999;font-size: 13px;text-align:right;width: 112px;" @click="choseLv(val,0)">
+          异动敏感度<span id="lv" class="lvsty">高</span></td>
+        <td><span class="spsty"></span></td>
+      </tr>
+    </table>
+    <table class="dimTable">
       <tr>
         <td class="DimTitle">异动频度:</td>
         <td>
-          <Dim ref="ydPinDu" @comChanged="changePageState($event,'f_pindu')"
-               :itemList="comName.pinDu" :slidesPerView="4.6"></Dim>
+          <Dim ref="ydPinDu" @comChanged="DimChg(val,'f_pindu')" :itemList="comName.pinDu"></Dim>
         </td>
       </tr>
       <tr>
         <td class="DimTitle">产品类型:</td>
         <td>
-          <Dim ref="proType" @comChanged="changePageState($event,'f_protype')" :itemList="comName.proType"
-               :slidesPerView="5"></Dim>
+          <Dim ref="proType" @comChanged="DimChg(val,'f_protype')" :itemList="comName.proType"></Dim>
         </td>
       </tr>
       <tr>
         <td class="DimTitle">平&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;台:</td>
         <td>
-          <Dim ref="platform" @comChanged="changePageState($event,'f_platform')" :itemList="comName.platform"
-               :slidesPerView="5"></Dim>
+          <Dim ref="platform" @comChanged="DimChg(val,'f_platform')" :itemList="comName.platform"></Dim>
         </td>
       </tr>
       <tr>
         <td class="DimTitle">指&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标:</td>
         <td>
-          <Dim ref="target" @comChanged="changePageState($event,'f_target')" :itemList="comName.target"
-               :slidesPerView="5"></Dim>
+          <Dim ref="target" @comChanged="DimChg(val,'f_target')" :itemList="comName.target"></Dim>
         </td>
       </tr>
     </table>
@@ -70,7 +64,6 @@
 
 <script>
   import $ from 'jquery'
-  import swiperOval from '@/components/baseCom/swiperOval'
   import Dim from '@/components/baseCom/spanOval'
   import divSplit from '@/components/baseCom/DivSplit'
   import ydsummary from '@/components/yidong/dataSummary'
@@ -111,7 +104,7 @@
           return false
         }
       },
-      changePageState: function (val, flag) {
+      DimChg: function (val, flag) {
         let reflashFlag = 'no'
         // 异动频度
         if (flag == 'f_pindu') {
@@ -174,12 +167,29 @@
 </script>
 
 <style scoped lang="less">
-  .DimTitle {
-    width: 82px;
-    text-align: right;
-    font-weight: 400;
-  }
+  .pageContent{
+    .searchTable {
+      width: 100%;
+      line-height: 44px;
+      background: white;
+    }
 
+    .dimTable {
+      width: 100%;
+      table-layout: fixed;
+      margin-bottom: 10px;
+
+      tr {
+        height: 35px;
+        line-height: 35px;
+        .DimTitle {
+          width: 82px;
+          text-align: right;
+          font-weight: 400;
+        }
+      }
+    }
+  }
   .lvsty {
     color: #F4333C;
     font-size: 13px;
