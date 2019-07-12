@@ -8,50 +8,37 @@
         <td>
           <search :searchInfo="comName.searchInfo"></search>
         </td>
-        <td style="color: #999999;font-size: 13px;text-align:right;width: 112px;" @click="choseLv(val,0)">
-          异动敏感度<span id="lv" class="lvsty">高</span></td>
-        <td><span class="spsty"></span></td>
+        <td style="width: 130px;">
+          <SelectDwn @comChanged="DimChg($event,'f_mingan')"></SelectDwn>
+        </td>
       </tr>
     </table>
     <table class="dimTable">
       <tr>
         <td class="DimTitle">异动频度:</td>
         <td>
-          <Dim ref="ydPinDu" @comChanged="DimChg(val,'f_pindu')" :itemList="comName.pinDu"></Dim>
+          <Dim ref="ydPinDu" @comChanged="DimChg($event,'f_pindu')" :itemList="comName.pinDu"></Dim>
         </td>
       </tr>
       <tr>
         <td class="DimTitle">产品类型:</td>
         <td>
-          <Dim ref="proType" @comChanged="DimChg(val,'f_protype')" :itemList="comName.proType"></Dim>
+          <Dim ref="proType" @comChanged="DimChg($event,'f_protype')" :itemList="comName.proType"></Dim>
         </td>
       </tr>
       <tr>
         <td class="DimTitle">平&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;台:</td>
         <td>
-          <Dim ref="platform" @comChanged="DimChg(val,'f_platform')" :itemList="comName.platform"></Dim>
+          <Dim ref="platform" @comChanged="DimChg($event,'f_platform')" :itemList="comName.platform"></Dim>
         </td>
       </tr>
       <tr>
         <td class="DimTitle">指&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标:</td>
         <td>
-          <Dim ref="target" @comChanged="DimChg(val,'f_target')" :itemList="comName.target"></Dim>
+          <Dim ref="target" @comChanged="DimChg($event,'f_target')" :itemList="comName.target"></Dim>
         </td>
       </tr>
     </table>
-    <div id="lvTab" class="lvDivsty" style="display: none">
-      <table class="tabsty">
-        <tr>
-          <td @click="choseLv($event,1)">高</td>
-        </tr>
-        <tr>
-          <td @click="choseLv($event,2)">中</td>
-        </tr>
-        <tr>
-          <td @click="choseLv($event,3)">低</td>
-        </tr>
-      </table>
-    </div>
     <divSplit></divSplit>
     <div>
       <ydsummary v-bind:ydList="test.sum"></ydsummary>
@@ -65,6 +52,7 @@
 <script>
   import $ from 'jquery'
   import Dim from '@/components/baseCom/spanOval'
+  import SelectDwn from '@/components/baseCom/selectDwn'
   import divSplit from '@/components/baseCom/DivSplit'
   import ydsummary from '@/components/yidong/dataSummary'
   import datacard from '@/components/yidong/dataCard'
@@ -72,7 +60,7 @@
 
   export default {
     name: "yidong",
-    components: {search, Dim, divSplit, ydsummary, datacard},
+    components: {search, SelectDwn, Dim, divSplit, ydsummary, datacard},
     data() {
       return {
         comName: {
@@ -83,6 +71,7 @@
           target: [{name: '全部'}, {name: '份额'}, {name: '金额'}, {name: '笔数'}]
         },
         pageVal: {
+          minGan: 1,
           ydPinDu: 1,
           proType: 1,
           platform: 1,
@@ -97,15 +86,14 @@
 
     },
     methods: {
-      ydGetDataAndDraw: function (pageVal, reflashFlag) {
-        if (flag === '') {
-
-        } else if (flag === 'no') {
-          return false
-        }
+      getDataAndDraw: function (pageVal, flag) {
+        console.log(flag)
+        console.log(pageVal)
       },
       DimChg: function (val, flag) {
         let reflashFlag = 'no'
+        if (flag = 'f_mingan') {
+        }
         // 异动频度
         if (flag == 'f_pindu') {
           reflashFlag = this.changePinDu(val)
@@ -123,40 +111,26 @@
           reflashFlag = this.changeTarget(val)
         }
         console.log(this.pageVal)
-        this.ydGetDataAndDraw(this.pageVal, reflashFlag)
-      },
-      choseLv: function (e, i) {
-        if (i == 0) {
-          $("#lvTab").show()
-        } else if (i == 1) {
-          $("#lvTab").hide()
-          $("#lv").text(e.currentTarget.innerHTML)
-          $("#lv").css('color', '#F4333C')
-        } else if (i == 2) {
-          $("#lvTab").hide()
-          $("#lv").text(e.currentTarget.innerHTML)
-          $("#lv").css('color', '#FBC25C')
-        } else if (i == 3) {
-          $("#lvTab").hide()
-          $("#lv").text(e.currentTarget.innerHTML)
-          $("#lv").css('color', '#88D2FF')
-        }
-      },
+        this.getDataAndDraw(this.pageVal, reflashFlag)
+      }
+      ,
       changePinDu: function (val) {
         this.pageVal.ydPinDu = val
-
         return 'pinDu'
-      },
+      }
+      ,
       changeProType: function (val) {
         this.pageVal.proType = val
 
         return 'proType'
-      },
+      }
+      ,
       changePlatform: function (val) {
         this.pageVal.platform = val
 
         return 'platform'
-      },
+      }
+      ,
       changeTarget: function (val) {
         this.pageVal.platform = val
 
@@ -167,11 +141,12 @@
 </script>
 
 <style scoped lang="less">
-  .pageContent{
+  .pageContent {
     .searchTable {
       width: 100%;
       line-height: 44px;
       background: white;
+      padding: 0px 15px;
     }
 
     .dimTable {
@@ -182,6 +157,7 @@
       tr {
         height: 35px;
         line-height: 35px;
+
         .DimTitle {
           width: 82px;
           text-align: right;
@@ -189,39 +165,6 @@
         }
       }
     }
-  }
-  .lvsty {
-    color: #F4333C;
-    font-size: 13px;
-    margin-left: 7px;
-  }
-
-  .spsty {
-    width: 0;
-    height: 0;
-    border-bottom: 4px solid #999999;
-    border-left: 4px solid transparent;
-    margin-top: 10px;
-    display: block;
-    margin-right: 5px;
-  }
-
-  .lvDivsty {
-    position: fixed;
-    right: 10px;
-    width: 71px;
-    height: 126px;
-    top: 5%;
-    z-index: 10
-  }
-
-  .tabsty {
-    width: 71px;
-    height: 126px;
-    border: 1px solid #FFFFFF;
-    box-shadow: #DDDDDD 2px 2px 2px 2px;
-    border-radius: 5px;
-    background-color: white
   }
 
   .tabsty tr:first-child td {
