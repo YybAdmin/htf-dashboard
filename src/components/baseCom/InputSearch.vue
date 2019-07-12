@@ -44,7 +44,6 @@
     padding-left: 28px;
     text-align: left;
     border: none;
-    margin-left: 15px;
     border-radius: 13px;
     outline: none;
     background-image: url("../../assets/img/search.png");

@@ -1,221 +1,165 @@
 <template>
-  <div>
+  <div style="overflow-x: hidden;" class="pageContent">
     <title>渠道异动监控</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <div style="background: white;width: 100%;">
-      <table style="width: 100%;line-height: 44px;">
-        <tr>
-          <td>
-            <search :searchInfo="comName.searchInfo"></search>
-          </td>
-          <td style="color: #999999;font-size: 13px;text-align:right;width: 112px;" @click="choseLv($event,0)">异动敏感度<span id="lv" class="lvsty">高</span></td>
-          <td><span class="spsty"></span></td>
-        </tr>
-      </table>
-    </div>
-    <div style="margin-bottom: 10px;">
-      <table style="width: 100%;table-layout: fixed">
-        <tr>
-          <td style="width: 82px;text-align: right;font-weight: 400">异动频度:</td>
-          <td>
-            <div>
-              <swiperOvalNoAll style="margin-left: -25px;" ref="ydPinDu" @comChanged="changePageState($event,'f_pindu')" v-bind:itemList="comName.pinDu"></swiperOvalNoAll>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="width: 82px;text-align: right;font-weight: 400">产品类型:</td>
-          <td>
-            <div>
-              <swiperOval ref="proType" @comChanged="changePageState($event,'f_protype')" v-bind:itemList="comName.proType" v-bind:slidesPerView="4"></swiperOval>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="width: 82px;text-align: right;font-weight: 400">平&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;台:</td>
-          <td>
-            <div>
-              <swiperOval ref="platform" @comChanged="changePageState($event,'f_platform')" v-bind:itemList="comName.platform" v-bind:slidesPerView="3"></swiperOval>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="width: 82px;text-align: right;font-weight: 400">指&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标:</td>
-          <td>
-            <div>
-              <swiperOval ref="target" @comChanged="changePageState($event,'f_target')" v-bind:itemList="comName.target"></swiperOval>
-            </div>
-          </td>
-        </tr>
-      </table>
-      <div id="lvTab" class="lvDivsty" style="display: none">
-        <table class="tabsty">
-          <tr><td @click="choseLv($event,1)">高</td></tr>
-          <tr><td @click="choseLv($event,2)">中</td></tr>
-          <tr><td @click="choseLv($event,3)">低</td></tr>
-        </table>
-      </div>
-    </div>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <table class="searchTable">
+      <tr>
+        <td>
+          <search :searchInfo="comName.searchInfo"></search>
+        </td>
+        <td style="width: 130px;">
+          <SelectDwn @comChanged="DimChg($event,'f_mingan')"></SelectDwn>
+        </td>
+      </tr>
+    </table>
+    <table class="dimTable">
+      <tr>
+        <td class="DimTitle">异动频度:</td>
+        <td>
+          <Dim ref="ydPinDu" @comChanged="DimChg($event,'f_pindu')" :itemList="comName.pinDu"></Dim>
+        </td>
+      </tr>
+      <tr>
+        <td class="DimTitle">产品类型:</td>
+        <td>
+          <Dim ref="proType" @comChanged="DimChg($event,'f_protype')" :itemList="comName.proType"></Dim>
+        </td>
+      </tr>
+      <tr>
+        <td class="DimTitle">平&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;台:</td>
+        <td>
+          <Dim ref="platform" @comChanged="DimChg($event,'f_platform')" :itemList="comName.platform"></Dim>
+        </td>
+      </tr>
+      <tr>
+        <td class="DimTitle">指&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标:</td>
+        <td>
+          <Dim ref="target" @comChanged="DimChg($event,'f_target')" :itemList="comName.target"></Dim>
+        </td>
+      </tr>
+    </table>
     <divSplit></divSplit>
-    <div>
-      <ydsummary v-bind:ydList="test.sum"></ydsummary>
-    </div>
-    <div>
-      <datacard></datacard>
-    </div>
+    <ydsummary v-bind:ydList="test.sum"></ydsummary>
+    <datacard></datacard>
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
-import swiperOval from '@/components/baseCom/swiperOval'
-import swiperOvalNoAll from '@/components/baseCom/swiperOvalNoAll'
-import divSplit from '@/components/baseCom/DivSplit'
-import ydsummary from '@/components/yidong/dataSummary'
-import datacard from '@/components/yidong/dataCard'
-import search from '@/components/baseCom/InputSearch'
-export default {
-  name: "yidong",
-  components: {search,swiperOval,swiperOvalNoAll,divSplit,ydsummary,datacard},
-  data(){
+  import $ from 'jquery'
+  import Dim from '@/components/baseCom/spanOval'
+  import SelectDwn from '@/components/baseCom/selectDwn'
+  import divSplit from '@/components/baseCom/DivSplit'
+  import ydsummary from '@/components/yidong/dataSummary'
+  import datacard from '@/components/yidong/dataCard'
+  import search from '@/components/baseCom/InputSearch'
+
+  export default {
+    name: "yidong",
+    components: {search, SelectDwn, Dim, divSplit, ydsummary, datacard},
+    data() {
       return {
-        comName:{
-          searchInfo:{placeholder:"渠道名称/产品名称/产品代码",pagePath:'/jingpin',ifGoOtherPage:true},
-          pinDu:[{name:'当日'},{name:'连续两日'},{name:'连续三日'}],
-          proType:[{name:'股票型'},{name:'货币型'}],
-          platform:[{name:'自有平台'},{name:'三方三大平台'}],
-          target:[{name:'份额'},{name:'金额'},{name:'笔数'}]
+        comName: {
+          searchInfo: {placeholder: "渠道名称/产品名称/产品代码", pagePath: '/jingpin', ifGoOtherPage: true},
+          pinDu: [{name: '当日'}, {name: '连续两日'}, {name: '连续三日'}],
+          proType: [{name: '全部'}, {name: '股票'}, {name: '货币'}],
+          platform: [{name: '全部'}, {name: '自有平台'}, {name: '三方三大平台'}],
+          target: [{name: '全部'}, {name: '份额'}, {name: '金额'}, {name: '笔数'}]
         },
-        pageVal:{
-          ydPinDu:1,
-          proType:1,
-          platform:1,
-          target:1
+        pageVal: {
+          minGan: 1,
+          ydPinDu: 1,
+          proType: 1,
+          platform: 1,
+          target: 1
         },
-        test:{
-          sum:[{VALUE1:'3',VALUE2:'5',VALUE3:'50',VALUE4:'900'}]
+        test: {
+          sum: [{VALUE1: '3', VALUE2: '5', VALUE3: '50', VALUE4: '900'}]
         }
       }
-  },
-  mounted () {
-
-  },
-  methods:{
-    ydGetDataAndDraw:function(pageVal,reflashFlag){
-      if (flag === '') {
-
-      }else if (flag === 'no') {
-        return false
-      }
     },
-    changePageState:function (val, flag) {
-      let reflashFlag = 'no'
-      // 异动频度
-      if(flag == 'f_pindu'){
-        reflashFlag = this.changePinDu(val)
-      }
-      // 产品类型
-      if(flag == 'f_protype'){
-        reflashFlag = this.changeProType(val)
-      }
-      // 平台
-      if(flag == 'f_platform'){
-        reflashFlag = this.changePlatform(val)
-      }
-      // 平台
-      if(flag == 'f_target'){
-        reflashFlag = this.changeTarget(val)
-      }
-      console.log(this.pageVal)
-      this.ydGetDataAndDraw(this.pageVal, reflashFlag)
-    },
-    choseLv:function (e,i) {
-      if(i==0){
-        $("#lvTab").show()
-      }else if(i==1){
-        $("#lvTab").hide()
-        $("#lv").text(e.currentTarget.innerHTML)
-        $("#lv").css('color','#F4333C')
-      }else if(i==2){
-        $("#lvTab").hide()
-        $("#lv").text(e.currentTarget.innerHTML)
-        $("#lv").css('color','#FBC25C')
-      }else if(i==3){
-        $("#lvTab").hide()
-        $("#lv").text(e.currentTarget.innerHTML)
-        $("#lv").css('color','#88D2FF')
-      }
-    },
-    changePinDu:function (val) {
-      this.pageVal.ydPinDu = val
+    mounted() {
 
-      return 'pinDu'
     },
-    changeProType:function (val) {
-      this.pageVal.proType = val
+    methods: {
+      getDataAndDraw: function (pageVal, flag) {
+        console.log(flag)
+        console.log(pageVal)
+      },
+      DimChg: function (val, flag) {
+        let reflashFlag = 'no'
+        if (flag = 'f_mingan') {
+        }
+        // 异动频度
+        if (flag == 'f_pindu') {
+          reflashFlag = this.changePinDu(val)
+        }
+        // 产品类型
+        if (flag == 'f_protype') {
+          reflashFlag = this.changeProType(val)
+        }
+        // 平台
+        if (flag == 'f_platform') {
+          reflashFlag = this.changePlatform(val)
+        }
+        // 平台
+        if (flag == 'f_target') {
+          reflashFlag = this.changeTarget(val)
+        }
+        console.log(this.pageVal)
+        this.getDataAndDraw(this.pageVal, reflashFlag)
+      }
+      ,
+      changePinDu: function (val) {
+        this.pageVal.ydPinDu = val
+        return 'pinDu'
+      }
+      ,
+      changeProType: function (val) {
+        this.pageVal.proType = val
 
-      return 'proType'
-    },
-    changePlatform:function (val) {
-      this.pageVal.platform = val
+        return 'proType'
+      }
+      ,
+      changePlatform: function (val) {
+        this.pageVal.platform = val
 
-      return 'platform'
-    },
-    changeTarget:function (val) {
-      this.pageVal.platform = val
+        return 'platform'
+      }
+      ,
+      changeTarget: function (val) {
+        this.pageVal.platform = val
 
-      return 'target'
+        return 'target'
+      }
     }
   }
-}
 </script>
 
 <style scoped lang="less">
-  .lvsty{
-    color: #F4333C;
-    font-size: 13px;
-    margin-left: 7px;
-  }
-  .spsty{
-    width: 0;
-    height: 0;
-    border-bottom: 4px solid #999999;
-    border-left: 4px solid transparent;
-    margin-top: 10px;
-    display: block;
-    margin-right: 5px;
-  }
-  .lvDivsty{
-    position:fixed;
-    right: 10px;
-    width: 71px;
-    height: 126px;
-    top:5%;
-    z-index: 10
-  }
-  .tabsty{
-    width: 71px;
-    height: 126px;
-    border: 1px solid #FFFFFF;
-    box-shadow: #DDDDDD 2px 2px 2px 2px;
-    border-radius: 5px;
-    background-color: white
-  }
-  .tabsty tr:first-child td{
-    font-size: 15px;
-    color: #F4333C;
-    font-weight: bold;
-    border-bottom: 1px solid #EEEEEE;
-  }
-  .tabsty tr:nth-child(2) td{
-    font-size: 15px;
-    color: #FBC25C;
-    font-weight: bold;
-    border-bottom: 1px solid #EEEEEE;
-  }
-  .tabsty tr:nth-child(3) td{
-    font-size: 15px;
-    color: #88D2FF;
-    font-weight: bold
+  .pageContent {
+    .searchTable {
+      width: 100%;
+      line-height: 44px;
+      background: white;
+      padding: 0px 15px;
+    }
+
+    .dimTable {
+      width: 100%;
+      table-layout: fixed;
+      margin-bottom: 10px;
+
+      tr {
+        height: 35px;
+        line-height: 35px;
+
+        .DimTitle {
+          width: 82px;
+          text-align: right;
+          font-weight: 400;
+        }
+      }
+    }
   }
 </style>
