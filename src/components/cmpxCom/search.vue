@@ -41,7 +41,7 @@
   import LineSplit from '@/components/baseCom/LineSplit'
   import $ from 'jquery'
   import 'jquery-ui-dist/jquery-ui'
-  import {getUserPro, updateSelPro} from "../../report/service/comApi";
+  import {getUserPro, updateSelPro} from "../../service/comApi";
 
   export default {
     name: "search",
