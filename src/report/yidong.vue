@@ -40,12 +40,8 @@
       </tr>
     </table>
     <divSplit></divSplit>
-    <div>
-      <ydsummary v-bind:ydList="test.sum"></ydsummary>
-    </div>
-    <div>
-      <datacard></datacard>
-    </div>
+    <ydsummary v-bind:ydList="test.sum"></ydsummary>
+    <datacard></datacard>
   </div>
 </template>
 
@@ -165,25 +161,5 @@
         }
       }
     }
-  }
-
-  .tabsty tr:first-child td {
-    font-size: 15px;
-    color: #F4333C;
-    font-weight: bold;
-    border-bottom: 1px solid #EEEEEE;
-  }
-
-  .tabsty tr:nth-child(2) td {
-    font-size: 15px;
-    color: #FBC25C;
-    font-weight: bold;
-    border-bottom: 1px solid #EEEEEE;
-  }
-
-  .tabsty tr:nth-child(3) td {
-    font-size: 15px;
-    color: #88D2FF;
-    font-weight: bold
   }
 </style>

@@ -87,6 +87,8 @@
       #op {
         .opc {
           border-bottom: 1px solid #EEE;
+          font-size: 15px;
+          font-weight: bold;
         }
 
         #opc1 {
@@ -103,5 +105,4 @@
       }
     }
   }
-
 </style>
