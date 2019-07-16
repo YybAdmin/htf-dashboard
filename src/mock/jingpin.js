@@ -1,5 +1,6 @@
 import Mock from 'mockjs'
-Mock.mock('/report/jingpin/headData', /post/i, function () {
+import API_LIST from  '../apiList'
+Mock.mock(API_LIST.jingpin.jingpinHeadData, /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
@@ -10,7 +11,7 @@ Mock.mock('/report/jingpin/headData', /post/i, function () {
   }
 })
 // 上图 分布
-Mock.mock('/report/jingpin/chartUp', /post/i, function (req) {
+Mock.mock(API_LIST.jingpin.jingpinChartUp, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs1 === 1) {
     if (pageVal.tabletr === 1) {
@@ -60,7 +61,7 @@ Mock.mock('/report/jingpin/chartUp', /post/i, function (req) {
     }
   }
 })
-Mock.mock('/report/jingpin/chartMid', /post/i, function (req) {
+Mock.mock(API_LIST.jingpin.jingpinChartMid, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   console.log(pageVal)
   return {
@@ -77,7 +78,7 @@ Mock.mock('/report/jingpin/chartMid', /post/i, function (req) {
     ]
   }
 })
-Mock.mock('/report/jingpin/chartDwn', /post/i, function (req) {
+Mock.mock(API_LIST.jingpin.jingpinChartDwn, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   console.log(pageVal)
   return {

@@ -174,7 +174,7 @@ export default {
     },
     setHeadData: function () {
       let headData = this.$refs.headData
-      this.$http.post(this.$API_LIST.jingpinHeadData).then(res => {
+      this.$http.post(this.$API_LIST.jingpin.jingpinHeadData).then(res => {
         headData.setData(res.data.list)
       })
     },
@@ -185,20 +185,20 @@ export default {
         label2Show: false,
         labelNum: 1
       }
-      this.$http.post(this.$API_LIST.jingpinChartUp, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.jingpin.jingpinChartUp, {pageVal: pageVal}).then(res => {
         chartUp.setData(res.data.list, paramsUp)
         chartUp.drawOneBarOneLineChart()
       })
     },
     drawChartMid: function (pageVal) {
       let chartMid = this.$refs.chartMid
-      this.$http.post(this.$API_LIST.jingpinChartMid, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.jingpin.jingpinChartMid, {pageVal: pageVal}).then(res => {
         chartMid.setData(res.data.list)
       })
     },
     drawChartDwn: function (pageVal) {
       let jingpinChart = this.$refs.jingpinChart
-      this.$http.post(this.$API_LIST.jingpinChartDwn, {pageVal: pageVal}).then(res => {
+      this.$http.post(this.$API_LIST.jingpin.jingpinChartDwn, {pageVal: pageVal}).then(res => {
         console.log('jingpinData:' + res.data.list)
         jingpinChart.setData(res.data.list)
         jingpinChart.drawNLine()
