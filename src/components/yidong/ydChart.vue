@@ -20,7 +20,7 @@
     },
     data(){
       return{
-        data:[]
+        data:[{NAME: '-',VALUE1: '-',VALUE2: '-',VALUE3: '-',VALUE4: '-',VALUE5: '-'}]
       }
     },
     methods:{
@@ -39,6 +39,7 @@
           thisChart.dispose()
         }
         let start = 100 - Math.floor(10 / this.data.length * 100)
+        let ts = this
         let myChart = echarts.init(this.$refs.ydChart)
         let myChartOption = {
           title: {
@@ -147,7 +148,17 @@
             },
             barGap: '0%',
             itemStyle: {
-              color: '#7CB1F9'
+              color: function (params) {
+                //console.log(ts.data[params.dataIndex])
+                //console.log(ts.data[params.dataIndex].VALUE1)
+                if(ts.data[params.dataIndex].VALUE1 > ts.data[params.dataIndex].VALUE3){
+                  return '#FA7375'
+                }
+                if(ts.data[params.dataIndex].VALUE1 < ts.data[params.dataIndex].VALUE4){
+                  return '#FA7375'
+                }
+                return '#7CB1F9'
+              }//'#7CB1F9'
             },
             label: {
               show: false
