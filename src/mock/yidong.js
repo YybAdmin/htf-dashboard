@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 //summary数据
-Mock.mock('http://192.168.8.171:8080/report/yidong/summary', /post/i, function () {
+Mock.mock('/report/yidong/summary', /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
@@ -8,7 +8,7 @@ Mock.mock('http://192.168.8.171:8080/report/yidong/summary', /post/i, function (
   }
 })
 //table详情列表
-Mock.mock('http://192.168.8.171:8080/report/yidong/dataCard', /post/i, function () {
+Mock.mock('/report/yidong/dataCard', /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
@@ -24,6 +24,15 @@ Mock.mock('http://192.168.8.171:8080/report/yidong/dataCard', /post/i, function 
     }, {
       name1: '无锡市民卡...',
       name2: '全额宝',
+      value1: '10',
+      value2: '20000',
+      value3: '23000',
+      value4: '5,000.89',
+      value5: '1000.90',
+      value6: '80'
+    }, {
+      name1: '蚂蚁',
+      name2: '行业混合',
       value1: '10',
       value2: '3000',
       value3: '3000',

@@ -211,7 +211,7 @@
           gmtypeName: '全部',
           zhtypeName: '全部'
         },
-        pdfApi: this.$API_LIST.hujinPdf,
+        pdfApi: this.$API_LIST.huijin.hujinPdf,
         help: {
           ecgropRate: '高净值/大众/企业 三者占比为所占自有平台的比例，自有/三方的占比为两者在总量中所占比例',
           lineRate: '图中的百分比代表环比增长'
