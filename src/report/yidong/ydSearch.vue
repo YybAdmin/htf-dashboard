@@ -1,7 +1,7 @@
 <template>
   <div class="group">
     <searchdiv id="mysearch" ref="searchtag" class="childsty"
-               v-bind:searchInfo="searchinfo"></searchdiv>
+               :searchInfo="searchinfo"></searchdiv>
     <divsplit></divsplit>
     <div :class="[contentShow===true?'hide':'show']">
         <div :style="{height:clientheight+'px',background:'#F6F6F6'}" ></div>
@@ -53,10 +53,11 @@
     methods: {
       dosearch: function (val) {
         let _this = this
-        getSummary(this.pageVal, function (res) {
+        let s = _this.$refs.searchtag.val
+        getSummary({search:s}, function (res) {
           _this.smData = res
         })
-        getDataCard(this.pageVal, function (res) {
+        getDataCard({search:s}, function (res) {
           _this.dcData = res
         })
       }
@@ -92,9 +93,5 @@
   }
   .hide{
     display: none;
-  }
-  .blank {
-    background-color: #F6F6F6;
-    height: 1000px;
   }
 </style>
