@@ -39,10 +39,7 @@
     },
     methods: {
       setData: function (data) {
-        // 默认升序
-        this.gridData = data.sort(function (a, b) {
-          return a.VALUE1 - b.VALUE1
-        })
+        this.gridData = data
       },
       dataSort: function (val,flag) {
         console.log(val)
