@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="ydChart" v-bind:style="{width:this.$myUtil.getDeviceWidth()+'px', height:250+'px'}">
-      <div class="picsty" ><img src="@/assets/img/download.gif" style="height:50px;width:50px;"></div>
+      <div class="picsty"><img src="@/assets/img/download.gif" style="height:50px;width:50px;"></div>
       <div class="fontsty">请稍候.....</div>
     </div>
   </div>
@@ -10,21 +10,22 @@
 <script>
   import $ from 'jquery'
   import echarts from 'echarts'
+
   export default {
     name: "ydChart",
-    props:{
+    props: {
       chartInfo: {
         title: '',
-          name: []
-        }
-    },
-    data(){
-      return{
-        data:[{NAME: '-',VALUE1: '-',VALUE2: '-',VALUE3: '-',VALUE4: '-',VALUE5: '-'}]
+        name: []
       }
     },
-    methods:{
-      setData:function (data) {
+    data() {
+      return {
+        data: [{NAME: '-', VALUE1: '-', VALUE2: '-', VALUE3: '-', VALUE4: '-', VALUE5: '-'}]
+      }
+    },
+    methods: {
+      setData: function (data) {
         this.data = data
         this.drawYdChart()
       },
@@ -33,7 +34,7 @@
           myChart.resize();
         }
       },*/
-      drawYdChart:function () {
+      drawYdChart: function () {
         let thisChart = echarts.getInstanceByDom(this.$refs.ydChart)
         if (thisChart !== undefined) {
           thisChart.dispose()
@@ -61,30 +62,35 @@
                 type: 'dashed'
               }
             },
-            formatter:function(params){
-              return '<div><table style="width:120px;line-height:13px;font-size:11px;color:#FFF">'+
-                '<tr><td style="text-align:left;">'+params[0].name+'</td></tr>'+
-                '<tr><td style="text-align:left;">流出份额:</td><td style="text-align:right;">'+params[0].value.VALUE1+'万元</td></tr>'+
-                '<tr><td style="text-align:left;">30天均值:</td><td style="text-align:right;">'+params[0].value.VALUE2+'万元</td></tr>'+
-                '<tr><td style="text-align:left;">上界:</td><td style="text-align:right;">'+params[0].value.VALUE3+'万元</td></tr>'+
-                '<tr><td style="text-align:left;">下界:</td><td style="text-align:right;">'+params[0].value.VALUE4+'万元</td></tr>'+
-                '<tr><td style="text-align:left;">波动率:</td><td style="text-align:right;">'+params[0].value.VALUE5+'%</td></tr>'+
+            formatter: function (params) {
+              setTimeout(function () {
+                myChart.dispatchAction({
+                  type: 'hideTip'
+                })
+              },4000)
+              return '<div><table style="width:120px;line-height:13px;font-size:11px;color:#FFF">' +
+                '<tr><td style="text-align:left;">' + params[0].name + '</td></tr>' +
+                '<tr><td style="text-align:left;">流出份额:</td><td style="text-align:right;">' + params[0].value.VALUE1 + '万元</td></tr>' +
+                '<tr><td style="text-align:left;">30天均值:</td><td style="text-align:right;">' + params[0].value.VALUE2 + '万元</td></tr>' +
+                '<tr><td style="text-align:left;">上界:</td><td style="text-align:right;">' + params[0].value.VALUE3 + '万元</td></tr>' +
+                '<tr><td style="text-align:left;">下界:</td><td style="text-align:right;">' + params[0].value.VALUE4 + '万元</td></tr>' +
+                '<tr><td style="text-align:left;">波动率:</td><td style="text-align:right;">' + params[0].value.VALUE5 + '%</td></tr>' +
                 '</table></div>';
             },
-            backgroundColor : 'rgba(0, 0, 0, 0.7)',
-            borderWidth : 1,
-            borderColor : '#ccc',
-            padding : 5,
-            textStyle : {
-              color : '#000'
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            borderWidth: 1,
+            borderColor: '#ccc',
+            padding: 5,
+            textStyle: {
+              color: '#000'
             }
           },
           legend: {
             bottom: '1px',
             data: this.chartInfo.name//['正常','异常','上界','均值','下界']
           },
-          dataset:{
-            source:this.data
+          dataset: {
+            source: this.data
           },
           dataZoom: {
             type: 'inside',
@@ -117,7 +123,6 @@
             }
           },
           yAxis: {
-            boundaryGap: ['0%', '20%'],
             splitNumber: 2,
             scale: true,
             splitLine: {
@@ -138,7 +143,7 @@
               fontSize: '9px'
             }
           },
-          series:[{
+          series: [{
             name: this.chartInfo.name[0],
             type: 'bar',
             barWidth: '4px',
@@ -151,10 +156,10 @@
               color: function (params) {
                 //console.log(ts.data[params.dataIndex])
                 //console.log(ts.data[params.dataIndex].VALUE1)
-                if(ts.data[params.dataIndex].VALUE1 > ts.data[params.dataIndex].VALUE3){
+                if (ts.data[params.dataIndex].VALUE1 > ts.data[params.dataIndex].VALUE3) {
                   return '#FA7375'
                 }
-                if(ts.data[params.dataIndex].VALUE1 < ts.data[params.dataIndex].VALUE4){
+                if (ts.data[params.dataIndex].VALUE1 < ts.data[params.dataIndex].VALUE4) {
                   return '#FA7375'
                 }
                 return '#7CB1F9'
@@ -163,7 +168,7 @@
             label: {
               show: false
             }
-          },{
+          }, {
             name: this.chartInfo.name[1],
             type: 'line',
             encode: {
@@ -173,11 +178,11 @@
             itemStyle: {
               color: '#FFC89B'
             },
-            smooth:true,
+            smooth: true,
             label: {
               show: false
             }
-          },{
+          }, {
             name: this.chartInfo.name[2],
             type: 'line',
             encode: {
@@ -187,11 +192,11 @@
             itemStyle: {
               color: '#FFE789'
             },
-            smooth:true,
+            smooth: true,
             label: {
               show: false
             }
-          },{
+          }, {
             name: this.chartInfo.name[3],
             type: 'line',
             encode: {
@@ -201,7 +206,7 @@
             itemStyle: {
               color: '#8CE5FF'
             },
-            smooth:true,
+            smooth: true,
             label: {
               show: false
             }
@@ -215,13 +220,14 @@
 </script>
 
 <style scoped>
-  .fontsty{
-    color:#666666;
+  .fontsty {
+    color: #666666;
     font-size: 16px;
     line-height: 30px;
     font-weight: 400;
   }
-  .picsty{
+
+  .picsty {
     display: block;
     text-align: center;
     padding-top: 70px;
