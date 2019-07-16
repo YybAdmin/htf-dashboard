@@ -14,32 +14,38 @@ Mock.mock(API_LIST.yidong.yidongDataCard, /post/i, function () {
     'code': '200',
     'msg': 'success',
     'list': [{
-      name1: '腾讯',
-      name2: '全额宝',
-      value1: '10',
-      value2: '3000',
-      value3: '3000',
-      value4: '5,000.89',
-      value5: '1000.90',
-      value6: '80'
+      NAME1: '腾讯',
+      KKEY1: '37382',
+      NAME2: '全额宝',
+      KKEY2: '000332',
+      VALUE1: '10',
+      VALUE2: '3000',
+      VALUE3: '3000',
+      VALUE4: '5,000.89',
+      VALUE5: '1000.90',
+      VALUE6: '80'
     }, {
-      name1: '无锡市民卡...',
-      name2: '全额宝',
-      value1: '10',
-      value2: '20000',
-      value3: '23000',
-      value4: '5,000.89',
-      value5: '1000.90',
-      value6: '80'
+      NAME1: '无锡市民卡...',
+      KKEY1: '2222',
+      NAME2: '全额宝',
+      KKEY2: '000332',
+      VALUE1: '10',
+      VALUE2: '10000',
+      VALUE3: '23323',
+      VALUE4: '3,000.89',
+      VALUE5: '2200.90',
+      VALUE6: '50'
     }, {
-      name1: '蚂蚁',
-      name2: '行业混合',
-      value1: '10',
-      value2: '3000',
-      value3: '3000',
-      value4: '5,000.89',
-      value5: '1000.90',
-      value6: '80'
+      NAME1: '蚂蚁',
+      KKEY1: '3443',
+      NAME2: '行业混合',
+      KKEY2: '345987',
+      VALUE1: '10',
+      VALUE2: '6000',
+      VALUE3: '8900',
+      VALUE4: '1,000.89',
+      VALUE5: '888.90',
+      VALUE6: '30'
     }]
   }
 })

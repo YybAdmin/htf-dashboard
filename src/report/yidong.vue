@@ -72,7 +72,8 @@
           ydPinDu: 1,
           proType: 1,
           platform: 1,
-          target: 1
+          target: 1,
+          nowCard:{agency:'999999',product:'999999'}
         }
       }
     },

@@ -6,8 +6,8 @@
         <div class="cardUp">
           <table>
             <tr>
-              <td class="c1">{{item.name1}}</td>
-              <td class="c2">{{item.name2}}</td>
+              <td class="c1">{{item.NAME1}}</td>
+              <td class="c2">{{item.NAME2}}</td>
               <td class="c3"><span class="btn lc">流出份额</span></td>
               <td class="cs"></td>
               <td class="c4"><span class="btn xk">新客/个人</span></td>
@@ -15,24 +15,24 @@
           </table>
         </div>
         <div class="cardMid">
-          <div class="midL">
-            <div class="v1">{{item.value1}}亿</div>
+          <div class="midL" @click="goDetail(item)">
+            <div class="v1">{{item.VALUE1}}亿</div>
             <div class="v1D">当日异动</div>
           </div>
           <div><span cla="sx"> </span></div>
           <div class="midR">
             <div class="midRC">
-              <div>近7天均值:<span class="v2">{{item.value2}}万</span></div>
-              <div>近30天均值:<span class="v2">{{item.value3}}万</span></div>
+              <div>近7天均值:<span class="v2">{{item.VALUE2}}万</span></div>
+              <div>近30天均值:<span class="v2">{{item.VALUE3}}万</span></div>
             </div>
           </div>
         </div>
         <div class="cardDwn">
           <table style="border-top: 1px solid #EEEEEE">
             <tr>
-              <td class="d1">上界:{{item.value4}}万</td>
-              <td class="d2">下界:{{item.value5}}万</td>
-              <td class="d3">波动率:{{item.value6}}%</td>
+              <td class="d1">上界:{{item.VALUE4}}万</td>
+              <td class="d2">下界:{{item.VALUE5}}万</td>
+              <td class="d3">波动率:{{item.VALUE6}}%</td>
             </tr>
           </table>
         </div>
@@ -48,29 +48,23 @@
     data() {
       return {
         itemList: [/*{
-          name1: '腾讯',
-          name2: '全额宝',
-          value1: '10',
-          value2: '3000',
-          value3: '3000',
-          value4: '5,000.89',
-          value5: '1000.90',
-          value6: '80'
-        }, {
-          name1: '无锡市民卡...',
-          name2: '全额宝',
-          value1: '10',
-          value2: '3000',
-          value3: '3000',
-          value4: '5,000.89',
-          value5: '1000.90',
-          value6: '80'
+          NAME1: '腾讯',
+          NAME2: '全额宝',
+          VALUE1 '10',
+          VALUE2: '3000',
+          VALUE3 '3000',
+          VALUE4: '5,000.89',
+          VALUE5: '1000.90',
+          VALUE6: '80'
         }*/]
       }
     },
     methods:{
       setData:function (list) {
         this.itemList = list
+      },
+      goDetail:function (item) {
+        this.$router.push({path:"/ydDetail",query:{pageVal:this.$parent.pageVal,item:item}})
       }
     }
   }

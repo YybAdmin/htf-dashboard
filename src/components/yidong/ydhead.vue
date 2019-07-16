@@ -12,7 +12,7 @@
             <table style="width: 100%;border-right: 1px solid #FFFFFF;line-height: 22px;">
               <tr>
                 <td>
-                  <span class="bignumsp">{{headitem[0].VALUE1}}</span>
+                  <span class="bignumsp">{{headitem.VALUE1}}</span>
                   <span style="color: #f6f6f6">万</span><br/>
                   <span class="dryd">当日异动</span>
                 </td>
@@ -25,17 +25,17 @@
 
           </td>
           <td style="text-align: right">
-            <span style="font-size: 15px;color: #FFFFFF;padding-right: 15px;">{{headitem[0].VALUE2}}万</span><br/>
-            <span style="font-size: 15px;color: #FFFFFF;padding-right: 15px;">{{headitem[0].VALUE3}}万</span>
+            <span style="font-size: 15px;color: #FFFFFF;padding-right: 15px;">{{headitem.VALUE2}}万</span><br/>
+            <span style="font-size: 15px;color: #FFFFFF;padding-right: 15px;">{{headitem.VALUE3}}万</span>
           </td>
         </tr>
         <tr>
           <td colspan="3">
             <table class="tabsty">
               <tr>
-                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">上界:{{headitem[0].VALUE4}}万</td>
-                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">下界:{{headitem[0].VALUE5}}万</td>
-                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">波动率:{{headitem[0].VALUE6}}</td>
+                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">上界:{{headitem.VALUE4}}万</td>
+                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">下界:{{headitem.VALUE5}}万</td>
+                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">波动率:{{headitem.VALUE6}}</td>
               </tr>
             </table>
           </td>
@@ -48,7 +48,11 @@
 <script>
     export default {
       name: "ydhead",
-      props:['itemList'],
+      props:{
+        itemList:{
+          default:{NAME1:'-',KKEY1:'-',NAME2:'-',KKEY2:'-',VALUE1:'-',VALUE2:'-',VALUE3:'-',VALUE4:'-',VALUE5:'-',VALUE6:'-'}
+        }
+      },
       data(){
         return{
           headitem:this.itemList

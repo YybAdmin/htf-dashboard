@@ -1,8 +1,8 @@
 <template>
     <div style="overflow: hidden">
       <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-      <yddetailtab id="longhead" v-bind:itemList="this.headData"></yddetailtab>
-      <shorthead id="shorthead" style="display: none" v-bind:dataday="this.dataDay"></shorthead>
+      <yddetailtab id="longhead" :itemList="headData"></yddetailtab>
+      <shorthead id="shorthead" style="display: none" :dataday="dataDay"></shorthead>
       <div id="chartId" v-on:dblclick="showBigDiv">
         <ydchart ref="chart" v-bind:chartInfo="this.chartInfo" ></ydchart>
       </div>
@@ -10,7 +10,6 @@
       <div id="griddiv">
         <ydgrid ref="grid" v-bind:title="ydtitle"></ydgrid>
       </div>
-
     </div>
 </template>
 
@@ -32,7 +31,7 @@
         },
         dataDay:'9000.34',
         ydtitle:['日期','流出份额','近7天均值(万元)','近30天均值(万元)'],
-        headData:[{VALUE1:'9000',VALUE2:'3000',VALUE3:'3000',VALUE4:'3000.34',VALUE5:'3000.34',VALUE6:'30.34%'}],
+        headData:{NAME1:'-',KKEY1:'-',NAME2:'-',KKEY2:'-',VALUE1:'-',VALUE2:'-',VALUE3:'-',VALUE4:'-',VALUE5:'-',VALUE6:'-'},
         chartData:[{NAME:'07-01',VALUE1:'1',VALUE2:'5',VALUE3:'5',VALUE4:'3',VALUE5:'8'},
                   {NAME:'07-02',VALUE1:'4',VALUE2:'9',VALUE3:'12',VALUE4:'4',VALUE5:'14'},
                   {NAME:'07-03',VALUE1:'3',VALUE2:'7',VALUE3:'8',VALUE4:'4',VALUE5:'6'},
@@ -62,6 +61,10 @@
                   {NAME:'2019-03-17',VALUE1:'3000',VALUE2:'3000',VALUE3:'3000'}],
         t:0
       }
+    },
+    beforeMount(){
+      let params = this.$route.query
+      this.headData = params.item
     },
     mounted(){
       window.addEventListener('scroll',this.handleScroll)
