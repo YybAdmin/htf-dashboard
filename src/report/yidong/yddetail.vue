@@ -32,8 +32,6 @@
         },
         dataDay:'9000.34',
         headData:{NAME1:'-',KKEY1:'-',NAME2:'-',KKEY2:'-',VALUE1:'-',VALUE2:'-',VALUE3:'-',VALUE4:'-',VALUE5:'-',VALUE6:'-'},
-        chartData:[],
-        gridData:[],
         t:0
       }
     },
@@ -63,7 +61,6 @@
     mounted(){
       window.addEventListener('scroll',this.handleScroll)
       this.t = document.querySelector('#griddiv').offsetTop;
-      this.$refs.chart.setData(this.chartData)
     },
     methods:{
       showBigDiv:function () {
