@@ -42,7 +42,6 @@
         this.gridData = data
       },
       dataSort: function (val,flag) {
-        console.log(val)
         if(val==='desc'){
           this.gridData.sort(function (a, b) {
             return parseFloat(b.VALUE1) - parseFloat(a.VALUE1)

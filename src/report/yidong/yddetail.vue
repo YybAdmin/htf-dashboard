@@ -71,12 +71,10 @@
         let offsetTop = document.querySelector('#griddiv').offsetTop;
         let result = offsetTop - scrollTop
         if((result-this.t) > 0){
-          console.log('下滑')
           $('#longhead').show()
           $('#shorthead').hide()
 
         }else{
-          console.log('上滑')
           $('#longhead').hide()
           $('#shorthead').show()
           if(result <= 0){
