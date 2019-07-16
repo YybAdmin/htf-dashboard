@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
+import API_LIST from  '../apiList'
 //summary数据
-Mock.mock('/report/yidong/summary', /post/i, function () {
+Mock.mock(API_LIST.yidong.yidongSummary, /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
@@ -8,7 +9,7 @@ Mock.mock('/report/yidong/summary', /post/i, function () {
   }
 })
 //table详情列表
-Mock.mock('/report/yidong/dataCard', /post/i, function () {
+Mock.mock(API_LIST.yidong.yidongDataCard, /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',

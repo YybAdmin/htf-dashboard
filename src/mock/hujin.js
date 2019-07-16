@@ -1,13 +1,13 @@
 import Mock from 'mockjs'
-
-Mock.mock('/report/hujin/dataDate', /post/i, function () {
+import API_LIST from  '../apiList'
+Mock.mock(API_LIST.huijin.hujinDataDate, /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
     'BATCHDate': '20190101'
   }
 })
-Mock.mock('/report/hujin/headData', /post/i, function () {
+Mock.mock(API_LIST.huijin.hujinHeadData, /post/i, function () {
   return {
     'code': '200',
     'msg': 'success',
@@ -17,7 +17,7 @@ Mock.mock('/report/hujin/headData', /post/i, function () {
   }
 })
 // 上图 分布
-Mock.mock('/report/hujin/chartUp', /post/i, function (req) {
+Mock.mock(API_LIST.huijin.hujinChartUp, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs1 === 1) {
     if (pageVal.tabletr === 1) {
@@ -98,7 +98,7 @@ Mock.mock('/report/hujin/chartUp', /post/i, function (req) {
   }
 })
 // 中图 分布
-Mock.mock('/report/hujin/chartMid', /post/i, function (req) {
+Mock.mock(API_LIST.huijin.hujinChartMid, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs2 === 1) {
     if (pageVal.tabletr === 1) {
@@ -149,7 +149,7 @@ Mock.mock('/report/hujin/chartMid', /post/i, function (req) {
   }
 })
 // 下图 分布req
-Mock.mock('/report/hujin/chartDwn', /post/i, function (req) {
+Mock.mock(API_LIST.huijin.hujinChartDwn, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   if (pageVal.fbOrQs3 === 1) {
     return {
@@ -180,7 +180,7 @@ Mock.mock('/report/hujin/chartDwn', /post/i, function (req) {
   }
 })
 // pdf base64
-Mock.mock('/report/hujin/pdf', /post/i, function (req) {
+Mock.mock(API_LIST.huijin.hujinPdf, /post/i, function (req) {
   return {
     'code': '200',
     'msg': 'success',
@@ -188,7 +188,7 @@ Mock.mock('/report/hujin/pdf', /post/i, function (req) {
   }
 })
 // 客户 头部数据
-Mock.mock('/report/hujin/hujinKehuHeadData', /post/i, function (req) {
+Mock.mock(API_LIST.huijin.hujinKehuHeadData, /post/i, function (req) {
   return {
     'code': '200',
     'msg': 'success',
@@ -196,7 +196,7 @@ Mock.mock('/report/hujin/hujinKehuHeadData', /post/i, function (req) {
   }
 })
 // 客户 折线图
-Mock.mock('/report/hujin/kehuChart', /post/i, function (req) {
+Mock.mock(API_LIST.huijin.hujinKehuChart, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
   console.log(pageVal)
   return {

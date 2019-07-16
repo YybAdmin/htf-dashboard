@@ -40,7 +40,7 @@
           return{
             isshow:this.ifshow,
             item:'异动数据汇总',
-            itemList:[]
+            itemList:[{VALUE1:'-',VALUE2:'-',VALUE3:'-',VALUE4:'-'}]
           }
       },
       methods:{

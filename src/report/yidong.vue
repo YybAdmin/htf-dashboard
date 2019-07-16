@@ -53,6 +53,7 @@
   import ydsummary from '@/components/yidong/dataSummary'
   import datacard from '@/components/yidong/dataCard'
   import search from '@/components/baseCom/InputSearch'
+  import {getDataCard, getSummary} from "../service/yidongApi";
 
   export default {
     name: "yidong",
@@ -60,7 +61,7 @@
     data() {
       return {
         comName: {
-          searchInfo: {placeholder: "渠道名称/产品名称/产品代码", pagePath: '/jingpin', ifGoOtherPage: true},
+          searchInfo: {placeholder: "渠道名称/产品名称/产品代码", pagePath: '/ydSearch', ifGoOtherPage: true},
           pinDu: [{name: '当日'}, {name: '连续两日'}, {name: '连续三日'}],
           proType: [{name: '全部'}, {name: '股票'}, {name: '货币'}],
           platform: [{name: '全部'}, {name: '自有平台'}, {name: '三方三大平台'}],
@@ -129,34 +130,12 @@
     },
     mounted() {
       let _this = this
-/*      this.$http.post('/api/report/summary',this.pageVal).then(res=>{
-        let items = res.data.list
-      })*/
-      let items = [{VALUE1: '3', VALUE2: '5', VALUE3: '50', VALUE4: '900'}]
-      this.$refs.sm.setData(items)
-/*      this.$http.post('/api/report/dataCard',this.pageVal).then(res=>{
-        let items = res.data.list
-      })*/
-      let list = [{
-        name1: '腾讯',
-        name2: '全额宝',
-        value1: '10',
-        value2: '3000',
-        value3: '3000',
-        value4: '5,000.89',
-        value5: '1000.90',
-        value6: '80'
-      }, {
-        name1: '无锡市民卡...',
-        name2: '全额宝',
-        value1: '10',
-        value2: '3000',
-        value3: '3000',
-        value4: '5,000.89',
-        value5: '1000.90',
-        value6: '80'
-      }]
-      this.$refs.dc.setData(list)
+      getSummary(this.pageVal,function (res) {
+        _this.$refs.sm.setData(res)
+      })
+      getDataCard(this.pageVal,function (res) {
+        _this.$refs.dc.setData(res)
+      })
     }
   }
 </script>
