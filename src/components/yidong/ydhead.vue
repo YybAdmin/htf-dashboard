@@ -35,7 +35,7 @@
               <tr>
                 <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">上界:{{headitem.VALUE4}}万</td>
                 <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">下界:{{headitem.VALUE5}}万</td>
-                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">波动率:{{headitem.VALUE6}}</td>
+                <td style="font-size: 13px;font-weight: bold;color: #FFFFFF">波动率:{{headitem.VALUE6}}%</td>
               </tr>
             </table>
           </td>

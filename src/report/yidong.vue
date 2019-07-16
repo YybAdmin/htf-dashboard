@@ -84,6 +84,7 @@
       },
       DimChg: function (val, flag) {
         let reflashFlag = 'no'
+        //  敏感度
         if (flag = 'f_mingan') {
         }
         // 异动频度
@@ -129,7 +130,7 @@
         return 'target'
       }
     },
-    mounted() {
+    beforeMount(){
       let _this = this
       getSummary(this.pageVal,function (res) {
         _this.$refs.sm.setData(res)
@@ -137,6 +138,9 @@
       getDataCard(this.pageVal,function (res) {
         _this.$refs.dc.setData(res)
       })
+    },
+    mounted() {
+
     }
   }
 </script>
