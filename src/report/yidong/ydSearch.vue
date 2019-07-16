@@ -1,17 +1,16 @@
 <template>
-    <div style="overflow: hidden">
-      <div>
-        <searchdiv id="mysearch" ref="searchtag" class="childsty" style="" v-bind:searchInfo="comName.searchinfo"></searchdiv>
-        <divsplit></divsplit>
-      </div>
-      <div v-if="sumlist.length==0">
-        <div v-bind:style="blanksty"></div>
-      </div>
-      <div v-else>
-        <ydsummary v-bind:ydList="sumlist" v-bind:ifshow="ifshow"></ydsummary>
-        <datacard ref="datacard"></datacard>
-      </div>
+  <div class="group">
+    <searchdiv id="mysearch" ref="searchtag" class="childsty"
+               v-bind:searchInfo="searchinfo"></searchdiv>
+    <divsplit></divsplit>
+    <div :class="[contentShow===true?'hide':'show']">
+        <div :style="{height:clientheight+'px',background:'#F6F6F6'}" ></div>
     </div>
+    <div :class="[contentShow===true?'show':'hide']">
+      <ydsummary ref="sm" :hasTitle="sumTitleShow"></ydsummary>
+      <datacard ref="dc"></datacard>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,24 +19,30 @@
   import ydsummary from '@/components/yidong/dataSummary'
   import datacard from '@/components/yidong/dataCard'
   import divsplit from '@/components/baseCom/DivSplit'
+  import {getDataCard, getSummary} from "../../service/yidongApi";
+
   export default {
     name: "ydSearch",
-    components:{searchdiv,ydsummary,datacard,divsplit},
-    data(){
-      return{
-        comName:{
-          searchinfo:{pagePath:'',placeholder:'渠道名称/产品名称/产品代码',ifGoOtherPage:false}
-        },
-        ifshow:true,
-        sumlist:[],
-        blanksty:'background-color: #F6F6F6;height:'+(document.body.clientHeight-60)+'px;'
+    components: {searchdiv, ydsummary, datacard, divsplit},
+    data() {
+      return {
+        searchinfo: {pagePath: '', placeholder: '渠道名称/产品名称/产品代码', ifGoOtherPage: false},
+        sumTitleShow: false,
+        contentShow:false,
+        clientheight:0,
+        smData:[],
+        dcData:[]
       }
     },
-    mounted(){
+    beforeMount() {
+       this.clientheight = document.body.clientHeight-60
+    }
+    ,
+    mounted() {
       var _this = this
-      $("#mysearch").bind('keypress',function(e) {
+      $("#mysearch").bind('keypress', function (e) {
         //当e.keyCode的值为13 即，点击前往/搜索 按键时执行以下操作
-        if(e.keyCode == 13) {
+        if (e.keyCode == 13) {
           document.activeElement.blur();//软键盘收起
           var s = _this.$refs.searchtag.val
           _this.dosearch(s)
@@ -45,16 +50,24 @@
       });
 
     },
-    methods:{
-      dosearch:function (val) {
-        var ts = this
-        this.$http.post(this.$API_LIST.yidongSummary, val).then(res => {
-          this.sumlist = res.data.list
-          this.ifshow = false
+    methods: {
+      dosearch: function (val) {
+        let _this = this
+        getSummary(this.pageVal, function (res) {
+          _this.smData = res
         })
-        this.$http.post(this.$API_LIST.yidongDataCard, val).then(res => {
-          this.$nextTick(() => {ts.$refs.datacard.itemList = res.data.list})
+        getDataCard(this.pageVal, function (res) {
+          _this.dcData = res
         })
+      }
+    },
+    watch:{
+      smData:function (e) {
+        if(this.smData.length>=1 && this.dcData.length>=1){
+          this.contentShow = true
+          this.$refs.sm.setData(this.smData)
+          this.$refs.dc.setData(this.dcData)
+        }
       }
     }
 
@@ -62,11 +75,26 @@
 </script>
 
 <style scoped lang="less">
-.childsty{
-  line-height: 50px;
-  /deep/ .inputsty{
-    width: 92%;
-    margin-left: 0px;
+  .group{
+    background: white;
+    overflow: hidden;
   }
-}
+  .childsty {
+    line-height: 50px;
+
+    /deep/ .inputsty {
+      width: 92%;
+      margin-left: 0px;
+    }
+  }
+  .show{
+    display: block;
+  }
+  .hide{
+    display: none;
+  }
+  .blank {
+    background-color: #F6F6F6;
+    height: 1000px;
+  }
 </style>

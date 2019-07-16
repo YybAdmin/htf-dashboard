@@ -32,13 +32,13 @@
       name: "dataSummary",
       components:{nameArea},
       props:{
-        ifshow:{
+        hasTitle:{
           default:true
         }
       },
       data(){
           return{
-            isshow:this.ifshow,
+            isshow:this.hasTitle,
             item:'异动数据汇总',
             itemList:[{VALUE1:'-',VALUE2:'-',VALUE3:'-',VALUE4:'-'}]
           }
