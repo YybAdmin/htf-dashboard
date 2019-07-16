@@ -48,16 +48,10 @@
 <script>
     export default {
       name: "ydhead",
+      props:['itemList'],
       data(){
         return{
-          headitem:[{
-            VALUE1:'9000',
-            VALUE2:'3000',
-            VALUE3:'3000',
-            VALUE4:'3000.34',
-            VALUE5:'3000.34',
-            VALUE6:'30.34%'
-          }]
+          headitem:this.itemList
         }
       }
     }
@@ -68,6 +62,7 @@
     height: 144px;
     background: url("../../assets/img/ydbackground.png") no-repeat center;
     background-size: 100% 100%;
+    filter:alpha(Opacity=80);-moz-opacity:1;opacity: 1;
   }
   .fenesp{
     width: 73px;
@@ -79,7 +74,7 @@
     border: 1px solid white;
     background-color: #FFFFFF;
     border-radius: 12px;
-    padding: 0px 8px 4px 8px;
+    padding: 4px 8px 3px 10px;
     margin-left: 15px;
     margin-top: 10px;
   }
@@ -91,7 +86,7 @@
     display: inline-block;
     border: 1px solid white;
     border-radius: 12px;
-    padding: 0px 8px 4px 10px;
+    padding: 4px 8px 3px 10px;
     margin-left: 10px;
     margin-top: 10px;
   }

@@ -20,6 +20,9 @@
       <li>
         <router-link to="ydSearch">渠道异动搜索</router-link>
       </li>
+      <li>
+        <router-link to="ydDetail">渠道异动详情</router-link>
+      </li>
     </ul>
   </div>
 </template>

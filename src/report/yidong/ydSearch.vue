@@ -53,8 +53,7 @@
           this.ifshow = false
         })
         this.$http.post(this.$API_LIST.yidongDataCard, val).then(res => {
-          console.log(this.$refs.datacard)
-          ts.$refs.datacard.itemList = res.data.list
+          this.$nextTick(() => {ts.$refs.datacard.itemList = res.data.list})
         })
       }
     }

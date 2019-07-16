@@ -50,6 +50,12 @@ export default new Router({
       path:'/ydSearch',
       name:'ydSearch',
       component: resolve => require(['@/report/yidong/ydSearch'], resolve)
+    },
+    {
+      path:'/ydDetail',
+      name:'ydDetail',
+      component: resolve => require(['@/report/yidong/yddetail'], resolve)
     }
+
   ]
 })
