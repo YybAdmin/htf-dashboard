@@ -33,9 +33,7 @@ let API_LIST = {
   yidong: {
     yidongSummary: href + '/yidong/summary',
     yidongDataCard: href + '/yidong/dataCard',
-    yidongHead: href + '/yidong/headData',
-    yidongChart: href + '/yidong/chartData',
-    yidongGrid: href + '/yidong/chartGrid',
+    yidong30Data: href + '/yidong/chart30Data'
   },
   selfPro: {
     allUserPro: href + '/selPro/getUserPro'

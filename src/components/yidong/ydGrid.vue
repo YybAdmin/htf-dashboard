@@ -1,109 +1,99 @@
 <template>
-    <div>
-      <span class="myTableTitle">近30天数据</span>
-      <table class="tabsty">
-        <tbody id="mygrid" style="font-size: 13px;color: #666666;border: none">
-        </tbody>
-      </table>
-    </div>
+  <div CLASS="group">
+    <span class="title">近30天数据</span>
+    <table>
+      <thead>
+      <tr>
+        <td>{{title[0]}}</td>
+        <td @click="dataSort">{{title[1]}}</td>
+        <td>{{title[2]}}</td>
+        <td>{{title[3]}}</td>
+      </tr>
+      </thead>
+      <tbody id="mygrid" style="font-size: 13px;color: #666666;border: none">
+      <tr v-for="(row,index) in gridData" :class="[index%2===1?'bk':'']">
+        <td>{{row.NAME}}</td>
+        <td>{{row.VALUE1}}</td>
+        <td>{{row.VALUE1}}</td>
+        <td>{{row.VALUE1}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
   export default {
     name: "ydGrid",
-    props:['title'],
-    data(){
-      return{
-        gridTitle:this.title,
+    props: ['title'],
+    data() {
+      return {
+        gridTitle: this.title,
+        gridData: []
       }
     },
-    methods:{
-      drawGrid:function (gridData) {
-        var tab = document.getElementById('mygrid');
-        var childs = tab.childNodes;
-        var childsNum = childs.length;
-        for(var j = 0; j < childsNum ; j++) {
-          tab.removeChild(childs[childsNum - 1 - j]);
-        }
-
-        let titlelist = this.title
-        var tr0 = document.createElement("tr");
-        for(var i = 0 ; i < titlelist.length ;i++){
-          var td = document.createElement("td");
-          td.innerHTML = titlelist[i];
-          tr0.appendChild(td);
-          td.style.borderTop = '1px solid #E5E5E5'
-          td.style.borderBottom = '1px solid #E5E5E5'
-          td.style.borderRight = '1px solid #E5E5E5'
-          if(i==0){
-            td.style.width = "20%";
-            td.style.lineHeight = "34px";
-          }else if(i==1){
-            td.style.width = "20%";
-          }else if(i==2){
-            td.style.width = "30%";
-          }else if(i==3){
-            td.style.width = "30%";
-            td.style.borderRight = 'none'
-          }
-
-        }
-        tab.appendChild(tr0);
-        tr0.style.background = "#F0F0F0";
-        for(var i = 0 ; i < gridData.length ; i++){
-          var tr = document.createElement("tr");
-          var td0 = document.createElement("td"); td0.innerHTML = gridData[i].NAME;
-          var td1 = document.createElement("td"); td1.innerHTML = gridData[i].VALUE1;
-          var td2 = document.createElement("td"); td2.innerHTML = gridData[i].VALUE2;
-          var td3 = document.createElement("td"); td3.innerHTML = gridData[i].VALUE3;
-          tr.appendChild(td0);
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-          tr.appendChild(td3);
-          tab.appendChild(tr);
-          tr.style.lineHeight = '40px'
-          td0.style.borderBottom = '1px solid #E5E5E5'
-          td0.style.borderRight = '1px solid #E5E5E5'
-          td1.style.borderBottom = '1px solid #E5E5E5'
-          td1.style.borderRight = '1px solid #E5E5E5'
-          td2.style.borderBottom = '1px solid #E5E5E5'
-          td2.style.borderRight = '1px solid #E5E5E5'
-          td3.style.borderBottom = '1px solid #E5E5E5'
-          if(i%2 == 1){
-            tr.style.background = "#F0F0F0";
-          }
-        }
+    methods: {
+      setData: function (data) {
+        // 默认升序
+        this.gridData = data.sort(function (a, b) {
+          return a.VALUE1 - b.VALUE1
+        })
+      },
+      dataSort: function (data) {
+        this.gridData.sort(function (a, b) {
+          return a.VALUE1 - b.VALUE1
+        })
       }
     }
   }
 </script>
 
-<style scoped>
-  .myTableTitle {
-    font-size: 15px;
-    color: #333333;
-    font-weight: bold;
-    line-height: 35px;
-    text-align: left;
-    display: inherit;
-  }
+<style scoped lang="less">
+  .group {
 
-  .myTableTitle:before {
-    content: " ";
-    display: inline-block;
-    width: 2px;
-    height: 17px;
-    margin: 3px 10px;
-    background-color: #DDAF59;
-    vertical-align: middle;
-    border-radius: 1px;
-  }
-  .tabsty{
-    width: 100%;
-    margin: 0px 0px;
-    border-collapse:collapse;
-  }
-  .tdsty{
-    border: 1px solid red;
+    .title {
+      font-size: 15px;
+      color: #333333;
+      font-weight: bold;
+      line-height: 35px;
+      text-align: left;
+      display: inherit;
+
+      &:before {
+        content: " ";
+        display: inline-block;
+        width: 2px;
+        height: 17px;
+        margin: 3px 10px;
+        background-color: #DDAF59;
+        vertical-align: middle;
+        border-radius: 1px;
+      }
+    }
+
+    table {
+      width: 100%;
+      margin: 0px 0px;
+      border-collapse: collapse;
+
+      thead {
+        font-size: 13px;
+        line-height: 34px;
+        background: #F8F7F4;
+      }
+
+      tbody {
+        font-size: 12px;
+        line-height: 40px;
+
+        .bk {
+          background: #F8F7F4;
+        }
+      }
+
+      td {
+        border: 1px solid #e5e5e5;
+      }
+    }
   }
 </style>

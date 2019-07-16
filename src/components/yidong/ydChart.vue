@@ -67,7 +67,7 @@
                 '<tr><td style="text-align:left;">30天均值:</td><td style="text-align:right;">'+params[0].value.VALUE2+'万元</td></tr>'+
                 '<tr><td style="text-align:left;">上界:</td><td style="text-align:right;">'+params[0].value.VALUE3+'万元</td></tr>'+
                 '<tr><td style="text-align:left;">下界:</td><td style="text-align:right;">'+params[0].value.VALUE4+'万元</td></tr>'+
-                '<tr><td style="text-align:left;">波动率:</td><td style="text-align:right;">'+params[0].value.VALUE5+'万元</td></tr>'+
+                '<tr><td style="text-align:left;">波动率:</td><td style="text-align:right;">'+params[0].value.VALUE5+'%</td></tr>'+
                 '</table></div>';
             },
             backgroundColor : 'rgba(0, 0, 0, 0.7)',
@@ -154,20 +154,6 @@
             }
           },{
             name: this.chartInfo.name[1],
-            type: 'bar',
-            barWidth: '4px',
-            encode: {
-              x: 'NAME',
-              y: 'VALUE2'
-            },
-            itemStyle: {
-              color: '#FA7375'
-            },
-            label: {
-              show: false
-            }
-          },{
-            name: this.chartInfo.name[2],
             type: 'line',
             encode: {
               x: 'NAME',
@@ -181,11 +167,11 @@
               show: false
             }
           },{
-            name: this.chartInfo.name[3],
+            name: this.chartInfo.name[2],
             type: 'line',
             encode: {
               x: 'NAME',
-              y: 'VALUE4'
+              y: 'VALUE2'
             },
             itemStyle: {
               color: '#FFE789'
@@ -195,11 +181,11 @@
               show: false
             }
           },{
-            name: this.chartInfo.name[4],
+            name: this.chartInfo.name[3],
             type: 'line',
             encode: {
               x: 'NAME',
-              y: 'VALUE5'
+              y: 'VALUE4'
             },
             itemStyle: {
               color: '#8CE5FF'

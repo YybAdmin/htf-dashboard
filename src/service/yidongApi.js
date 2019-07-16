@@ -10,3 +10,8 @@ export function getDataCard(pageVal,success) {
     success(res.data.list)
   })
 }
+export function get30Data(pageVal,success) {
+  axios.post(API_LIST.yidong.yidong30Data,pageVal).then(res=>{
+    success(res.data.list)
+  })
+}
