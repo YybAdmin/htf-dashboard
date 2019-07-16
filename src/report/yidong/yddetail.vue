@@ -3,12 +3,14 @@
       <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
       <yddetailtab id="longhead" v-bind:itemList="this.headData"></yddetailtab>
       <shorthead id="shorthead" style="display: none" v-bind:dataday="this.dataDay"></shorthead>
-      <div id="blankdiv" style="display: none"></div>
       <div id="chartId" v-on:dblclick="showBigDiv">
         <ydchart ref="chart" v-bind:chartInfo="this.chartInfo" ></ydchart>
       </div>
       <divSplit style="margin-top: 10px;"></divSplit>
-      <ydgrid ref="grid" v-bind:title="ydtitle"></ydgrid>
+      <div id="griddiv">
+        <ydgrid ref="grid" v-bind:title="ydtitle"></ydgrid>
+      </div>
+
     </div>
 </template>
 
@@ -63,7 +65,7 @@
     },
     mounted(){
       window.addEventListener('scroll',this.handleScroll)
-      this.t = document.querySelector('#chartId').offsetTop;
+      this.t = document.querySelector('#griddiv').offsetTop;
       this.$refs.chart.setData(this.chartData)
       this.$refs.grid.drawGrid(this.gridData)
     },
@@ -74,29 +76,23 @@
       },
       handleScroll:function () {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-        let offsetTop = document.querySelector('#chartId').offsetTop;
-        let offsetTopgrid = document.querySelector('#chartId').offsetTop;
+        let offsetTop = document.querySelector('#griddiv').offsetTop;
         let result = offsetTop - scrollTop
         if((result-this.t) > 0){
           console.log('下滑')
 
           $('#longhead').show()
-          $('#blankdiv').show()
-          $('#blankdiv').css('height','144px')
-          $('#longhead').css({'position':'fixed','top':'0','z-index':'10'})
-          $('#shorthead').css({'position':'','top':''})
           $('#shorthead').hide()
 
         }else{
           console.log('上滑')
-          $('#blankdiv').hide()
-          $('#longhead').css({'position':'','top':'','z-index':''})
           $('#longhead').hide()
           $('#shorthead').show()
-          $('#shorthead').css({'position':'fixed','top':'0','z-index':'10'})
-          /*if(offsetTopgrid){
-
-          }*/
+          if(result <= 0){
+            $('#shorthead').css({'position':'fixed','top':'0'})
+          }else{
+            $('#shorthead').css({'position':'','top':''})
+          }
         }
         this.t = result
 
