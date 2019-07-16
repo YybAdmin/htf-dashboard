@@ -124,7 +124,7 @@
     getChartUpData,
     getChartMidData,
     getChartDwnData,
-    getChartKHChartData
+    getChartKHChartData, getHeadDate, getKehuHeadData
   } from "../service/hujinApi";
 
   export default {
@@ -1026,7 +1026,7 @@
         $('#tagMid,#tagDwn').hide()
         $('#kehuDiv').hide()
         let HeadTable1 = this.$refs.HeadTable1
-        this.$http.post(this.$API_LIST.hujinHeadData, this.pageVal).then(res => {
+        getHeadDate(this.pageVal,function (res) {
           HeadTable1.setData(res.data.list)
         })
         this.$refs.help.setMsg(this.help.ecgropRate)
@@ -1043,7 +1043,7 @@
       },
       kehuInit: function () {
         let kehuhead = this.$refs.kehuHead
-        this.$http.post(this.$API_LIST.hujinKehuHeadData, this.pageVal).then(res => {
+        getKehuHeadData(this.pageVal,function (res) {
           kehuhead.setData(res.data.list)
         })
         this.guimoGetDataAndDraw(this.pageVal, 'kehu')
