@@ -5,7 +5,9 @@
       <thead>
       <tr>
         <td>{{title[0]}}</td>
-        <td @click="dataSort">{{title[1]}}</td>
+        <td style="width:80px;">
+          <BtnOrder :item="c2Title" @comChanged="dataSort($event,'f_order')"></BtnOrder>
+        </td>
         <td>{{title[2]}}</td>
         <td>{{title[3]}}</td>
       </tr>
@@ -23,12 +25,15 @@
 </template>
 
 <script>
+  import BtnOrder from '@/components/baseCom/BtnOrder1'
+
   export default {
     name: "ydGrid",
-    props: ['title'],
+    components: {BtnOrder},
     data() {
       return {
-        gridTitle: this.title,
+        title: ['日期','流出份额','近7天均值(万元)','近30天均值(万元)'],
+        c2Title: {name: '流出份额', value: 1},
         gridData: []
       }
     },
@@ -39,10 +44,17 @@
           return a.VALUE1 - b.VALUE1
         })
       },
-      dataSort: function (data) {
-        this.gridData.sort(function (a, b) {
-          return a.VALUE1 - b.VALUE1
-        })
+      dataSort: function (val,flag) {
+        console.log(val)
+        if(val==='desc'){
+          this.gridData.sort(function (a, b) {
+            return parseFloat(b.VALUE1) - parseFloat(a.VALUE1)
+          })
+        }else if(val==='asc'){
+          this.gridData.sort(function (a, b) {
+            return parseFloat(a.VALUE1) - parseFloat(b.VALUE1)
+          })
+        }
       }
     }
   }

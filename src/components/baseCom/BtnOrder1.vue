@@ -30,14 +30,13 @@
         this.clickNum = this.clickNum % 3 + 1
         if (this.clickNum === 1) {
           this.whichOrder = 'orderState2'
+          this.$emit('comChanged', 'desc')
         } else if (this.clickNum === 2) {
           this.whichOrder = 'orderState3'
-        } else if (this.clickNum === 3) {
-          this.whichOrder = 'orderState1'
+          this.$emit('comChanged', 'asc')
         } else {
           this.whichOrder = 'orderState1'
         }
-        this.$emit('comChanged', this.item.value)
       },
       reSet(){
         this.whichOrder = 'orderState1'

@@ -8,7 +8,7 @@
       </div>
       <divSplit style="margin-top: 10px;"></divSplit>
       <div id="griddiv">
-        <ydgrid ref="grid" :title="ydtitle"></ydgrid>
+        <ydgrid ref="grid"></ydgrid>
       </div>
     </div>
 </template>
@@ -31,7 +31,6 @@
           name:['流出','上界','均值','下界'],
         },
         dataDay:'9000.34',
-        ydtitle:['日期','流出份额','近7天均值(万元)','近30天均值(万元)'],
         headData:{NAME1:'-',KKEY1:'-',NAME2:'-',KKEY2:'-',VALUE1:'-',VALUE2:'-',VALUE3:'-',VALUE4:'-',VALUE5:'-',VALUE6:'-'},
         chartData:[],
         gridData:[],
