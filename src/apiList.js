@@ -25,10 +25,10 @@ let API_LIST = {
     treeGridDemo : href + '/report/treeGrid/getData',
   },
   jingpin:{
-    jingpinHeadData: href + '/report/jingpin/headData',
-    jingpinChartUp: href = '/report/jingpin/chartUp',
-    jingpinChartMid: href = '/report/jingpin/chartMid',
-    jingpinChartDwn: href = '/report/jingpin/chartDwn'
+    jingpinHeadData: href2 + '/report/jingpin/headData',
+    jingpinChartUp: href2 = '/report/jingpin/chartUp',
+    jingpinChartMid: href2 = '/report/jingpin/chartMid',
+    jingpinChartDwn: href2 = '/report/jingpin/chartDwn'
   },
   yidong: {
     yidongSummary: href2 + '/report/yidong/summary',

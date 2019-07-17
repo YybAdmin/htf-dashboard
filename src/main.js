@@ -22,7 +22,7 @@ Vue.prototype.$API_LIST = API_LIST
 Vue.prototype.$myUtil = myUtil
 Vue.prototype.$echartUtil = echartUtil
 
-if(Vue.prototype.$API_LIST.state == true){
+if(Vue.prototype.$API_LIST.ifUseMock == true){
   require('@/mock/hujin')
   require('@/mock/jingpin')
   require('@/mock/datagrid')
