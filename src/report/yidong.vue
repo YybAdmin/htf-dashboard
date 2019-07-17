@@ -146,6 +146,11 @@
 </script>
 
 <style scoped lang="less">
+  table tr td {
+    border-spacing: inherit;
+    border-collapse: collapse;
+    padding:0px;
+  }
   .pageContent {
     .searchTable {
       width: 100%;
@@ -161,8 +166,6 @@
 
       tr {
         height: 35px;
-        line-height: 35px;
-
         .DimTitle {
           width: 82px;
           text-align: right;

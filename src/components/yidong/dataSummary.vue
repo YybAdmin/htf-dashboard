@@ -1,6 +1,6 @@
 <template>
     <div>
-      <table style="width: 100%;text-align: center;table-layout: fixed;margin-bottom: 10px;margin-top: 10px;">
+      <table style="width: 100%;text-align: center;table-layout: fixed;margin-bottom: 10px;">
         <tr v-show="isshow">
           <td colspan="4"><nameArea v-bind:item="item"></nameArea></td>
         </tr>
@@ -52,5 +52,9 @@
 </script>
 
 <style scoped>
-
+  table tr td {
+    border-spacing: inherit;
+    border-collapse: collapse;
+    padding:0px;
+  }
 </style>

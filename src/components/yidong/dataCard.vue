@@ -121,21 +121,14 @@
             }
             .btn {
               font-size: 12px;
+              color:#77B9FF;
               line-height: 12px;
-              border: 1px solid;
+              border: 1px solid #77B9FF;
               border-radius: 11px;
               padding: 3px 7px 3px 7px;
               height: 23px;
             }
-
-            .lc {
-              background: #ddaf59;
-              border-color: #ddaf59;
-              color: white;
-            }
-
             .xk {
-              border-color: #F1F0F1;
               right: 0px;
             }
           }

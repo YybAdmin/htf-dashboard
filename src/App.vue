@@ -28,4 +28,9 @@ body {
   padding:0px;
   text-align: center;
 }
+table tr td {
+  border-spacing: inherit;
+  border-collapse: collapse;
+  padding:0px;
+}
 </style>
