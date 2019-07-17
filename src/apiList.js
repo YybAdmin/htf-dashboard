@@ -5,38 +5,38 @@ let hrefArr = [
   'http://localhost:18080/api',
   'http://192.168.8.171:8080'
 ]
-let href = hrefArr[state] + '/report'
-let href2 = hrefArr[state] + '/dev'
+let href = hrefArr[1] //生产
+let href2 = hrefArr[0] //本机
 
 let API_LIST = {
-  state: state,
+  ifUseMock: true,
   huijin: {
-    hujinDataDate : href + '/hujin/dataDate',
-    hujinHeadData : href + '/hujin/headData',
-    hujinChartUp : href + '/hujin/chartUp',
-    hujinChartMid : href + '/hujin/chartMid',
-    hujinChartDwn : href + '/hujin/chartDwn',
-    hujinKehuHeadData : href + '/hujin/hujinKehuHeadData',
-    hujinPdf : href + '/pdf/hujinPdf',
-    hujinKehuChart : href + '/hujin/kehuChart',
+    hujinDataDate : href + '/dev/hujin/dataDate',
+    hujinHeadData : href + '/dev/hujin/headData',
+    hujinChartUp : href + '/dev/hujin/chartUp',
+    hujinChartMid : href + '/dev/hujin/chartMid',
+    hujinChartDwn : href + '/dev/hujin/chartDwn',
+    hujinKehuHeadData : href + '/dev/hujin/hujinKehuHeadData',
+    hujinKehuChart : href + '/dev/hujin/kehuChart',
+    hujinPdf : href + '/report/pdf/hujinPdf'
   },
   dataGrid: {
-    dataGridDemo : href + '/dataGrid/getData',
-    treeGridDemo : href + '/treeGrid/getData',
+    dataGridDemo : href + '/report/dataGrid/getData',
+    treeGridDemo : href + '/report/treeGrid/getData',
   },
   jingpin:{
-    jingpinHeadData: href + '/jingpin/headData',
-    jingpinChartUp: href = '/jingpin/chartUp',
-    jingpinChartMid: href = '/jingpin/chartMid',
-    jingpinChartDwn: href = '/jingpin/chartDwn'
+    jingpinHeadData: href + '/report/jingpin/headData',
+    jingpinChartUp: href = '/report/jingpin/chartUp',
+    jingpinChartMid: href = '/report/jingpin/chartMid',
+    jingpinChartDwn: href = '/report/jingpin/chartDwn'
   },
   yidong: {
-    yidongSummary: href + '/yidong/summary',
-    yidongDataCard: href + '/yidong/dataCard',
-    yidong30Data: href + '/yidong/chart30Data'
+    yidongSummary: href2 + '/report/yidong/summary',
+    yidongDataCard: href2 + '/report/yidong/dataCard',
+    yidong30Data: href2 + '/report/yidong/chart30Data'
   },
   selfPro: {
-    allUserPro: href + '/selPro/getUserPro'
+    allUserPro: href + '/report/selPro/getUserPro'
   }
 }
 export default API_LIST
