@@ -59,6 +59,7 @@
       })
     },
     mounted(){
+      this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
       window.addEventListener('scroll',this.handleScroll)
       this.t = document.querySelector('#griddiv').offsetTop;
     },

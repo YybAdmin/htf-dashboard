@@ -140,7 +140,7 @@
       })
     },
     mounted() {
-
+      this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
     }
   }
 </script>
