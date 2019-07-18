@@ -9,7 +9,7 @@
       <yddetailtab id="longhead" :itemList="headData"></yddetailtab>
       <shorthead id="shorthead" style="display: none" :dataday="dataDay"></shorthead>
       <div @click="dbclick(1)">
-        <ydchart ref="chart"></ydchart>
+        <ydchart ref="chart" @comChange="dbclick"></ydchart>
       </div>
       <divSplit style="margin-top: 10px;"></divSplit>
       <div id="griddiv">
@@ -106,15 +106,15 @@
       },
       dbclick: function (flag) {
         let _this = this
-        this.count += 1
+        _this.count += 1
         setTimeout(function () {
-          this.count = 0
+          _this.count = 0
         }, 200) //500ms内点击两次，则认为是双击
         if (this.count >= 2) {
           if(flag===1){
             $("#btm").hide()
-            $("#test").show()
-            this.count = 0
+            $("#test").fadeIn()
+            _this.count = 0
             _this.show = true
             $("#test").css('width',$(window).width()+'px').css('height',$(window).height()+'px')
             this.$nextTick(function () {
@@ -127,8 +127,8 @@
             })
           }else{
             $("#test").hide()
-            $("#btm").show()
-            this.count = 0
+            $("#btm").fadeIn()
+            _this.count = 0
           }
         }
       }
