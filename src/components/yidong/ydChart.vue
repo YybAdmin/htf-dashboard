@@ -1,6 +1,6 @@
 <template>
-  <div @click.native="rotateWindow">
-    <div ref="ydChart" v-bind:style="{width:this.$myUtil.getDeviceWidth()+'px', height:250+'px'}">
+  <div>
+    <div ref="ydChart" id="ydChart" v-bind:style="{width:this.$myUtil.getDeviceWidth()+'px', height:250+'px'}">
       <div class="picsty"><img src="@/assets/img/download.gif" style="height:50px;width:50px;"></div>
       <div class="fontsty">请稍候.....</div>
     </div>
@@ -8,21 +8,21 @@
 </template>
 
 <script>
-  import $ from 'jquery'
   import echarts from 'echarts'
   import icon from '@/assets/img/yd/legendIcon1.svg'
 
   export default {
     name: "ydChart",
-    components:{icon},
+    components: {icon},
     data() {
       return {
-        chartInfo:{
+        chartInfo: {
           title: '流出份额(单位：万元)',
-          legendData: [{name:'流出',icon:'image://'+icon},
-            {name:'上界'},{name:'均值'},{name:'下界'}]
+          legendData: [{name: '流出', icon: 'image://' + icon},
+            {name: '上界'}, {name: '均值'}, {name: '下界'}]
         },
-        data: [{NAME: '-', VALUE1: '-', VALUE2: '-', VALUE3: '-', VALUE4: '-', VALUE5: '-'}]
+        data: [{NAME: '-', VALUE1: '-', VALUE2: '-', VALUE3: '-', VALUE4: '-', VALUE5: '-'}],
+        chartOption:null
       }
     },
     methods: {
@@ -63,7 +63,7 @@
                 myChart.dispatchAction({
                   type: 'hideTip'
                 })
-              },4000)
+              }, 4000)
               return '<div><table style="width:120px;line-height:13px;font-size:11px;color:#FFF">' +
                 '<tr><td style="text-align:left;">' + params[0].name + '</td></tr>' +
                 '<tr><td style="text-align:left;">流出份额:</td><td style="text-align:right;">' + params[0].value.VALUE1 + '万元</td></tr>' +
@@ -116,8 +116,8 @@
               interval: 1,
               color: '#999999',
               fontSize: '12px',
-              formatter:function (label) {
-               return label.substring(label.length-5).replace('-','/')
+              formatter: function (label) {
+                return label.substring(label.length - 5).replace('-', '/')
               }
             }
           },
@@ -209,13 +209,13 @@
             }
           }]
         }
+        this.chartOption = myChartOption
         myChart.setOption(myChartOption)
-      },
-      rotateWindow:function () {
-        let myChart = echarts.getInstanceByDom(this.$refs.ydChart)
-        let myOption = myChart.getOption()
-        console.log(myOption)
       }
+    },
+    beforeMount() {
+      this.width = document.body.clientWidth
+      this.height = document.body.clientHeight
     }
   }
 </script>
@@ -232,5 +232,9 @@
     display: block;
     text-align: center;
     padding-top: 70px;
+  }
+
+  .hide {
+    display: none;
   }
 </style>

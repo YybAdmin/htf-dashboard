@@ -10,6 +10,9 @@ import echartUtil from '@/assets/js/com/echartUtil'
 import axios from 'axios'
 Vue.prototype.$http = axios
 
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 import 'vx-easyui/dist/themes/default/easyui.css'
 import 'vx-easyui/dist/themes/icon.css'
 import 'vx-easyui/dist/themes/vue.css'

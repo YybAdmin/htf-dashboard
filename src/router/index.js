@@ -30,7 +30,7 @@ export default new Router({
       path: '/grid',
       name: 'grid',
       component: resolve => require(['@/report/grid'], resolve)
-    },,
+    },
     {
       path: '/yidong',
       name: 'yidong',

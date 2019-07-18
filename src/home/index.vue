@@ -5,7 +5,7 @@
       <li>
         <router-link to="hujin">互金首页改版</router-link>
       </li>
-      <li>
+<!--      <li>
         <router-link to="chanpin">产品实时监控</router-link>
       </li>
       <li>
@@ -13,16 +13,16 @@
       </li>
       <li>
         <router-link to="grid">表格示例</router-link>
-      </li>
+      </li>-->
       <li>
         <router-link to="yidong">渠道异动监控</router-link>
       </li>
-      <li>
+<!--      <li>
         <router-link to="ydSearch">渠道异动搜索</router-link>
       </li>
       <li>
         <router-link to="ydDetail">渠道异动详情</router-link>
-      </li>
+      </li>-->
     </ul>
   </div>
 </template>
