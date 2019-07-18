@@ -32,7 +32,7 @@
 <style scoped>
   .backsty{
     height: 41px;
-    background: url("../../assets/img/ydbackground.png") no-repeat center;
+    background: url("../../assets/img/yd/ydbackground.png") no-repeat center;
     background-size: 100% 100%;
     opacity: 1;
   }

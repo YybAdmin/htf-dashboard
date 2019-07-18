@@ -64,7 +64,7 @@
 <style scoped lang="less">
   .backsty{
     height: 144px;
-    background: url("../../assets/img/ydbackground.png") no-repeat center;
+    background: url("../../assets/img/yd/ydbackground.png") no-repeat center;
     background-size: 100% 100%;
     filter:alpha(Opacity=80);-moz-opacity:1;opacity: 1;
   }

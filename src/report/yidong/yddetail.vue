@@ -4,7 +4,7 @@
       <yddetailtab id="longhead" :itemList="headData"></yddetailtab>
       <shorthead id="shorthead" style="display: none" :dataday="dataDay"></shorthead>
       <div id="chartId" v-on:dblclick="showBigDiv">
-        <ydchart ref="chart" v-bind:chartInfo="this.chartInfo" ></ydchart>
+        <ydchart ref="chart"></ydchart>
       </div>
       <divSplit style="margin-top: 10px;"></divSplit>
       <div id="griddiv">
@@ -26,10 +26,6 @@
     components:{yddetailtab,ydchart,divSplit,ydgrid,shorthead},
     data(){
       return{
-        chartInfo:{
-          title:'流出份额(单位：万元)',
-          name:['流出','上界','均值','下界'],
-        },
         dataDay:'9000.34',
         headData:{NAME1:'-',KKEY1:'-',NAME2:'-',KKEY2:'-',VALUE1:'-',VALUE2:'-',VALUE3:'-',VALUE4:'-',VALUE5:'-',VALUE6:'-'},
         t:0

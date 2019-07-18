@@ -10,17 +10,18 @@
 <script>
   import $ from 'jquery'
   import echarts from 'echarts'
+  import icon from '@/assets/img/yd/legendIcon1.svg'
 
   export default {
     name: "ydChart",
-    props: {
-      chartInfo: {
-        title: '',
-        name: []
-      }
-    },
+    components:{icon},
     data() {
       return {
+        chartInfo:{
+          title: '流出份额(单位：万元)',
+          legendData: [{name:'流出',icon:'image://'+icon},
+            {name:'上界'},{name:'均值'},{name:'下界'}]
+        },
         data: [{NAME: '-', VALUE1: '-', VALUE2: '-', VALUE3: '-', VALUE4: '-', VALUE5: '-'}]
       }
     },
@@ -29,11 +30,6 @@
         this.data = data
         this.drawYdChart()
       },
-      /*chartDivChange:function(){
-        window.onresize = function () {
-          myChart.resize();
-        }
-      },*/
       drawYdChart: function () {
         let thisChart = echarts.getInstanceByDom(this.$refs.ydChart)
         if (thisChart !== undefined) {
@@ -87,7 +83,7 @@
           },
           legend: {
             bottom: '1px',
-            data: this.chartInfo.name//['正常','异常','上界','均值','下界']
+            data: this.chartInfo.legendData
           },
           dataset: {
             source: this.data
@@ -117,9 +113,12 @@
               show: false
             },
             axisLabel: {
-              interval: 0,
+              interval: 2,
               color: '#999999',
-              fontSize: '12px'
+              fontSize: '12px',
+              formatter:function (label) {
+               return label.substring(label.length-5).replace('-','/')
+              }
             }
           },
           yAxis: {
@@ -144,7 +143,7 @@
             }
           },
           series: [{
-            name: this.chartInfo.name[0],
+            name: this.chartInfo.legendData[0].name,
             type: 'bar',
             barWidth: '4px',
             encode: {
@@ -154,8 +153,6 @@
             barGap: '0%',
             itemStyle: {
               color: function (params) {
-                //console.log(ts.data[params.dataIndex])
-                //console.log(ts.data[params.dataIndex].VALUE1)
                 if (ts.data[params.dataIndex].VALUE1 > ts.data[params.dataIndex].VALUE3) {
                   return '#FA7375'
                 }
@@ -169,7 +166,7 @@
               show: false
             }
           }, {
-            name: this.chartInfo.name[1],
+            name: this.chartInfo.legendData[1].name,
             type: 'line',
             encode: {
               x: 'NAME',
@@ -183,7 +180,7 @@
               show: false
             }
           }, {
-            name: this.chartInfo.name[2],
+            name: this.chartInfo.legendData[2].name,
             type: 'line',
             encode: {
               x: 'NAME',
@@ -197,7 +194,7 @@
               show: false
             }
           }, {
-            name: this.chartInfo.name[3],
+            name: this.chartInfo.legendData[3].name,
             type: 'line',
             encode: {
               x: 'NAME',
