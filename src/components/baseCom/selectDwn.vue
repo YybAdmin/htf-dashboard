@@ -38,7 +38,7 @@
         } else if (i == 3) {
           $("#lv").text("低").css('color', '#88D2FF')
         }
-        this.$emit('comChanged', i + 1)
+        this.$emit('comChanged', i)
       }
     }
   }

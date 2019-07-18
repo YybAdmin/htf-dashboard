@@ -73,7 +73,7 @@
           proType: 1,
           platform: 1,
           target: 1,
-          nowCard:{agency:'999999',product:'999999'}
+          nowCard: {agency: '999999', product: '999999'}
         }
       }
     },
@@ -84,8 +84,9 @@
       },
       DimChg: function (val, flag) {
         let reflashFlag = 'no'
-        //  敏感度
-        if (flag = 'f_mingan') {
+        // 敏感度
+        if (flag == 'f_mingan') {
+          reflashFlag = this.changeMinGan(val);
         }
         // 异动频度
         if (flag == 'f_pindu') {
@@ -99,43 +100,39 @@
         if (flag == 'f_platform') {
           reflashFlag = this.changePlatform(val)
         }
-        // 平台
+        // 指标
         if (flag == 'f_target') {
           reflashFlag = this.changeTarget(val)
         }
-        console.log(this.pageVal)
         this.getDataAndDraw(this.pageVal, reflashFlag)
-      }
-      ,
+      },
+      changeMinGan: function (val) {
+        this.pageVal.minGan = val
+        return "no";
+      },
       changePinDu: function (val) {
         this.pageVal.ydPinDu = val
-        return 'pinDu'
-      }
-      ,
+        return "no";
+      },
       changeProType: function (val) {
         this.pageVal.proType = val
-
-        return 'proType'
-      }
-      ,
+        return "no";
+      },
       changePlatform: function (val) {
         this.pageVal.platform = val
-
-        return 'platform'
-      }
-      ,
+        return "no";
+      },
       changeTarget: function (val) {
-        this.pageVal.platform = val
-
-        return 'target'
+        this.pageVal.target = val
+        return "no";
       }
     },
-    beforeMount(){
+    beforeMount() {
       let _this = this
-      getSummary(this.pageVal,function (res) {
+      getSummary(this.pageVal, function (res) {
         _this.$refs.sm.setData(res)
       })
-      getDataCard(this.pageVal,function (res) {
+      getDataCard(this.pageVal, function (res) {
         _this.$refs.dc.setData(res)
       })
     },
@@ -149,8 +146,9 @@
   table tr td {
     border-spacing: inherit;
     border-collapse: collapse;
-    padding:0px;
+    padding: 0px;
   }
+
   .pageContent {
     .searchTable {
       width: 100%;
@@ -166,6 +164,7 @@
 
       tr {
         height: 35px;
+
         .DimTitle {
           width: 82px;
           text-align: right;
