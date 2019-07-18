@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click.native="rotateWindow">
     <div ref="ydChart" v-bind:style="{width:this.$myUtil.getDeviceWidth()+'px', height:250+'px'}">
       <div class="picsty"><img src="@/assets/img/download.gif" style="height:50px;width:50px;"></div>
       <div class="fontsty">请稍候.....</div>
@@ -113,7 +113,7 @@
               show: false
             },
             axisLabel: {
-              interval: 2,
+              interval: 1,
               color: '#999999',
               fontSize: '12px',
               formatter:function (label) {
@@ -210,9 +210,13 @@
           }]
         }
         myChart.setOption(myChartOption)
+      },
+      rotateWindow:function () {
+        let myChart = echarts.getInstanceByDom(this.$refs.ydChart)
+        let myOption = myChart.getOption()
+        console.log(myOption)
       }
     }
-
   }
 </script>
 

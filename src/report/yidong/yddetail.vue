@@ -3,7 +3,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
       <yddetailtab id="longhead" :itemList="headData"></yddetailtab>
       <shorthead id="shorthead" style="display: none" :dataday="dataDay"></shorthead>
-      <div id="chartId" v-on:dblclick="showBigDiv">
+      <div id="chartId">
         <ydchart ref="chart"></ydchart>
       </div>
       <divSplit style="margin-top: 10px;"></divSplit>
@@ -60,9 +60,6 @@
       this.t = document.querySelector('#griddiv').offsetTop;
     },
     methods:{
-      showBigDiv:function () {
-        alert(window.innerHeight)
-      },
       handleScroll:function () {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
         let offsetTop = document.querySelector('#griddiv').offsetTop;
