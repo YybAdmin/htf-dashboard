@@ -24,8 +24,9 @@ const baseRoutes = [
     component: resolve => require(['@/report/jingpin'], resolve)
   }
 ];
-import ydRoutes from '@/router/yd';
-const routes = baseRoutes.concat(ydRoutes);
+import ydRoutes  from '@/router/yd';
+import yjyRoutes from '@/router/yjy'
+const routes = baseRoutes.concat(ydRoutes,yjyRoutes);
 
 export default new Router({
   base: 'dashboard-report',

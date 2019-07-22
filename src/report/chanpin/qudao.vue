@@ -89,7 +89,7 @@
     methods: {
       changePageState: function (i, flag) {
         if(flag === 'f_rankList'){
-          this.$router.push({path:'/'})
+          this.$router.push({path:'/rankAlllist'})
         }
         if (flag === 'f_dateType') {
         }
