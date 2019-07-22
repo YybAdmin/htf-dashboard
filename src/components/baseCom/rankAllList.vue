@@ -1,20 +1,38 @@
 <template>
   <div class="group">
+    <div class="swp">
+      <swiper :options="SwiperOptions">
+        <swiperSlide>
+          <div>
+            <div class="rk"><img src="@/assets/img/yjy/rank2.svg"></div>
+            <div class="tx"><img style="border:3px solid  #FFDF62;" src="@/assets/img/yjy/tx.jpg"></div>
+            <div class="name">{{itemlteq3[0].NAME}}</div>
+            <div class="num">{{itemlteq3[0].VALUE}}</div>
+          </div>
+        </swiperSlide>
+        <swiperSlide>
+          <div>
+            <div class="rk"><img src="@/assets/img/yjy/rank1.svg"></div>
+            <div class="tx"><img style="border:3px solid  #F8A587;" src="@/assets/img/yjy/tx.jpg"></div>
+            <div class="name">{{itemlteq3[1].NAME}}</div>
+            <div class="num">{{itemlteq3[1].VALUE}}</div>
+          </div>
+        </swiperSlide>
+        <swiperSlide>
+          <div>
+            <div class="rk"><img src="@/assets/img/yjy/rank3.svg"></div>
+            <div class="tx"><img style="border:3px solid  #E3E3E3;" src="@/assets/img/yjy/tx.jpg"></div>
+            <div class="name">{{itemlteq3[2].NAME}}</div>
+            <div class="num">{{itemlteq3[2].VALUE}}</div>
+          </div>
+        </swiperSlide>
+      </swiper>
+    </div>
     <div class="content">
-      <div class="title">
-        <span class="leaf1" style="display:inline-flex;"></span>
-        <span class="leaf2" style="display:inline-flex;"></span>
-        <span style="display:inline-flex;">{{this.title}}</span>
-        <span class="leaf3" style="display:inline-flex;"></span>
-        <span class="leaf4" style="display:inline-flex;"></span>
-      </div>
       <table>
-        <tr v-for="(item,i) in itemList"
+        <tr v-for="(item,i) in itemgt3"
             :key="i">
-          <td v-if="i===0"><img src="@/assets/img/yjy/rank1.svg"></td>
-          <td v-if="i===1"><img src="@/assets/img/yjy/rank2.svg"></td>
-          <td v-if="i===2"><img src="@/assets/img/yjy/rank3.svg"></td>
-          <td v-if="i>=3">{{i+1}}</td>
+          <td>{{i+4}}</td>
           <td><img style="height:40px;width:40px;border-radius: 20px;" src="@/assets/img/yjy/tx.jpg"></td>
           <td style="text-align: left;">{{item.NAME}}</td>
           <td style="width:50%;text-align: right;">{{item.VALUE}}</td>
@@ -26,11 +44,20 @@
 </template>
 
 <script>
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
+
   export default {
     name: "rankList",
     props: ["title"],
+    components: {swiper, swiperSlide},
     data() {
       return {
+        SwiperOptions: {
+          slidesPerView: 3,
+          spaceBetween: -5,
+          centeredSlides: 1,
+          loop: true
+        },
         itemList: [
           {RANK: '1', PHOTO: '', NAME: '蔡志文', VALUE: '888'},
           {RANK: '2', PHOTO: '', NAME: '卞正', VALUE: '777'},
@@ -43,14 +70,55 @@
           {RANK: '9', PHOTO: '', NAME: '黄耀锋', VALUE: '322'},
           {RANK: '10', PHOTO: '', NAME: '劳杰男', VALUE: '222'}]
       }
+    },
+    computed: {
+      itemlteq3: function () {
+        let ret = []
+        for (let i = 0; i < 3; i++) {
+          ret.push(this.itemList[i])
+        }
+        return ret
+      },
+      itemgt3: function () {
+        let ret = []
+        for (let i = 2; i < this.itemList.length; i++) {
+          ret.push(this.itemList[i])
+        }
+        return ret
+      }
     }
   }
 </script>
 
 <style scoped lang="less">
   .group {
-    background-color: #F6F6F6;
-    padding: 15px;
+    .swp {
+      background: url("../../assets/img/yjy/headBak.png") no-repeat;
+      padding-top: 15px;
+      height:190px;
+      .rk {
+        text-align: right;
+        margin: 4px 4px -8px;
+      }
+
+      .tx {
+        img {
+          height: 70px;
+          width: 70px;
+          border-radius: 35px;
+        }
+      }
+
+      .name {
+        font-size: 15px;
+        color: #333;
+      }
+
+      .num {
+        font-size: 13px;
+        color: #ddaf59;
+      }
+    }
 
     .content {
       background-color: #FFFFFF;
@@ -110,11 +178,26 @@
           }
         }
       }
-      .footer{
+
+      .footer {
         font-size: 14px;
         color: #ddaf59;
-        line-height:43px;
+        line-height: 43px;
       }
     }
+  }
+  .swiper-container {
+    height:175px;
+  }
+  .swiper-slide {
+    border-radius: 8px;
+    background-color: #fff;
+    height: 163px;
+    width: 125px;
+    box-shadow:0px 3px 10px 0px rgba(0,0,0,0.1);
+  }
+
+  .swiper-slide:not(.swiper-slide-active) {
+    transform: scale(0.9);
   }
 </style>

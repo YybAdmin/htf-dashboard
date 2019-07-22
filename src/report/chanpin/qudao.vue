@@ -54,7 +54,8 @@
     </table>
     <DivSplit></DivSplit>
     <span>哈哈哈</span>
-    <ranklist :title="comName.rankTitle"></ranklist>
+    <span>嘿嘿嘿</span>
+    <rankalllist></rankalllist>
   </div>
 </template>
 
@@ -65,10 +66,11 @@
   import selDim from '@/components/baseCom/swiperOvalNoAll'
   import BtnOrder from '@/components/baseCom/BtnOrder2'
   import ranklist from '@/components/baseCom/rank10List'
+  import rankalllist from '@/components/baseCom/rankAllList'
 
   export default {
     name: "qudao",
-    components: {DivSplit, LineSplit, selDim, BtnOrder, ranklist},
+    components: {DivSplit, LineSplit, selDim, BtnOrder, ranklist,rankalllist},
     data() {
       return {
         comName: {
