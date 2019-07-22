@@ -38,7 +38,6 @@
           <td style="width:50%;text-align: right;">{{item.VALUE}}</td>
         </tr>
       </table>
-      <div class="footer">更多></div>
     </div>
   </div>
 </template>
@@ -177,12 +176,6 @@
             }
           }
         }
-      }
-
-      .footer {
-        font-size: 14px;
-        color: #ddaf59;
-        line-height: 43px;
       }
     }
   }
