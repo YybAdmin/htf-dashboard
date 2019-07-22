@@ -47,7 +47,6 @@ export default {
   @coffeeFont: #666;
   @font : #333;
   .themeGold {
-    border-bottom: 1px solid @gold;
     span {
       color: @font;
     }
@@ -59,7 +58,6 @@ export default {
     }
   }
   .themeCoffee{
-    border-bottom: 1px solid  @coffee;
     span{
       color: @coffeeFont;
     }
@@ -73,8 +71,9 @@ export default {
   .tabgroup {
     text-align: left;
     padding-left: 10px;
+    border-bottom: 1px solid  #eee;
     span {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 400;
       line-height: 40px;
       text-align: center;
