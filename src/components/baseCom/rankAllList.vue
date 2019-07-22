@@ -54,7 +54,7 @@
       return {
         SwiperOptions: {
           slidesPerView: 3,
-          spaceBetween: -5,
+          spaceBetween: -6,
           centeredSlides: 1,
           loop: true
         },
