@@ -31,6 +31,7 @@ if(Vue.prototype.$API_LIST.ifUseMock == true){
   require('@/mock/datagrid')
   require('@/mock/treegrid')
   require('@/mock/yidong')
+  require('@/mock/yanjiuyuan')
 }
 
 /* eslint-disable no-new */

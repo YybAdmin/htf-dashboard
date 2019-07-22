@@ -23,6 +23,9 @@
       <li>
         <router-link to="ydDetail">渠道异动详情</router-link>
       </li>-->
+      <li>
+        <router-link to="yanjiuyuan">研究院视图</router-link>
+      </li>
     </ul>
   </div>
 </template>

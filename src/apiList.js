@@ -37,6 +37,9 @@ let API_LIST = {
   },
   selfPro: {
     allUserPro: href + '/report/selPro/getUserPro'
+  },
+  yanjiuyuan: {
+    chartUp: href + '/report/yanjiuyuan/getChartUp'
   }
 }
 export default API_LIST
