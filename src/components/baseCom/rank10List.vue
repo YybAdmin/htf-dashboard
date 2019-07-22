@@ -94,6 +94,7 @@
         color: #DDAF59;
         padding-top: 20px;
         margin-bottom: 20px;
+        line-height: 19px;
       }
 
       table {
