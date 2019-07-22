@@ -55,7 +55,7 @@
     <DivSplit></DivSplit>
     <span>哈哈哈</span>
     <span>嘿嘿嘿</span>
-    <rankalllist></rankalllist>
+    <ranklist v-bind:title="comName.rankTitle" v-on:comChanged="changePageState($event,'f_rankList')"></ranklist>
   </div>
 </template>
 
@@ -88,6 +88,9 @@
     },
     methods: {
       changePageState: function (i, flag) {
+        if(flag === 'f_rankList'){
+          this.$router.push({path:'/'})
+        }
         if (flag === 'f_dateType') {
         }
         if (flag === 'f_channel') {

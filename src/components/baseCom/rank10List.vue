@@ -20,7 +20,7 @@
           <td style="width:50%;text-align: right;">{{item.VALUE}}</td>
         </tr>
       </table>
-      <div class="footer">更多></div>
+      <div class="footer" @click="gengduoEvent()">更多></div>
     </div>
   </div>
 </template>
@@ -42,6 +42,11 @@
           {RANK: '8', PHOTO: '', NAME: '何往', VALUE: '323'},
           {RANK: '9', PHOTO: '', NAME: '黄耀锋', VALUE: '322'},
           {RANK: '10', PHOTO: '', NAME: '劳杰男', VALUE: '222'}]
+      }
+    },
+    methods:{
+      gengduoEvent:function () {
+        this.$emit('comChanged','gengduo')
       }
     }
   }
