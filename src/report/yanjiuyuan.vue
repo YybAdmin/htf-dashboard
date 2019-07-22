@@ -12,8 +12,7 @@
                  @comChanged="changePageState($event,'f_chartUp3')"></DrawChart3>
       <DateTable id="dateDim" @comChanged="changePageState($event,'f_dateType')"
                         v-bind:itemList="comName.TabDimDateList"></DateTable>
-      <Top10></Top10>
-<!--      <rankAll></rankAll>-->
+      <Top10 :title="comName.Top10Title" @comChanged="changePageState($event,'f_Top10')"></Top10>
     </div>
 </template>
 
@@ -37,7 +36,8 @@
                 tabTopList: [{name: '行业数据'}, {name: '标题'}],
                 TabDimList: [{name: '指标汇总'}, {name: '研究院使用情况'}],
                 BtnDimList: [{name: '指标点评量'},{name: '指标访问次数'},{name: '指标更新量'}],
-                TabDimDateList: [{name: '今日'},{name: '本周'},{name: '本月'},{name: '全年'}]
+                TabDimDateList: [{name: '今日'},{name: '本周'},{name: '本月'},{name: '全年'}],
+                Top10Title:"点评量排名"
               },
               pageVal: {
                 tabTop: 1,
@@ -67,6 +67,9 @@
           // 规模 客户数 切换
           if (flag === 'f_tabtop') {
             reflashFlag = this.changeTabTop(val)
+          }
+          if (flag === 'f_Top10') {
+            this.$router.push({path:'/rankAlllist',query:{}})
           }
           console.log(this.pageVal)
           this.render2Page(this.pageVal, reflashFlag)
