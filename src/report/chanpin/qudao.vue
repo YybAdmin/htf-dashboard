@@ -64,7 +64,7 @@
   import LineSplit from '@/components/baseCom/LineSplit'
   import selDim from '@/components/baseCom/swiperOvalNoAll'
   import BtnOrder from '@/components/baseCom/BtnOrder2'
-  import ranklist from '@/components/baseCom/rankList'
+  import ranklist from '@/components/baseCom/rank10List'
 
   export default {
     name: "qudao",
