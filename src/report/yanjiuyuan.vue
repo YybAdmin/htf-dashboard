@@ -5,12 +5,12 @@
       <TabDim @comChanged="changePageState($event,'f_zhibiao')" v-bind:itemList="comName.TabDimList"></TabDim>
       <BtnOrder id="btnOder" ref="btnOder" v-bind:chartInfo="this.gridData"></BtnOrder>
       <BtnGrop @comChanged="changePageState($event,'p_zhibiaodetail')" v-bind:itemList="comName.BtnDimList"/>
-      <DrawChart id="chartUp" ref="chartUp" v-bind:chartInfo="this.charData.chartUp"
+      <DrawChart id="chartUp" ref="chartUp" v-bind:chartInfo="this.chartData.chartUp"
                  @comChanged="changePageState($event,'f_chartUp')"></DrawChart>
-      <DrawChart id="chartUp2" ref="chartUp2" v-bind:chartInfo="this.charData.chartUp2"
+      <DrawChart id="chartUp2" ref="chartUp2" v-bind:chartInfo="this.chartData.chartUp2"
                  @comChanged="changePageState($event,'f_chartUp2')"></DrawChart>
-      <DrawChart id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.charData.chartUp3"
-                 @comChanged="changePageState($event,'f_chartUp3')"></DrawChart>
+      <DrawTwoBar id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.chartData.chartUp3"
+                 @comChanged="changePageState($event,'f_chartUp3')"></DrawTwoBar>
       <DateTable id="dateDim" @comChanged="changePageState($event,'f_dateType')"
                         v-bind:itemList="comName.TabDimDateList"></DateTable>
       <Top10 :title="comName.Top10Title" @comChanged="changePageState($event,'f_Top10')"></Top10>
@@ -23,6 +23,7 @@
   import TabDim from '@/components/baseCom/TabDim'
   import BtnGrop from '@/components/baseCom/BtnGrp'
   import DrawChart from '@/components/echartCom/DrawOneBarOneLine'
+  import DrawTwoBar from '@/components/echartCom/DrawTwoBar'
   import DateTable from '@/components/baseCom/TabDimWidth100Up'
   import Top10 from '@/components/baseCom/rank10List'
   import ZhibiaoKuang from '@/components/yanjiuyuan/zhibiaoliang'
@@ -31,7 +32,7 @@
   import {getChartUpData} from "../service/yanjiuyuanApi"
     export default {
         name: 'yanjiuyuan',
-        components: { TabTop, TabDim, BtnGrop, DrawChart, DateTable, Top10, RankAll, ZhibiaoKuang, BtnOrder},
+        components: { TabTop, TabDim, BtnGrop, DrawChart,DrawTwoBar, DateTable, Top10, RankAll, ZhibiaoKuang, BtnOrder},
         data() {
             return {
               comName: {
@@ -40,6 +41,11 @@
                 BtnDimList: [{name: '指标点评量'},{name: '指标访问次数'},{name: '指标更新量'}],
                 TabDimDateList: [{name: '今日'},{name: '本周'},{name: '本月'},{name: '全年'}],
                 Top10Title:"点评量排名"
+              },
+              chartData:{
+                chartUp : {title: ['点评总量 (单位:个)','点评覆盖率 (单位:%)'], name: ['点评总量', '点评覆盖率'], clickParams: []},
+                chartUp2 : {title: ['点击总次数 (单位:次)','平均点击次数 (单位:次)'], name: ['点击总次数', '平均每个指标点击次数'], clickParams: []},
+                chartUp3 : {title: '指标数 (单位:个)', name: ['待更新指标', '已更新指标'], clickParams: []}
               },
               pageVal: {
                 tabTop: 1,
@@ -50,26 +56,6 @@
               }
             }
         },
-      computed: {
-        charData: function () {
-          let fundUp = {title: ['点评总量 (单位:个)','点评覆盖率 (单位:%)'], name: ['点评总量', '点评覆盖率'], clickParams: []}
-          let fundUp2 = {title: ['点击总次数 (单位:次)','平均点击次数 (单位:次)'], name: ['点击总次数', '平均每个指标点击次数'], clickParams: []}
-          let fundUp3 = {title: '指标数 (单位:个)', name: ['待更新指标', '已更新指标'], clickParams: []}
-          if (this.pageVal.tabTop == 1 && this.pageVal.zhibiaoHZ == 1 && this.pageVal.zhibiaoDim == 1){
-            return {
-              chartUp: fundUp
-            }
-          }else if (this.pageVal.tabTop == 1 && this.pageVal.zhibiaoHZ == 1 && this.pageVal.zhibiaoDim == 2){
-            return {
-              chartUp: fundUp2
-            }
-          } else if (this.pageVal.tabTop == 1 && this.pageVal.zhibiaoHZ == 1 && this.pageVal.zhibiaoDim == 3) {
-            return {
-              chartUp: fundUp3
-            }
-          }
-        }
-      },
       methods: {
         changePageState: function (val, flag) {
           var reflashFlag = 'no'
@@ -121,18 +107,16 @@
         },
         changeBtnDim: function(val){
           this.pageVal.zhibiaoDim = val
+          $('#chartUp,#chartUp2,#chartUp3').hide()
           if (this.pageVal.zhibiaoDim === 1 ){
             //切图一chartUp
             $('#chartUp').show()
-            $('#chartUp2,#chartUp3').hide()
           } else if (this.pageVal.zhibiaoDim === 2 ) {
             //切图二chartUp2
             $('#chartUp2').show()
-            $('#chartUp,#chartUp3').hide()
           }else if (this.pageVal.zhibiaoDim === 3 ) {
             //切图三chartUp3
             $('#chartUp3').show()
-            $('#chartUp1,#chartUp2').hide()
           }
           this.drawChartUp(this.pageVal)
         },
@@ -155,24 +139,25 @@
             if (pageVal.zhibiaoDim === 1 ) {
                 let chartUp = _this.$refs.chartUp
                 let params = {
-                  labelNum: 1,
-                  initSelKey: pageVal.pKey.toString()
+                  label1Show: false,
+                  label2Show: false
                 }
                 chartUp.setData(res.data.list, params)
               } else if (pageVal.zhibiaoDim === 2) {
                 let chartUp2 = _this.$refs.chartUp2
-                let paramsUp = {
-                  labelNum: 1,
-                  initSelKey: pageVal.pKey.toString()
+                let params = {
+                  label1Show: false,
+                  label2Show: false
                 }
-                chartUp2.setData(res.data.list, paramsUp)
+                chartUp2.setData(res.data.list, params)
               }else if (pageVal.zhibiaoDim === 3) {
               let chartUp3 = _this.$refs.chartUp3
-              let paramsUp = {
-                labelNum: 1,
-                initSelKey: pageVal.pKey.toString()
+              let params = {
+                label1Show: false,
+                label2Show: false,
+                barStack:['s1','s1']
               }
-              chartUp3.setData(res.data.list, paramsUp)
+              chartUp3.setData(res.data.list, params)
             }
           })
         },

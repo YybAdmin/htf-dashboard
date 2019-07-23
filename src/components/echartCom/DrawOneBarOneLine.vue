@@ -45,7 +45,7 @@ export default {
       if (thisChart !== undefined) {
         thisChart.dispose()
       }
-      let pKey = this.chartInfo.pKey
+      let pKey = (this.chartInfo.pKey !== undefined ? this.chartInfo.pKey : '999999')
       let data = this.data
       let iflabelColor = this.barLabel.labelColor
       let labelNum = this.barLabel.labelNum
@@ -90,6 +90,21 @@ export default {
         grid: {
           bottom: '60px',
           top: '30px'
+        },
+        tooltip: {
+          trigger: 'axis',
+          triggerOn: 'click',
+          axisPointer: {
+            type: 'line',
+            label: {
+              show: false
+            },
+            lineStyle: {
+              opacity: 0,
+              color: '#BABABA',
+              type: 'dashed'
+            }
+          }
         },
         xAxis: [{
           type: 'category',

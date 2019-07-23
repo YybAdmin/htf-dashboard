@@ -31,6 +31,7 @@ export default {
         labelNum: 1,
         labelColor: false
       },
+      bartack:['s1','s2'],
       selKey: '999999',
       data: []
     }
@@ -38,15 +39,19 @@ export default {
   methods: {
     setData: function (data, option) {
       this.data = data
-      if (option !== undefined) {
-        this.shadow.ifShadow = (option.ifShadow !== undefined ? option.ifShadow : false)
-        this.shadow.shadowNum = (option.shadowNum !== undefined ? option.shadowNum : 0)
-        this.barLabel.label1Show = (option.label1Show !== undefined ? option.label1Show : true)
-        this.barLabel.label2Show = (option.label2Show !== undefined ? option.label2Show : false)
-        this.barLabel.labelNum = (option.labelNum !== undefined ? option.labelNum : 1)
-        this.barLabel.labelColor = (option.labelColor !== undefined ? option.labelColor : true)
-        this.selKey = (option.initSelKey !== undefined ? option.initSelKey : '999999')
-      }
+      try{
+        if (option !== undefined) {
+          this.shadow.ifShadow = (option.ifShadow !== undefined ? option.ifShadow : false)
+          this.shadow.shadowNum = (option.shadowNum !== undefined ? option.shadowNum : 0)
+          this.barLabel.label1Show = (option.label1Show !== undefined ? option.label1Show : true)
+          this.barLabel.label2Show = (option.label2Show !== undefined ? option.label2Show : false)
+          this.barLabel.labelNum = (option.labelNum !== undefined ? option.labelNum : 1)
+          this.barLabel.labelColor = (option.labelColor !== undefined ? option.labelColor : true)
+          this.bartack[0] = (option.barStack !== undefined ? option.barStack[0] : 's1')
+          this.bartack[1] = (option.barStack !== undefined ? option.barStack[1] : 's2')
+          this.selKey = (option.initSelKey !== undefined ? option.initSelKey : '999999')
+        }
+      }catch(e){console.log(e)}
       var length = this.data.length
       for (let i = 0; i <= length; i++) {
         this.shadow.xSeriesData[i] = i + 1
@@ -193,6 +198,7 @@ export default {
         series: [{
           name: this.chartInfo.name[0],
           type: 'bar',
+          stack:this.bartack[0],
           barWidth: '20px',
           encode: {
             x: 'NAME',
@@ -251,6 +257,7 @@ export default {
         }, {
           name: this.chartInfo.name[1],
           type: 'bar',
+          stack:this.bartack[1],
           barWidth: '20px',
           barBorderRadius: [5, 5, 0, 0],
           encode: {
