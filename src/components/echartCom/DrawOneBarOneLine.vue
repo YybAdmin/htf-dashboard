@@ -88,8 +88,8 @@ export default {
           source: this.data
         },
         grid: {
-          bottom: '60px',
-          top: '30px'
+          bottom: '20%',
+          top: '15%'
         },
         tooltip: {
           trigger: 'axis',
