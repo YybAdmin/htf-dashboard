@@ -1,7 +1,11 @@
 <template>
   <div class="group" @click="changeSel">
-    <span>{{item.name}}</span>
-    <span v-bind:is="whichOrder"></span>
+    <table>
+      <tr>
+        <td><span>{{item.name}}</span></td>
+        <td><span v-bind:is="whichOrder"></span></td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -51,10 +55,11 @@
 </script>
 
 <style scoped lang="less">
+
   .group {
     position: relative;
     font-size: 14px;
-    line-height: 30px;
+    line-height: 16px;
 
     .selected {
       color: #ddaf59;
