@@ -39,7 +39,8 @@ let API_LIST = {
     allUserPro: href + '/report/selPro/getUserPro'
   },
   yanjiuyuan: {
-    chartUp: href + '/report/yanjiuyuan/getChartUp'
+    chartUp: href + '/report/yanjiuyuan/getChartUp',
+    getGridData: href2 + '/report/yanjiuyuan/getGridData'
   }
 }
 export default API_LIST

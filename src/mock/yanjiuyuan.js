@@ -31,3 +31,21 @@ Mock.mock(API_LIST.yanjiuyuan.chartUp, /post/i, function (req) {
     }
   }
 })
+Mock.mock(API_LIST.yanjiuyuan.getGridData, /post/i, function (req) {
+  let pageVal = JSON.parse(req.body)
+  return {
+    'code': '200',
+    'msg': 'success',
+    //研究员姓名       行业      指标总数      未确认指标数         未更新指标数
+    'list': [{NAME:'蔡志文',VALUE1:'3000',VALUE2:'3000',VALUE3:'3000',VALUE4:'100',VALUE5:'100'},
+      {NAME:'卞正',VALUE1:'3100',VALUE2:'3000',VALUE3:'3020',VALUE4:'100',VALUE5:'300'},
+      {NAME:'陈潇杨',VALUE1:'3200',VALUE2:'3000',VALUE3:'3030',VALUE4:'100',VALUE5:'200'},
+      {NAME:'崔文琦',VALUE1:'3300',VALUE2:'3000',VALUE3:'3010',VALUE4:'100',VALUE5:'400'},
+      {NAME:'董超',VALUE1:'3400',VALUE2:'3000',VALUE3:'3000',VALUE4:'100',VALUE5:'200'},
+      {NAME:'付鹏飞',VALUE1:'3200',VALUE2:'3000',VALUE3:'3000',VALUE4:'100',VALUE5:'100'},
+      {NAME:'韩超',VALUE1:'3300',VALUE2:'3000',VALUE3:'3000',VALUE4:'100',VALUE5:'300'},
+      {NAME:'何往',VALUE1:'3200',VALUE2:'3000',VALUE3:'3000',VALUE4:'100',VALUE5:'500'},
+      {NAME:'黄耀锋',VALUE1:'3300',VALUE2:'3000',VALUE3:'3000',VALUE4:'100',VALUE5:'200'},
+      {NAME:'劳杰男',VALUE1:'3200',VALUE2:'3000',VALUE3:'3050',VALUE4:'100',VALUE5:'210'}]
+  }
+})
