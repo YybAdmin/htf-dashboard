@@ -4,7 +4,7 @@
       <ZhibiaoKuang></ZhibiaoKuang>
       <TabDim @comChanged="changePageState($event,'f_zhibiao')" v-bind:itemList="comName.TabDimList"></TabDim>
       <BtnOrder id="btnOder" ref="btnOder" v-bind:chartInfo="this.gridData"></BtnOrder>
-      <BtnGrop @comChanged="changePageState($event,'p_zhibiaodetail')" v-bind:itemList="comName.BtnDimList"/>
+      <BtnGrop id="btmdim" @comChanged="changePageState($event,'p_zhibiaodetail')" v-bind:itemList="comName.BtnDimList"/>
       <DrawChart id="chartUp" ref="chartUp" v-bind:chartInfo="this.chartData.chartUp"
                  @comChanged="changePageState($event,'f_chartUp')"></DrawChart>
       <DrawChart id="chartUp2" ref="chartUp2" v-bind:chartInfo="this.chartData.chartUp2"
@@ -13,7 +13,7 @@
                  @comChanged="changePageState($event,'f_chartUp3')"></DrawTwoBar>
       <DateTable id="dateDim" @comChanged="changePageState($event,'f_dateType')"
                         v-bind:itemList="comName.TabDimDateList"></DateTable>
-      <Top10 :title="comName.Top10Title" @comChanged="changePageState($event,'f_Top10')"></Top10>
+      <Top10 id="top10" :title="comName.Top10Title" @comChanged="changePageState($event,'f_Top10')"></Top10>
     </div>
 </template>
 
@@ -29,7 +29,7 @@
   import ZhibiaoKuang from '@/components/yanjiuyuan/zhibiaoliang'
   import RankAll from '@/components/baseCom/rankAllList'
   import BtnOrder from '@/components/yanjiuyuan/yanjiuyuanshiyong'
-  import {getChartUpData} from "../service/yanjiuyuanApi"
+  import {getChartUpData,getGridData} from "../service/yanjiuyuanApi"
     export default {
         name: 'yanjiuyuan',
         components: { TabTop, TabDim, BtnGrop, DrawChart,DrawTwoBar, DateTable, Top10, RankAll, ZhibiaoKuang, BtnOrder},
@@ -98,12 +98,15 @@
         changeZhiBiaoDim: function(val){
           this.pageVal.zhibiaoHZ = val
           if (this.pageVal.zhibiaoHZ === 1) {
-              //TODO 指标汇总
-
+            //指标汇总
+            $("#btnOder").hide()
+            $("#btmdim,#chartUp,#dateDim,#top10").show()
           }else if (this.pageVal.zhibiaoHZ === 2) {
-              //TODO 研究员使用情况
-
+            //研究员使用情况
+            $("#btnOder").show()
+            $("#btmdim,#chartUp,#chartUp2,#chartUp3,#dateDim,#top10").hide()
           }
+          this.drawChartUp(this.pageVal)
         },
         changeBtnDim: function(val){
           this.pageVal.zhibiaoDim = val
@@ -186,6 +189,26 @@
           this.pageRendering(this.pageVal, 'up')
           this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
         }
+      },
+      beforeMount() {
+        let _this = this
+        getGridData(_this.pageVal, function (res) {
+          //画图
+          let chartData = []
+          for (let i = 0; i < res.length; i++) {
+            let item = {}
+            item['NAME'] = res[i].NAME;
+            item['VALUE1'] = res[i].VALUE1; //流出份额
+            item['VALUE2'] = res[i].VALUE3; //30天均值
+            item['VALUE3'] = parseFloat(res[i].VALUE3) + parseFloat(2 * res[i].VALUE4); //上限
+            item['VALUE4'] = parseFloat(res[i].VALUE3) - parseFloat(2 * res[i].VALUE4); //下限
+            item['VALUE5'] = ((parseFloat(res[i].VALUE1) - parseFloat(res[i].VALUE3)) * 100 / parseFloat(res[i].VALUE3)).toFixed(2)
+            chartData.push(item)
+          }
+          // _this.$refs.chart.setData(chartData)
+          //画表格
+          _this.$refs.btnOder.setData(res)
+        })
       },
       mounted () {
         //加载页面
