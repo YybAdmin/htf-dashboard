@@ -193,19 +193,6 @@
       beforeMount() {
         let _this = this
         getGridData(_this.pageVal, function (res) {
-          //画图
-          let chartData = []
-          for (let i = 0; i < res.length; i++) {
-            let item = {}
-            item['NAME'] = res[i].NAME;
-            item['VALUE1'] = res[i].VALUE1; //流出份额
-            item['VALUE2'] = res[i].VALUE3; //30天均值
-            item['VALUE3'] = parseFloat(res[i].VALUE3) + parseFloat(2 * res[i].VALUE4); //上限
-            item['VALUE4'] = parseFloat(res[i].VALUE3) - parseFloat(2 * res[i].VALUE4); //下限
-            item['VALUE5'] = ((parseFloat(res[i].VALUE1) - parseFloat(res[i].VALUE3)) * 100 / parseFloat(res[i].VALUE3)).toFixed(2)
-            chartData.push(item)
-          }
-          // _this.$refs.chart.setData(chartData)
           //画表格
           _this.$refs.btnOder.setData(res)
         })
