@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <div style="position: relative;">
     <div ref="OneBarOneLineChart" v-bind:style="{width:this.$myUtil.getDeviceWidth()+'px', height:250+'px'}">
       <div class="picsty" ><img src="@/assets/img/download.gif" style="height:50px;width:50px;"></div>
       <div class="fontsty">请稍候.....</div>
+    </div>
+    <div style="position: absolute;top:25px;left:40px;font-size:11px;color:#999;font-weight: 300; ">
+      数据时间:<span ref="minmin"></span>—<span ref="maxmax"></span>
     </div>
   </div>
 </template>
@@ -47,6 +50,8 @@ export default {
       }
       let pKey = (this.chartInfo.pKey !== undefined ? this.chartInfo.pKey : '999999')
       let data = this.data
+      let xMin = '0'
+      let xMax = '0'
       let iflabelColor = this.barLabel.labelColor
       let labelNum = this.barLabel.labelNum
       let _this = this
@@ -121,7 +126,16 @@ export default {
             interval: 0,
             color: '#999999',
             fontSize: '12px',
-            rotate: -40
+            rotate: -40,
+            formatter:function (value,index) {
+              if(index === 0){
+                xMin = value
+                _this.$refs.minmin.innerText = xMin
+              }
+              xMax = value
+              _this.$refs.maxmax.innerText = xMax
+              return value
+            }
           }
         }],
         yAxis: [{
