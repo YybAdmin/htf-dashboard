@@ -1,4 +1,4 @@
-let state = 0
+let ifUseMock = true
 let hrefArr = [
   '',
   'https://iapp.htffund.com/microservice/iapp-dashboard/api',
@@ -9,7 +9,7 @@ let href = hrefArr[1] //生产
 let href2 = hrefArr[0] //本机
 
 let API_LIST = {
-  ifUseMock: true,
+  ifUseMock: ifUseMock,
   huijin: {
     hujinDataDate : href + '/dev/hujin/dataDate',
     hujinHeadData : href + '/dev/hujin/headData',
