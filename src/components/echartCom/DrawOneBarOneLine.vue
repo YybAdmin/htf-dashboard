@@ -50,7 +50,7 @@ export default {
       let iflabelColor = this.barLabel.labelColor
       let labelNum = this.barLabel.labelNum
       let _this = this
-      let end = Math.floor(100 / (this.data.length / 10))
+      let start = 100 - Math.floor(6 / this.data.length * 100)
       let myChart = echarts.init(this.$refs.OneBarOneLineChart)
       let myChartOption = {
         title:
@@ -78,8 +78,8 @@ export default {
         dataZoom: {
           type: 'inside',
           zoomLock: true,
-          start: 0,
-          end: end,
+          start: start,
+          end: 100,
           filterMode: 'filter',
           throttle: 200,
           preventDefaultMouseMove: false
