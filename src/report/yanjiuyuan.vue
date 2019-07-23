@@ -3,7 +3,7 @@
       <TabTop @comChanged="changePageState($event,'f_tabtop')" v-bind:itemList="comName.tabTopList"></TabTop>
       <ZhibiaoKuang></ZhibiaoKuang>
       <TabDim @comChanged="changePageState($event,'f_zhibiao')" v-bind:itemList="comName.TabDimList"></TabDim>
-      <BtnOrder id="btnOder" ref="btnOder" v-bind:chartInfo="this.gridData"></BtnOrder>
+      <BtnOrder id="btnOder" ref="btnOder"></BtnOrder>
       <BtnGrop id="btmdim" @comChanged="changePageState($event,'p_zhibiaodetail')" v-bind:itemList="comName.BtnDimList"/>
       <DrawChart id="chartUp" ref="chartUp" v-bind:chartInfo="this.chartData.chartUp"
                  @comChanged="changePageState($event,'f_chartUp')"></DrawChart>
@@ -180,12 +180,12 @@
         renderAction: function () {
           //TODO 隐藏标题
 
-          //TODO 隐藏研究员使用情况
+          //隐藏研究员使用情况
+          $('#btnOder').hide()
 
           // chart 隐藏
           $('#chartUp').show()
           $('#chartUp2,#chartUp3').hide()
-          $('#btnOder').hide()
           this.pageRendering(this.pageVal, 'up')
           this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
         }
