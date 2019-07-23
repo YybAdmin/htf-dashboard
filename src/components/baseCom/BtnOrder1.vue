@@ -60,7 +60,9 @@
     position: relative;
     font-size: 14px;
     line-height: 16px;
-
+    table{
+      width: 100%;
+    }
     .selected {
       color: #ddaf59;
     }

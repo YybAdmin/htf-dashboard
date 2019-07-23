@@ -72,7 +72,7 @@
       width: 100%;
       margin: 0px 0px;
       border-collapse: collapse;
-      table-layout: auto;
+      table-layout: fixed;
       thead {
         font-size: 13px;
         line-height: 16px;

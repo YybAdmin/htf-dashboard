@@ -5,7 +5,7 @@
       <thead>
       <tr>
         <td>{{title[0]}}</td>
-        <td style="width:80px;">
+        <td style="padding-right: 10px;">
           <BtnOrder :item="c2Title" @comChanged="dataSort($event,'f_order')"></BtnOrder>
         </td>
         <td>{{title[2]}}</td>
