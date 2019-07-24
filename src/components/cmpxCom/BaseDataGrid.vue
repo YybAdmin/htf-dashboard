@@ -29,7 +29,7 @@
       setData: function (data) {
         let _this = this
         try {
-          this.$http.post(this.$API_LIST.dataGridDemo).then(res => {
+          this.$http.post(this.$API_LIST.dataGrid.dataGridDemo).then(res => {
             _this.data = res.data.list
           })
         } catch (e) {

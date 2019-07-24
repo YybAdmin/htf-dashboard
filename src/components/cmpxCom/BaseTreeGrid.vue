@@ -35,7 +35,7 @@
     methods: {
       setData() {
         try {
-          this.$http.post(this.$API_LIST.treeGridDemo, {'gridLv': 1,'gridParaId':'0'}).then(res => {
+          this.$http.post(this.$API_LIST.dataGrid.treeGridDemo, {'gridLv': 1,'gridParaId':'0'}).then(res => {
             this.data = res.data.list
           })
         } catch (e) {

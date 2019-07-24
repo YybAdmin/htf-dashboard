@@ -6,6 +6,7 @@ let hrefArr = [
   'http://192.168.8.171:8080'
 ]
 let href = hrefArr[1] //生产
+let hrefDev = hrefArr[0] //生产
 let API_LIST = {
   ifUseMock: ifUseMock,
   huijin: {
@@ -19,26 +20,26 @@ let API_LIST = {
     hujinPdf : href + '/report/pdf/hujinPdf'
   },
   dataGrid: {
-    dataGridDemo : href + '/report/dataGrid/getData',
-    treeGridDemo : href + '/report/treeGrid/getData',
+    dataGridDemo : hrefDev + '/report/dataGrid/getData',
+    treeGridDemo : hrefDev + '/report/treeGrid/getData',
   },
   jingpin:{
-    jingpinHeadData: href + '/report/jingpin/headData',
-    jingpinChartUp: href = '/report/jingpin/chartUp',
-    jingpinChartMid: href = '/report/jingpin/chartMid',
-    jingpinChartDwn: href = '/report/jingpin/chartDwn'
+    jingpinHeadData: hrefDev + '/report/jingpin/headData',
+    jingpinChartUp: hrefDev = '/report/jingpin/chartUp',
+    jingpinChartMid: hrefDev = '/report/jingpin/chartMid',
+    jingpinChartDwn: hrefDev = '/report/jingpin/chartDwn'
   },
   yidong: {
-    yidongSummary: href + '/report/yidong/summary',
-    yidongDataCard: href + '/report/yidong/dataCard',
-    yidong30Data: href + '/report/yidong/chart30Data'
+    yidongSummary: hrefDev + '/report/yidong/summary',
+    yidongDataCard: hrefDev + '/report/yidong/dataCard',
+    yidong30Data: hrefDev + '/report/yidong/chart30Data'
   },
   selfPro: {
-    allUserPro: href + '/report/selPro/getUserPro'
+    allUserPro: hrefDev + '/report/selPro/getUserPro'
   },
   yanjiuyuan: {
-    chartUp: href + '/report/yanjiuyuan/getChartUp',
-    getGridData: href + '/report/yanjiuyuan/getGridData'
+    chartUp: hrefDev + '/report/yanjiuyuan/getChartUp',
+    getGridData: hrefDev + '/report/yanjiuyuan/getGridData'
   }
 }
 export default API_LIST
