@@ -21,8 +21,8 @@ let API_LIST = {
     hujinPdf : href + '/report/pdf/hujinPdf'
   },
   dataGrid: {
-    dataGridDemo : href + '/report/dataGrid/getData',
-    treeGridDemo : href + '/report/treeGrid/getData',
+    dataGridDemo : href2 + '/report/dataGrid/getData',
+    treeGridDemo : href2 + '/report/treeGrid/getData',
   },
   jingpin:{
     jingpinHeadData: href2 + '/report/jingpin/headData',
