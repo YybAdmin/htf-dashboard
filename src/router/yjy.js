@@ -1,7 +1,7 @@
 let routes = [
   {
     path: '/yanjiuyuan',
-    name: '所有研究员排序',
+    name: '研究员',
     component: resolve => require(['@/report/yanjiuyuan'], resolve)
   },
   {
@@ -11,7 +11,7 @@ let routes = [
   },
   {
     path: '/yjyGrid',
-    name: '所有研究员排序',
+    name: 'yjygrid',
     component: resolve => require(['@/components/yanjiuyuan/yanjiuyuanshiyong'], resolve)
   }]
 
