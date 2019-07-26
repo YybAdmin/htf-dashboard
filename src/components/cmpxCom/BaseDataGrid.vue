@@ -18,7 +18,7 @@
 
 <script>
   export default {
-    nama: 'dataGrid',
+    name: 'dataGrid',
     data() {
       return {
         data: [],
