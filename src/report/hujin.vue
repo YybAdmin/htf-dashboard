@@ -742,7 +742,7 @@
           this.$refs.chartUp.selectBar(this.pageVal.gmType)
         }
         if (this.pageVal.fbOrQs1 === 2) { // 若当前展示趋势图，重画
-          this.drawChartUp2(this.pageVal)
+          this.drawChartUp(this.pageVal)
         }
         return 'mid'
       },
@@ -770,7 +770,7 @@
           this.$refs.chartUp.selectBar(this.pageVal.zhType)
         }
         if (this.pageVal.fbOrQs1 === 2) { // 若当前展示趋势图，重画
-          this.drawChartUp2(this.pageVal)
+          this.drawChartUp(this.pageVal)
         }
         return 'mid'
       },
