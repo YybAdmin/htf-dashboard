@@ -39,7 +39,8 @@ let API_LIST = {
   },
   yanjiuyuan: {
     chartUp: hrefDev + '/report/yanjiuyuan/getChartUp',
-    getGridData: hrefDev + '/report/yanjiuyuan/getGridData'
+    getGridData: hrefDev + '/report/yanjiuyuan/getGridData',
+    dataRank: hrefDev + '/report/yanjiuyuan/dateRank'
   }
 }
 export default API_LIST

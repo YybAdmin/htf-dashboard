@@ -3,17 +3,18 @@
       <TabTop @comChanged="changePageState($event,'f_tabtop')" v-bind:itemList="comName.tabTopList"></TabTop>
       <ZhibiaoKuang></ZhibiaoKuang>
       <TabDim @comChanged="changePageState($event,'f_zhibiao')" v-bind:itemList="comName.TabDimList"></TabDim>
-      <BtnOrder id="btnOder" ref="btnOder"></BtnOrder>
+      <DataGrid id="btnOder" ref="btnOder"></DataGrid>
       <BtnGrop id="btmdim" @comChanged="changePageState($event,'p_zhibiaodetail')" v-bind:itemList="comName.BtnDimList"/>
       <DrawChart id="chartUp" ref="chartUp" v-bind:chartInfo="this.chartData.chartUp"
                  @comChanged="changePageState($event,'f_chartUp')"></DrawChart>
-      <DrawChart id="chartUp2" ref="chartUp2" v-bind:chartInfo="this.chartData.chartUp2"
-                 @comChanged="changePageState($event,'f_chartUp2')"></DrawChart>
+      <DrawTwoBar id="chartUp2" ref="chartUp2" v-bind:chartInfo="this.chartData.chartUp2"
+                 @comChanged="changePageState($event,'f_chartUp2')"></DrawTwoBar>
       <DrawTwoBar id="chartUp3" ref="chartUp3" v-bind:chartInfo="this.chartData.chartUp3"
                  @comChanged="changePageState($event,'f_chartUp3')"></DrawTwoBar>
       <DateTable id="dateDim" @comChanged="changePageState($event,'f_dateType')"
                         v-bind:itemList="comName.TabDimDateList"></DateTable>
-      <Top10 id="top10" :title="comName.Top10Title" @comChanged="changePageState($event,'f_Top10')"></Top10>
+      <Top10 id="top10" ref="top10" :title="this.charData.Top10Title" @comChanged="changePageState($event,'f_Top10')"></Top10>
+
     </div>
 </template>
 
@@ -28,23 +29,24 @@
   import Top10 from '@/components/baseCom/rank10List'
   import ZhibiaoKuang from '@/components/yanjiuyuan/zhibiaoliang'
   import RankAll from '@/components/baseCom/rankAllList'
-  import BtnOrder from '@/components/yanjiuyuan/yanjiuyuanshiyong'
-  import {getChartUpData,getGridData} from "../service/yanjiuyuanApi"
+  import DataGrid from '@/components/yanjiuyuan/yanjiuyuangrid'
+  import {getChartUpData,getGridData,dataRank} from "../service/yanjiuyuanApi"
     export default {
         name: 'yanjiuyuan',
-        components: { TabTop, TabDim, BtnGrop, DrawChart,DrawTwoBar, DateTable, Top10, RankAll, ZhibiaoKuang, BtnOrder},
+        components: { TabTop, TabDim, BtnGrop, DrawChart,DrawTwoBar, DateTable, Top10, RankAll, ZhibiaoKuang, DataGrid},
         data() {
             return {
               comName: {
                 tabTopList: [{name: '行业数据'}, {name: '标题'}],
                 TabDimList: [{name: '指标汇总'}, {name: '研究员使用情况'}],
-                BtnDimList: [{name: '指标点评量'},{name: '指标访问次数'},{name: '指标更新量'}],
-                TabDimDateList: [{name: '今日'},{name: '本周'},{name: '本月'},{name: '全年'}],
+                BtnDimList: [{name: '指标点评量'},{name: '指标确认量'},{name: '指标更新量'}],
+                TabDimDateList: [{name: '今日'},{name: '本周'},{name: '本月'},{name: '全年'},{name: '更多'}],
                 Top10Title:"点评量排名"
+
               },
               chartData:{
                 chartUp : {title: ['点评总量 (单位:个)','点评覆盖率 (单位:%)'], name: ['点评总量', '点评覆盖率'], clickParams: []},
-                chartUp2 : {title: ['点击总次数 (单位:次)','平均点击次数 (单位:次)'], name: ['点击总次数', '平均每个指标点击次数'], clickParams: []},
+                chartUp2 : {title: ['指标量 (单位:次)'], name: ['指标确认量1', '指标确认量2'], clickParams: []},
                 chartUp3 : {title: '指标数 (单位:个)', name: ['待更新指标', '已更新指标'], clickParams: []}
               },
               pageVal: {
@@ -56,6 +58,26 @@
               }
             }
         },
+      computed: {
+        charData: function () {
+          let Top10Title1 = "点评量排名"
+          let Top10Title2 = "确认量排名"
+          let Top10Title3 = "更新量排名"
+          if (this.pageVal.zhibiaoDim === 1) {
+              return {
+                Top10Title: Top10Title1
+              }
+            }else if (this.pageVal.zhibiaoDim === 2){
+              return {
+                Top10Title: Top10Title2
+              }
+            }else if(this.pageVal.zhibiaoDim === 3){
+              return {
+                Top10Title: Top10Title3
+              }
+            }
+          }
+      },
       methods: {
         changePageState: function (val, flag) {
           var reflashFlag = 'no'
@@ -101,12 +123,13 @@
             //指标汇总
             $("#btnOder").hide()
             $("#btmdim,#chartUp,#dateDim,#top10").show()
+            this.drawChartUp(this.pageVal)
           }else if (this.pageVal.zhibiaoHZ === 2) {
             //研究员使用情况
             $("#btnOder").show()
             $("#btmdim,#chartUp,#chartUp2,#chartUp3,#dateDim,#top10").hide()
+            this.drawGrid(this.pageVal)
           }
-          this.drawChartUp(this.pageVal)
         },
         changeBtnDim: function(val){
           this.pageVal.zhibiaoDim = val
@@ -121,6 +144,7 @@
             //切图三chartUp3
             $('#chartUp3').show()
           }
+          this.drawRank(this.pageVal)
           this.drawChartUp(this.pageVal)
         },
         changeDateType: function(val){
@@ -134,6 +158,8 @@
 
           } else if (this.pageVal.dateType === 4){
 
+          } else if (this.pageVal.dateType === 5){
+            this.$router.push({path:'/datepicker',query:{}})
           }
         },
         drawChartUp: function (pageVal) {
@@ -142,7 +168,7 @@
             if (pageVal.zhibiaoDim === 1 ) {
                 let chartUp = _this.$refs.chartUp
                 let params = {
-                  label1Show: false,
+                  label1Show: true,
                   label2Show: false
                 }
                 chartUp.setData(res.data.list, params)
@@ -150,7 +176,8 @@
                 let chartUp2 = _this.$refs.chartUp2
                 let params = {
                   label1Show: false,
-                  label2Show: false
+                  label2Show: false,
+                  barStack:['s1','s1']
                 }
                 chartUp2.setData(res.data.list, params)
               }else if (pageVal.zhibiaoDim === 3) {
@@ -164,18 +191,33 @@
             }
           })
         },
+        drawRank: function(){
+          let top10 = this.$refs.top10
+          this.$http.post(this.$API_LIST.yanjiuyuan.dataRank).then(res => {
+            console.log("rank :" +res.data)
+            top10.setData(res.data.list)
+          })
+        },
+        drawGrid: function(){
+          let dataGrid = this.$refs.btnOder
+          this.$http.post(this.$API_LIST.yanjiuyuan.getGridData).then(res => {
+            console.log("Grid : " + res.data.list)
+            dataGrid.setData(res.data.list)
+          })
+        },
 
         pageRendering: function (pageVal, flag) {
           if (pageVal.tabTop == 1) {
-
+            if (flag === 'up') {
+              this.drawChartUp(pageVal)
+            } else if (flag === 'no') {
+              return false
+            }
+            this.drawRank(this.pageVal)
           } else if (pageVal.tabTop == 2) {
 
           }
-          if (flag === 'up') {
-            this.drawChartUp(pageVal)
-          } else if (flag === 'no') {
-            return false
-          }
+
         },
         renderAction: function () {
           //TODO 隐藏标题
@@ -189,13 +231,6 @@
           this.pageRendering(this.pageVal, 'up')
           this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
         }
-      },
-      beforeMount() {
-        let _this = this
-        getGridData(_this.pageVal, function (res) {
-          //画表格
-          _this.$refs.btnOder.setData(res)
-        })
       },
       mounted () {
         //加载页面

@@ -13,6 +13,11 @@ let routes = [
     path: '/yjyGrid',
     name: 'yjygrid',
     component: resolve => require(['@/components/yanjiuyuan/yanjiuyuanshiyong'], resolve)
+  },
+  {
+    path: '/datepicker',
+    name: 'datepicker',
+    component: resolve => require(['@/components/yanjiuyuan/datepicker'], resolve)
   }]
 
 export default routes;

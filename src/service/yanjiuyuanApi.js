@@ -13,3 +13,9 @@ export function getGridData(pageVal,success) {
     success(res.data.list)
   })
 }
+
+export function dataRank(pageVal,success) {
+  axios.post(API_LIST.yanjiuyuan.dataRank,pageVal).then(res=>{
+    success(res.data.list)
+  })
+}
