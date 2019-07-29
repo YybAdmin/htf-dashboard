@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div style="position: absolute;line-height: 17px;font-size:11px;color:#999;">
-      <span ref="minmin"></span>—<span ref="maxmax"></span>
-    </div>
     <DataGrid :data="data"
               :frozenWidth="width"
               :rowCss="rowCss">

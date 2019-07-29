@@ -3,7 +3,7 @@
       <TabTop @comChanged="changePageState($event,'f_tabtop')" v-bind:itemList="comName.tabTopList"></TabTop>
       <ZhibiaoKuang></ZhibiaoKuang>
       <TabDim @comChanged="changePageState($event,'f_zhibiao')" v-bind:itemList="comName.TabDimList"></TabDim>
-      <DataGrid id="btnOder" ref="btnOder"></DataGrid>
+      <DataGrid id="btnOder" v-if="reset" ref="btnOder"></DataGrid>
       <BtnGrop id="btmdim" @comChanged="changePageState($event,'p_zhibiaodetail')" v-bind:itemList="comName.BtnDimList"/>
       <DrawChart id="chartUp" ref="chartUp" v-bind:chartInfo="this.chartData.chartUp"
                  @comChanged="changePageState($event,'f_chartUp')"></DrawChart>
@@ -55,7 +55,8 @@
                 zhibiaoDim: 1,//指标维度，指标点评，访问次数，更新量
                 dateType: 1,
                 pKey: '999999'
-              }
+              },
+              reset:false
             }
         },
       computed: {
@@ -119,16 +120,21 @@
         },
         changeZhiBiaoDim: function(val){
           this.pageVal.zhibiaoHZ = val
+          let _this = this
           if (this.pageVal.zhibiaoHZ === 1) {
             //指标汇总
             $("#btnOder").hide()
             $("#btmdim,#chartUp,#dateDim,#top10").show()
-            this.drawChartUp(this.pageVal)
+            _this.drawChartUp(this.pageVal)
           }else if (this.pageVal.zhibiaoHZ === 2) {
             //研究员使用情况
             $("#btnOder").show()
             $("#btmdim,#chartUp,#chartUp2,#chartUp3,#dateDim,#top10").hide()
-            this.drawGrid(this.pageVal)
+            _this.reset = true
+            this.$nextTick(function () {
+              _this.drawGrid(this.pageVal)
+            })
+
           }
         },
         changeBtnDim: function(val){
@@ -229,7 +235,7 @@
           $('#chartUp').show()
           $('#chartUp2,#chartUp3').hide()
           this.pageRendering(this.pageVal, 'up')
-          this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
+         // this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
         }
       },
       mounted () {
