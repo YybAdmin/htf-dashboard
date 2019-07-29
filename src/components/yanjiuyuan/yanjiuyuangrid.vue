@@ -34,8 +34,8 @@
         _this.data = data
       },
       rowCss: function (row) {
-        if(row.ID % 2 == 0){
-          return {'background':'#EEE'}
+        if (row.ID % 2 == 0) {
+          return {'background': '#EEE'}
         }
       }
     },
@@ -48,7 +48,8 @@
   .panel-header, .panel-body {
     border-color: #f6f6f6;
   }
-    .datekuang {
-      line-height: 10px;
-    }
+
+  .datekuang {
+    line-height: 10px;
+  }
 </style>
