@@ -20,10 +20,6 @@ import '@/assets/css/easyui/myEasyui.css'
 import EasyUI from 'vx-easyui'
 Vue.use(EasyUI)
 
-import 'vue-awesome-mui/mui/dist/css/mui.css'
-import mui from 'vue-awesome-mui'
-Vue.use(mui)
-
 Vue.config.productionTip = false
 Vue.prototype.$API_LIST = API_LIST
 Vue.prototype.$myUtil = myUtil

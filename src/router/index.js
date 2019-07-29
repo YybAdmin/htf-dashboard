@@ -22,11 +22,6 @@ const baseRoutes = [
     path: '/jingpin',
     name: 'jingpin',
     component: resolve => require(['@/report/jingpin'], resolve)
-  },
-  {
-    path: '/grid',
-    name: 'grid',
-    component: resolve => require(['@/report/grid'], resolve)
   }
 ];
 import ydRoutes  from '@/router/yd';
