@@ -41,12 +41,16 @@
           {RANK: '7', PHOTO: '', NAME: '韩超', VALUE: '333'},
           {RANK: '8', PHOTO: '', NAME: '何往', VALUE: '323'},
           {RANK: '9', PHOTO: '', NAME: '黄耀锋', VALUE: '322'},
-          {RANK: '10', PHOTO: '', NAME: '劳杰男', VALUE: '222'}]
+          {RANK: '10', PHOTO: '', NAME: '劳杰男', VALUE: '222'}
+        ]
       }
     },
     methods:{
       gengduoEvent:function () {
         this.$emit('comChanged','gengduo')
+      },
+      setData: function (data) {
+        this.itemList = data
       }
     }
   }
