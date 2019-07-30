@@ -1,17 +1,23 @@
 <template>
-  <div style="overflow-y: hidden;">
+  <div class="group">
     <div class="ui-alert">自定义筛选时间</div>
     <img src="@/assets/img/yjy/pie.png">
-    <div id='startDateBtn' class="ui-alert">
-      <button id='startDate' class="mui-btn mui-btn-block" type='button'>开始时间</button>
+    <div class="textDiv">
+      <div id='startDate' class="text" style="width: 40%;line-height:40px;">
+        <div>{{startDate[0].text}}</div>
+        <div>{{startDate[1].text}}{{startDate[2].text}}</div>
+      </div>
+      <div style="width: 20%"><img src="@/assets/img/yjy/dateto.png" style="margin-top:40%;width:22px;"></div>
+      <div id='endDate' class="text" style="width: 40%;line-height:40px ;">
+        <div>{{endDate[0].text}}</div>
+        <div>{{endDate[1].text}}{{endDate[2].text}}</div>
+      </div>
     </div>
-    <div><img src="@/assets/img/yjy/dateto.png"></div>
-    <div id='endDateBtn' class="ui-alert">
-      <button id='endDate' class="mui-btn mui-btn-block" type='button'>结束时间</button>
+    <div class="btnDiv">
+      <button @click="subMit" class="btn">完成</button>
     </div>
-    <div class="mui-btn-div">
-      <button id='sumbit' class="mui-btn mui-btn-block" type='button'>完成</button>
-    </div>
+    <img src="@/assets/img/yjy/pieno.svg">
+    <img src="@/assets/img/yjy/pieno.svg">
   </div>
 </template>
 
@@ -24,7 +30,50 @@
 
   export default {
     name: "datepicker",
+    data() {
+      return {
+        startDate: [{text: '--', value: ''}, {text: '--', value: ''}, {text: '--', value: ''}],
+        endDate: [{text: '--', value: ''}, {text: '--', value: ''}, {text: '--', value: ''}]
+      }
+    },
+    methods: {
+      subMit: function () {
+        let _this = this
+        this.$parent.mainShow = true
+        this.$parent.datePickerShow = false
+        this.$parent.pageVal.startDate = this.startDate
+        this.$parent.pageVal.endDate = this.endDate
+        let _year = this.startDate[0].value
+        let _month = this.startDate[1].value.length === 1 ? '0' + this.startDate[1].value : this.startDate[1].value
+        let _day = this.startDate[2].value.length === 1 ? '0' + this.startDate[2].value : this.startDate[2].value
+        this.$parent.s_date = _year + '-' + _month + '-' + _day
+        let year = this.endDate[0].value
+        let month = this.endDate[1].value.length === 1 ? '0' + this.endDate[1].value : this.endDate[1].value
+        let day = this.endDate[2].value.length === 1 ? '0' + this.endDate[2].value : this.endDate[2].value
+        this.$parent.e_date = year + '-' + month + '-' + day
+        console.log(this.$parent.e_date + "-" + this.$parent.e_date)
+      },
+      initDate: function () {
+        let nowDate = new Date();
+        let num = nowDate.getTime() - 30 * 24 * 60 * 60 * 1000
+        let lastMonthDate = new Date()
+        lastMonthDate.setTime(num)
+        this.startDate[0].value = lastMonthDate.getFullYear().toString()
+        this.startDate[1].value = (lastMonthDate.getMonth() + 1).toString()
+        this.startDate[2].value = lastMonthDate.getDate().toString()
+        this.startDate[0].text = lastMonthDate.getFullYear() + '年'
+        this.startDate[1].text = lastMonthDate.getMonth() + 1 + '月'
+        this.startDate[2].text = lastMonthDate.getDate() + '日'
+        this.endDate[0].value = nowDate.getFullYear().toString()
+        this.endDate[1].value = (nowDate.getMonth() + 1).toString()
+        this.endDate[2].value = nowDate.getDate().toString()
+        this.endDate[0].text = nowDate.getFullYear() + '年'
+        this.endDate[1].text = nowDate.getMonth() + 1 + '月'
+        this.endDate[2].text = nowDate.getDate() + '日'
+      }
+    },
     mounted() {
+      this.initDate()
       let _this = this
       let picker = new window.mui.PopPicker({
         layer: 3,
@@ -66,30 +115,62 @@
 
       let startBtn = document.getElementById('startDate');
       let endBtn = document.getElementById('endDate');
-      let userResult3 = document.getElementById('startDateBtn');
-      let userResult = document.getElementById('endDateBtn');
-      endBtn.addEventListener('tap', function (event) {
-        picker.show(function (items) {
-          userResult.innerText = "" + _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
-          console.log(items)
-          //return false;
-        });
-      }, false);
       startBtn.addEventListener('tap', function (event) {
         picker.show(function (items) {
-          userResult3.innerText = "" + _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
-          console.log(items)
+          _this.startDate = items
           //return false;
         });
       }, false);
-
+      endBtn.addEventListener('tap', function (event) {
+        picker.show(function (items) {
+          _this.endDate = items
+          //return false;
+        });
+      }, false);
     }
   }
 </script>
 
 <style scoped lang="less">
-  .mui-btn-block {
-    background-color: #DDAF59;
-    color: #FFFFFF;
+  .group {
+    overflow-y: hidden;
+    background: #FAF4EB;
+    padding: 15px;
+
+    img {
+      width: 95%;
+    }
+
+    .textDiv {
+      display: flex;
+      flex-flow: row;
+      height: 123px;
+      background-color: white;
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+      padding: 20px 0px 0px;
+
+      .text {
+        font-size: 22px;
+        color: #000;
+      }
+    }
+
+    .btnDiv {
+      height: 74px;
+      background-color: white;
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+
+      .btn {
+        background-color: #DDAF59;
+        color: #FFFFFF;
+        width: 80%;
+        height: 44px;
+        display: inline-block;
+        margin-top: 20px;
+        border-radius: 4px;
+      }
+    }
   }
 </style>
