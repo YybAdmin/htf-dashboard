@@ -25,9 +25,9 @@ let API_LIST = {
   },
   jingpin:{
     jingpinHeadData: hrefDev + '/report/jingpin/headData',
-    jingpinChartUp: hrefDev = '/report/jingpin/chartUp',
-    jingpinChartMid: hrefDev = '/report/jingpin/chartMid',
-    jingpinChartDwn: hrefDev = '/report/jingpin/chartDwn'
+    jingpinChartUp: hrefDev + '/report/jingpin/chartUp',
+    jingpinChartMid: hrefDev + '/report/jingpin/chartMid',
+    jingpinChartDwn: hrefDev + '/report/jingpin/chartDwn'
   },
   yidong: {
     yidongSummary: hrefDev + '/report/yidong/summary',
