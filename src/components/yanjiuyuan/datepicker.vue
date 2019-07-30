@@ -1,26 +1,24 @@
 <template>
   <div style="overflow-y: hidden;">
-    <div class="mui-content-padded">
-      <div class="ui-alert">自定义筛选时间</div>
-      <img src="@/assets/img/yjy/pie.png">
-      <div id='startDateBtn' class="ui-alert">
-        <button id='startDate' class="mui-btn mui-btn-block" type='button'>开始时间</button>
-      </div>
-      <div><img src="@/assets/img/yjy/dateto.png"></div>
-      <div id='endDateBtn' class="ui-alert">
-        <button id='endDate' class="mui-btn mui-btn-block" type='button'>结束时间</button>
-      </div>
-      <div class="mui-btn-div">
-        <button id='sumbit' class="mui-btn mui-btn-block" type='button'>完成</button>
-      </div>
+    <div class="ui-alert">自定义筛选时间</div>
+    <img src="@/assets/img/yjy/pie.png">
+    <div id='startDateBtn' class="ui-alert">
+      <button id='startDate' class="mui-btn mui-btn-block" type='button'>开始时间</button>
+    </div>
+    <div><img src="@/assets/img/yjy/dateto.png"></div>
+    <div id='endDateBtn' class="ui-alert">
+      <button id='endDate' class="mui-btn mui-btn-block" type='button'>结束时间</button>
+    </div>
+    <div class="mui-btn-div">
+      <button id='sumbit' class="mui-btn mui-btn-block" type='button'>完成</button>
     </div>
   </div>
 </template>
 
 <script>
-  import 'vue-awesome-mui/mui/dist/css/mui.css'
-  import 'vue-awesome-mui/mui/plugin/picker/css/mui.picker.css'
-  import 'vue-awesome-mui/mui/plugin/picker/css/mui.poppicker.css'
+  import '../../assets/mui/css/mui.css'
+  import '../../assets/mui/css/mui.picker.css'
+  import '../../assets/mui/css/mui.poppicker.css'
   import 'vue-awesome-mui/mui/plugin/picker/js/mui.picker'
   import 'vue-awesome-mui/mui/plugin/picker/js/mui.poppicker'
 
@@ -90,10 +88,8 @@
 </script>
 
 <style scoped lang="less">
-  .mui-btn {
-    .mui-btn-block {
-      background-color: #DDAF59;
-      color: #FFFFFF;
-    }
+  .mui-btn-block {
+    background-color: #DDAF59;
+    color: #FFFFFF;
   }
 </style>
