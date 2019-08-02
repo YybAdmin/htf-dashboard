@@ -3,8 +3,7 @@ let hrefArr = [
   '',
   'https://iapp.htffund.com/microservice/iapp-dashboard/api'
 ]
-let hrefDev = hrefArr[0] //开发
-let href = hrefArr[1] //生产
+let href = hrefArr[1]
 let API_LIST = {
   ifUseMock: ifUseMock,
   huijin: {
@@ -18,28 +17,28 @@ let API_LIST = {
     hujinPdf : href + '/report/pdf/hujinPdf'
   },
   dataGrid: {
-    dataGridDemo : hrefDev + '/report/dataGrid/getData',
-    treeGridDemo : hrefDev + '/report/treeGrid/getData',
+    dataGridDemo : href + '/report/dataGrid/getData',
+    treeGridDemo : href + '/report/treeGrid/getData',
   },
   jingpin:{
-    jingpinHeadData: hrefDev + '/report/jingpin/headData',
-    jingpinChartUp: hrefDev + '/report/jingpin/chartUp',
-    jingpinChartMid: hrefDev + '/report/jingpin/chartMid',
-    jingpinChartDwn: hrefDev + '/report/jingpin/chartDwn'
+    jingpinHeadData: href + '/report/jingpin/headData',
+    jingpinChartUp: href + '/report/jingpin/chartUp',
+    jingpinChartMid: href + '/report/jingpin/chartMid',
+    jingpinChartDwn: href + '/report/jingpin/chartDwn'
   },
   yidong: {
-    yidongSummary: hrefDev + '/report/yidong/summary',
-    yidongDataCard: hrefDev + '/report/yidong/dataCard',
-    yidong30Data: hrefDev + '/report/yidong/chart30Data'
+    yidongSummary: href + '/report/yidong/summary',
+    yidongDataCard: href + '/report/yidong/dataCard',
+    yidong30Data: href + '/report/yidong/chart30Data'
   },
   selfPro: {
-    allUserPro: hrefDev + '/report/selPro/getUserPro'
+    allUserPro: href + '/report/selPro/getUserPro'
   },
   yanjiuyuan: {
-    getGridData:  hrefDev + '/monitor/getAnalystUsing',
-    dataRank: hrefDev + '/monitor/getCommentOrder',
-    getHeadData: hrefDev + '/monitor/getIndicatorUsing',
-    dataChart: hrefDev + '/monitor/getIndicatorCountChart'
+    getGridData:  href + '/monitor/getAnalystUsing',
+    dataRank: href + '/monitor/getCommentOrder',
+    getHeadData: href + '/monitor/getIndicatorUsing',
+    dataChart: href + '/monitor/getIndicatorCountChart'
   }
 }
 export default API_LIST

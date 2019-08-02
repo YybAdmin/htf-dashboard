@@ -18,7 +18,7 @@ module.exports = {
           '^/monitor': '/monitor'
         }
       },
-      '/report/yidong': {
+      '/report/yidong&&&&&(((())': {
         target: 'http://localhost:28080',//后端接口地址
         changeOrigin: true,//是否允许跨越
         pathRewrite: {
