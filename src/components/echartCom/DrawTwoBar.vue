@@ -148,7 +148,7 @@ export default {
             show: false
           },
           axisLabel: {
-            interval: 0,
+            interval: 'auto',
             color: '#999999',
             fontSize: '12px'
           }

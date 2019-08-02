@@ -11,17 +11,24 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://localhost:18080',//后端接口地址
+      '/monitor': {
+        target: 'http://10.50.16.148:8004',//后端接口地址
         changeOrigin: true,//是否允许跨越
         pathRewrite: {
-          '^/api': '/api',//重写,
+          '^/monitor': '/monitor'
+        }
+      },
+      '/report/yidong': {
+        target: 'http://localhost:28080',//后端接口地址
+        changeOrigin: true,//是否允许跨越
+        pathRewrite: {
+          '^/report/yidong': '/api/report/yidong',//重写,
         }
       }
     },
 
     // Various Dev Server settings
-    host: '127.0.0.1', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

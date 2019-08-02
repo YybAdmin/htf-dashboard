@@ -26,6 +26,7 @@
     components: {searchdiv, ydsummary, datacard, divsplit},
     data() {
       return {
+        pageVal:{},
         searchinfo: {pagePath: '', placeholder: '渠道名称/产品名称/产品代码', ifGoOtherPage: false},
         sumTitleShow: false,
         contentShow:false,
@@ -40,6 +41,7 @@
     ,
     mounted() {
       this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
+      this.pageVal = this.$route.query
       var _this = this
       $("#mysearch").bind('keypress', function (e) {
         //当e.keyCode的值为13 即，点击前往/搜索 按键时执行以下操作
@@ -55,10 +57,13 @@
       dosearch: function (val) {
         let _this = this
         let s = _this.$refs.searchtag.val
-        getSummary({search:s}, function (res) {
+        let pageVal = _this.$route.query
+        pageVal.searchval = s
+        pageVal['nowCard'] = {agency: '999999', product: '999999'}
+        getSummary(pageVal, function (res) {
           _this.smData = res
         })
-        getDataCard({search:s}, function (res) {
+        getDataCard(pageVal, function (res) {
           _this.dcData = res
         })
       }

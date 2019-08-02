@@ -6,7 +6,7 @@
     <table class="searchTable">
       <tr>
         <td>
-          <search :searchInfo="comName.searchInfo"></search>
+          <search :searchInfo="comName.searchInfo" :pageVal="pageVal"></search>
         </td>
         <td style="width: 130px;">
           <SelectDwn @comChanged="DimChg($event,'f_mingan')"></SelectDwn>
@@ -53,19 +53,19 @@
   import ydsummary from '@/components/yidong/dataSummary'
   import datacard from '@/components/yidong/dataCard'
   import search from '@/components/baseCom/InputSearch'
-  import {getDataCard, getSummary} from "../service/yidongApi";
+  import {getDataCard, getSummary} from '../service/yidongApi'
 
   export default {
-    name: "yidong",
+    name: 'yidong',
     components: {search, SelectDwn, Dim, divSplit, ydsummary, datacard},
     data() {
       return {
         comName: {
-          searchInfo: {placeholder: "渠道名称/产品名称/产品代码", pagePath: '/ydSearch', ifGoOtherPage: true},
+          searchInfo: {placeholder: '渠道名称/产品名称/产品代码', pagePath: '/ydSearch', ifGoOtherPage: true},
           pinDu: [{name: '当日'}, {name: '连续两日'}, {name: '连续三日'}],
           proType: [{name: '全部'}, {name: '股票'}, {name: '货币'}],
           platform: [{name: '全部'}, {name: '自有平台'}, {name: '三方三大平台'}],
-          target: [{name: '全部'}, {name: '份额'}, {name: '金额'}, {name: '笔数'}]
+          target: [{name: '金额'}, {name: '份额'}, {name: '笔数'}]
         },
         pageVal: {
           minGan: 1,
@@ -73,6 +73,7 @@
           proType: 1,
           platform: 1,
           target: 1,
+          searchval: '999999',
           nowCard: {agency: '999999', product: '999999'}
         }
       }
@@ -81,6 +82,13 @@
       getDataAndDraw: function (pageVal, flag) {
         console.log(flag)
         console.log(pageVal)
+        let _this = this
+        getSummary(this.pageVal, function (res) {
+          _this.$refs.sm.setData(res)
+        })
+        getDataCard(this.pageVal, function (res) {
+          _this.$refs.dc.setData(res)
+        })
       },
       DimChg: function (val, flag) {
         let reflashFlag = 'no'

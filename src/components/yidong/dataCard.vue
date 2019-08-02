@@ -8,7 +8,7 @@
             <tr>
               <td class="c1">{{item.NAME1}}</td>
               <td class="c2">{{item.NAME2}}</td>
-              <td class="c3"><span class="btn lc">流出份额</span></td>
+              <td class="c3"><span class="btn lc">{{pageVal.target == 1?'流出金额':(pageVal.target == 2?'流出份额':'流出笔数')}}</span></td>
               <td class="cs"></td>
               <td class="c4"><span class="btn xk">新客/个人</span></td>
             </tr>
@@ -56,8 +56,11 @@
           VALUE4: '5,000.89',
           VALUE5: '1000.90',
           VALUE6: '80'
-        }*/]
+        }*/],
+        pageVal: this.$parent.pageVal
       }
+    },
+    mounted(){
     },
     methods:{
       setData:function (list) {

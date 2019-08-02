@@ -14,14 +14,9 @@ const baseRoutes = [
     component: resolve => require(['@/report/hujin'], resolve)
   },
   {
-    path: '/chanpin',
-    name: 'chanpin',
-    component: resolve => require(['@/report/chanpin'], resolve)
-  },
-  {
-    path: '/jingpin',
-    name: 'jingpin',
-    component: resolve => require(['@/report/jingpin'], resolve)
+    path: '/test',
+    name: 'test',
+    component: resolve => require(['@/report/test'], resolve)
   }
 ];
 import ydRoutes  from '@/router/yd';

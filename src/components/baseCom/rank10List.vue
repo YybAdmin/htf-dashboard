@@ -2,11 +2,11 @@
   <div class="group">
     <div class="content">
       <div class="title">
-        <span class="leaf1" style="display:inline-flex;"></span>
-        <span class="leaf2" style="display:inline-flex;"></span>
-        <span style="display:inline-flex;">{{this.title}}</span>
-        <span class="leaf3" style="display:inline-flex;"></span>
-        <span class="leaf4" style="display:inline-flex;"></span>
+        <span class="leaf1"></span>
+        <span class="leaf2"></span>
+        <span>{{this.title}}</span>
+        <span class="leaf3"></span>
+        <span class="leaf4"></span>
       </div>
       <table>
         <tr v-for="(item,i) in itemList"
@@ -20,7 +20,7 @@
           <td style="width:50%;text-align: right;">{{item.VALUE}}</td>
         </tr>
       </table>
-      <div class="footer" @click="gengduoEvent()">更多></div>
+      <div v-show="gengduo" class="footer" @click="gengduoEvent()">更多></div>
     </div>
   </div>
 </template>
@@ -31,15 +31,21 @@
     props: ["title"],
     data() {
       return {
+        gengduo: false,
         itemList: []
       }
     },
-    methods:{
-      setData(data){
-        this.itemList = data
+    methods: {
+      setData(data) {
+        if (data.length > 10) {
+          this.gengduo = true
+        } else {
+          this.gengduo = false
+        }
+        this.itemList = data.slice(0, 10)
       },
-      gengduoEvent:function () {
-        this.$emit('comChanged','gengduo')
+      gengduoEvent: function () {
+        this.$emit('comChanged', 'gengduo')
       }
     }
   }
@@ -59,13 +65,15 @@
         border-radius: 0px 12px;
         transform: rotate(-10deg);
         margin-bottom: -5px;
+        display: inline-block;
       }
 
       .leaf2 {
         border: 7px solid #ddaf59;
         border-radius: 0px 12px;
-        transform: rotate(30deg);
+        transform: rotate(20deg);
         margin-left: -14px;
+        display: inline-block;
       }
 
       .leaf3 {
@@ -73,6 +81,7 @@
         border-radius: 0px 12px;
         transform: rotate(70deg);
         margin-right: -14px;
+        display: inline-block;
       }
 
       .leaf4 {
@@ -80,6 +89,7 @@
         border-radius: 0px 12px;
         transform: rotate(120deg);
         margin-bottom: -5px;
+        display: inline-block;
       }
 
       .title {
@@ -109,10 +119,11 @@
           }
         }
       }
-      .footer{
+
+      .footer {
         font-size: 14px;
         color: #ddaf59;
-        line-height:43px;
+        line-height: 43px;
       }
     }
   }

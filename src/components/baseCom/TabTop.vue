@@ -29,8 +29,10 @@ export default {
   },
   methods: {
     changeTheme (i) {
-      this.tabIndex = i
-      this.$emit('comChanged', i + 1)
+      if(this.itemList[i].ifUsed != false){
+        this.tabIndex = i
+        this.$emit('comChanged', i + 1)
+      }
     }
   }
 }
@@ -88,9 +90,9 @@ export default {
         &:after{
           content: '';
           position: absolute;
-          width: 10%;
+          width: 20px;
           height: 3px;
-          left: 45%;
+          left: calc(50% - 10px);
           bottom: 3px;
           border-radius:2px;
         }

@@ -61,7 +61,9 @@
       //头部数据继承自 首页的dataCard
       let params = this.$route.query
       this.headData = params.item
-      get30Data(params.item, function (res) {
+      let pageVal = params.pageVal
+      pageVal['nowCard'] = {agency: this.headData.KKEY1, product: this.headData.KKEY2}
+      get30Data(pageVal, function (res) {
         //画图
         let chartData = []
         for (let i = 0; i < res.length; i++) {

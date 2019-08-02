@@ -20,7 +20,8 @@
           type: Boolean,
           default: false
         }
-      }
+      },
+      pageVal:{}
     },
     data(){
       return{
@@ -30,7 +31,7 @@
     methods: {
       goPage: function () {
         if(this.searchInfo.ifGoOtherPage){
-          this.$router.push({path: this.searchInfo.pagePath})
+          this.$router.push({path: this.searchInfo.pagePath, query: this.pageVal})
         }
       }
     }

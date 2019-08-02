@@ -58,17 +58,7 @@
           centeredSlides: 1,
           loop: true
         },
-        itemList: [
-          {RANK: '1', PHOTO: '', NAME: '蔡志文', VALUE: '888'},
-          {RANK: '2', PHOTO: '', NAME: '卞正', VALUE: '777'},
-          {RANK: '3', PHOTO: '', NAME: '陈潇杨', VALUE: '666'},
-          {RANK: '4', PHOTO: '', NAME: '崔文琦', VALUE: '555'},
-          {RANK: '5', PHOTO: '', NAME: '董超', VALUE: '445'},
-          {RANK: '6', PHOTO: '', NAME: '付鹏飞', VALUE: '444'},
-          {RANK: '7', PHOTO: '', NAME: '韩超', VALUE: '333'},
-          {RANK: '8', PHOTO: '', NAME: '何往', VALUE: '323'},
-          {RANK: '9', PHOTO: '', NAME: '黄耀锋', VALUE: '322'},
-          {RANK: '10', PHOTO: '', NAME: '劳杰男', VALUE: '222'}]
+        itemList: []
       }
     },
     computed: {
@@ -81,13 +71,19 @@
       },
       itemgt3: function () {
         let ret = []
-        for (let i = 2; i < this.itemList.length; i++) {
+        for (let i = 3; i < this.itemList.length; i++) {
           ret.push(this.itemList[i])
         }
         return ret
       }
     },
+    methods: {
+      setData: function (res) {
+        this.itemList = res
+      }
+    },
     mounted() {
+      this.setData(this.$route.query.data)
       this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
     }
   }

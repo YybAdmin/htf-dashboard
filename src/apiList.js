@@ -1,12 +1,10 @@
-let ifUseMock = true
+let ifUseMock = false
 let hrefArr = [
   '',
-  'https://iapp.htffund.com/microservice/iapp-dashboard/api',
-  'http://localhost:18080/api',
-  'http://192.168.8.171:8080'
+  'https://iapp.htffund.com/microservice/iapp-dashboard/api'
 ]
+let hrefDev = hrefArr[0] //开发
 let href = hrefArr[1] //生产
-let hrefDev = hrefArr[0] //生产
 let API_LIST = {
   ifUseMock: ifUseMock,
   huijin: {
@@ -38,9 +36,10 @@ let API_LIST = {
     allUserPro: hrefDev + '/report/selPro/getUserPro'
   },
   yanjiuyuan: {
-    chartUp: hrefDev + '/report/yanjiuyuan/getChartUp',
-    getGridData: hrefDev + '/report/yanjiuyuan/getGridData',
-    dataRank: hrefDev + '/report/yanjiuyuan/dateRank'
+    getGridData:  hrefDev + '/monitor/getAnalystUsing',
+    dataRank: hrefDev + '/monitor/getCommentOrder',
+    getHeadData: hrefDev + '/monitor/getIndicatorUsing',
+    dataChart: hrefDev + '/monitor/getIndicatorCountChart'
   }
 }
 export default API_LIST

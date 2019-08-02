@@ -84,9 +84,9 @@ export default {
       &:after{
         content: '';
         position: absolute;
-        width: 50%;
+        width: 20px;
         height: 2px;
-        left: 20%;
+        left: calc(50% - 10px);
         bottom: -5px;
         border-radius: 1px;
       }
