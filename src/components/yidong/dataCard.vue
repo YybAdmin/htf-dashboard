@@ -8,7 +8,8 @@
             <tr>
               <td class="c1">{{item.NAME1}}</td>
               <td class="c2">{{item.NAME2}}</td>
-              <td class="c3"><span class="btn lc">{{pageVal.target == 1?'流出金额':(pageVal.target == 2?'流出份额':'流出笔数')}}</span></td>
+              <td class="c3"><span class="btn lc">{{pageVal.target == 1?(item.TRADETYPE==1?'流入金额':'流出金额'):
+                (pageVal.target == 2?(item.TRADETYPE==1?'流入份额':'流出份额'):(item.TRADETYPE==1?'流入笔数':'流出笔数'))}}</span></td>
               <td class="cs"></td>
               <td class="c4"><span class="btn xk">新客/个人</span></td>
             </tr>
@@ -60,14 +61,14 @@
         pageVal: this.$parent.pageVal
       }
     },
-    mounted(){
-    },
     methods:{
       setData:function (list) {
         this.itemList = list
       },
       goDetail:function (item) {
-        this.$router.push({path:"/ydDetail",query:{pageVal:this.$parent.pageVal,item:item}})
+        let pageVal = this.$parent.pageVal
+        pageVal['tradetype'] = item.TRADETYPE
+        this.$router.push({path:"/ydDetail",query:{pageVal:pageVal,item:item}})
       }
     }
   }

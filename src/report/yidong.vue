@@ -74,6 +74,7 @@
           platform: 1,
           target: 1,
           searchval: '999999',
+          tradetype:'999999',
           nowCard: {agency: '999999', product: '999999'}
         }
       }

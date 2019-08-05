@@ -51,17 +51,20 @@
         count: 0,
         windowWidth: 0,
         windowHeight: 0,
-        show:false
+        show:false,
+        pageVal:{}
       }
     },
     beforeMount() {
       let _this = this
+      this.pageVal = this.$route.query.pageVal
       this.windowWidth = $(window).width()
       this.windowHeight = $(window).height()
       //头部数据继承自 首页的dataCard
       let params = this.$route.query
       this.headData = params.item
       let pageVal = params.pageVal
+      pageVal['tradetype'] = params.item.TRADETYPE
       pageVal['nowCard'] = {agency: this.headData.KKEY1, product: this.headData.KKEY2}
       get30Data(pageVal, function (res) {
         //画图

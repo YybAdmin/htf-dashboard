@@ -36,12 +36,13 @@
       }
     },
     beforeMount() {
-       this.clientheight = document.body.clientHeight-60
+      this.clientheight = document.body.clientHeight-60
+      this.pageVal = this.$route.query
     }
     ,
     mounted() {
       this.$myUtil.watermark({watermark_txt0: this.$myUtil.mark})
-      this.pageVal = this.$route.query
+
       var _this = this
       $("#mysearch").bind('keypress', function (e) {
         //当e.keyCode的值为13 即，点击前往/搜索 按键时执行以下操作
