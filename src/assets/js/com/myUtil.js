@@ -3,6 +3,7 @@ var myUtil = {
   ifReady:false,
   mark:'mark 0000',
   userCode: '297',
+  device:'isAndroid',
   watermark: function (settings) {
     // 默认设置
     var defaultSettings = {
@@ -154,6 +155,7 @@ var myUtil = {
     let userInfo = '{}'
     try {
       if (isAndroid && window.AndroidHtfPortal) {
+        myUtil.device = 'isAndroid'
         userInfo = window.AndroidHtfPortal.GetSysInfo()
         // 水印
         let UserInfoJson = JSON.parse(userInfo)
@@ -170,6 +172,7 @@ var myUtil = {
         }
       }
       if (isiOS) {
+        myUtil.device = 'isiOS'
         window.iosAcceptUserInfo = function (userInfo) {
           // 水印
           var UserInfoJson = JSON.parse(userInfo)
