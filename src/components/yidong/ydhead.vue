@@ -9,11 +9,11 @@
           </td>
         </tr>
         <tr>
-          <td style="text-align: center;width: 41%;padding-top: 6px;">
-            <table style="width: 100%;border-right: 1px solid #FFFFFF;line-height: 22px;">
+          <td style="text-align: center;width: 50%;padding-top: 6px;">
+            <table style="width: 100%;border-right: 1px solid #FFFFFF;line-height: 20px;">
               <tr>
                 <td>
-                  <span class="bignumsp">{{parseInt(headitem.VALUE1)}}</span>
+                  <span class="bignumsp">{{(parseFloat(headitem.VALUE1)).toFixed(2)}}</span>
                   <span style="color: #f6f6f6">万</span><br/>
                   <span class="dryd">当日异动</span>
                 </td>
@@ -21,9 +21,8 @@
             </table>
           </td>
           <td style="text-align: left">
-            <span style="font-size: 13px;color: #FFFFFF;padding-left: 20px;">近7天均值</span><br/>
-            <span style="font-size: 13px;color: #FFFFFF;padding-left: 20px;">近30天均值</span>
-
+            <span style="font-size: 13px;color: #FFFFFF;padding-left: 10px;">近7天均值</span><br/>
+            <span style="font-size: 13px;color: #FFFFFF;padding-left: 10px;">近30天均值</span>
           </td>
           <td style="text-align: right">
             <span style="font-size: 15px;color: #FFFFFF;padding-right: 15px;">{{headitem.VALUE2}}万</span><br/>

@@ -7,7 +7,7 @@
           <table>
             <tr>
               <td class="c1">{{item.NAME1}}</td>
-              <td class="c2">{{item.NAME2.length>6?(item.NAME2.substring(6)+'...'):item.NAME2}}</td>
+              <td class="c2">{{item.NAME2.length>6?(item.NAME2.substring(6)+'..'):item.NAME2}}</td>
               <td class="c3"><span class="btn lc">{{pageVal.target == 1?(item.TRADETYPE==1?'流入金额':'流出金额'):
                 (pageVal.target == 2?(item.TRADETYPE==1?'流入份额':'流出份额'):(item.TRADETYPE==1?'流入笔数':'流出笔数'))}}</span></td>
               <td class="cs"></td>
