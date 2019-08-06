@@ -27,8 +27,15 @@
     },
     methods: {
       setData: function (data) {
-        this.data = data
+        this.data = data.sort(this.compare('NAME'))
         this.drawYdChart()
+      },
+      compare:function(property){
+        return function(a, b) {
+          var value1 = parseInt(a[property].split('-').join(''));
+          var value2 = parseInt(b[property].split('-').join(''));
+          return value1 - value2;
+        }
       },
       drawYdChart: function () {
         let thisChart = echarts.getInstanceByDom(this.$refs.ydChart)

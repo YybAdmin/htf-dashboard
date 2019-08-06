@@ -27,7 +27,7 @@
     data() {
       return {
         pageVal:{},
-        searchinfo: {pagePath: '', placeholder: '渠道名称/产品名称/产品代码', ifGoOtherPage: false},
+        searchinfo: {pagePath: '', placeholder: '渠道名称/产品名称/产品代码', ifGoOtherPage: false,ifautofocus:false},
         sumTitleShow: false,
         contentShow:false,
         clientheight:0,

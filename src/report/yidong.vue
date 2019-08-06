@@ -61,14 +61,14 @@
     data() {
       return {
         comName: {
-          searchInfo: {placeholder: '渠道名称/产品名称/产品代码', pagePath: '/ydSearch', ifGoOtherPage: true},
+          searchInfo: {placeholder: '渠道名称/产品名称/产品代码', pagePath: '/ydSearch', ifGoOtherPage: true,ifautofocus:false},
           pinDu: [{name: '当日'}, {name: '连续两日'}, {name: '连续三日'}],
           proType: [{name: '全部'}, {name: '股票'}, {name: '货币'}],
           platform: [{name: '全部'}, {name: '自有平台'}, {name: '三方三大平台'}],
           target: [{name: '金额'}, {name: '份额'}, {name: '笔数'}]
         },
         pageVal: {
-          minGan: 1,
+          minGan: 2,
           ydPinDu: 1,
           proType: 1,
           platform: 1,

@@ -4,7 +4,7 @@
       <table>
         <tr @click="toggleDiv()">
           <td id="td1">异动敏感度</td>
-          <td id="lv" class="lvsty">高</td>
+          <td id="lv" class="lvsty">中</td>
           <td><span class="spsty"></span></td>
         </tr>
       </table>
@@ -55,7 +55,7 @@
       }
 
       .lvsty {
-        color: #F4333C;
+        color: #FBC25C;
         font-size: 13px;
         margin-left: 7px;
       }

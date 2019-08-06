@@ -24,7 +24,7 @@
     props:['dataday'],
     data(){
       return{
-        result:parseInt(this.dataday*10000),
+        result:parseInt(this.dataday),
         pageVal:this.$parent.pageVal
       }
     }

@@ -13,7 +13,7 @@
             <table style="width: 100%;border-right: 1px solid #FFFFFF;line-height: 22px;">
               <tr>
                 <td>
-                  <span class="bignumsp">{{parseInt(headitem.VALUE1*10000)}}</span>
+                  <span class="bignumsp">{{parseInt(headitem.VALUE1)}}</span>
                   <span style="color: #f6f6f6">万</span><br/>
                   <span class="dryd">当日异动</span>
                 </td>
