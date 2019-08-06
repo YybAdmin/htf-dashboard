@@ -5,9 +5,23 @@ Mock.mock(API_LIST.jingpin.jingpinHeadData, /post/i, function () {
     'code': '200',
     'msg': 'success',
     'list': [{VALUE1: '3643', VALUE2: '26'},
+              {VALUE1: '330', VALUE2: '-3'},
+              {VALUE1: '26', VALUE2: '--'},
+              {VALUE1: '-1.4', VALUE2: '--'}]
+  }
+})
+
+Mock.mock(API_LIST.jingpin.jingpinHeadData2, /post/i, function () {
+  return {
+    'code': '200',
+    'msg': 'success',
+    'list': [{VALUE1: '3643', VALUE2: '26'},
       {VALUE1: '330', VALUE2: '-3'},
-      {VALUE1: '26', VALUE2: '--'},
-      {VALUE1: '-1.4', VALUE2: '--'}]
+      {VALUE1: '26', VALUE2: '7'},
+      {VALUE1: '330', VALUE2: '-3'},
+      {VALUE1: '26', VALUE2: '4'},
+      {VALUE1: '330', VALUE2: '-3'},
+      {VALUE1: '-1.4', VALUE2: '5'}]
   }
 })
 // 上图 分布
@@ -75,6 +89,43 @@ Mock.mock(API_LIST.jingpin.jingpinChartMid, /post/i, function (req) {
       {VALUE: 335, NAME: '其他', GROUP: 1},
       {VALUE: 30, NAME: '现金宝', GROUP: 2},
       {VALUE: 280, NAME: '其他', GROUP: 2}
+    ]
+  }
+})
+
+Mock.mock(API_LIST.jingpin.jingpinChartMid2, /post/i, function (req) {
+  let pageVal = JSON.parse(req.body)
+  console.log(pageVal)
+  return {
+    'code': '200',
+    'msg': 'success',
+    'list': [
+      {VALUE1: 1548, NAME: '24岁以上'},
+      {VALUE1: 310, NAME: '25-30岁'},
+      {VALUE1: 234, NAME: '31-35岁'},
+      {VALUE1: 135, NAME: '36-40岁'},
+      {VALUE1: 335, NAME: '40以上'}
+    ]
+  }
+})
+
+Mock.mock(API_LIST.jingpin.jingpinChartDwn2, /post/i, function (req) {
+  let pageVal = JSON.parse(req.body)
+  console.log(pageVal)
+  return {
+    'code': '200',
+    'msg': 'success',
+    'list': [
+      {VALUE1: 1548, NAME: '上海'},
+      {VALUE1: 310, NAME: '广东'},
+      {VALUE1: 234, NAME: '山东'},
+      {VALUE1: 135, NAME: '江苏'},
+      {VALUE1: 335, NAME: '浙江'},
+      {VALUE1: 30, NAME: '辽宁'},
+      {VALUE1: 30, NAME: '湖南'},
+      {VALUE1: 30, NAME: '河南'},
+      {VALUE1: 30, NAME: '河北'},
+      {VALUE1: 280, NAME: '安徽'}
     ]
   }
 })
