@@ -11,7 +11,7 @@
               <td class="c3"><span class="btn lc">{{pageVal.target == 1?(item.TRADETYPE==1?'流入金额':'流出金额'):
                 (pageVal.target == 2?(item.TRADETYPE==1?'流入份额':'流出份额'):(item.TRADETYPE==1?'流入笔数':'流出笔数'))}}</span></td>
               <td class="cs"></td>
-              <td class="c4"><span class="btn xk">新客/个人</span></td>
+              <td class="c4"><span class="btn xk">{{item.NAME3==0?'老客':'新客'}}/{{item.NAME4==0?'个人':'机构'}}</span></td>
             </tr>
           </table>
         </div>

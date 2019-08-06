@@ -5,7 +5,7 @@
           <td colspan="3" style="text-align: left">
             <span class="fenesp">{{this.pageVal.target == 1?(this.pageVal.TRADETYPE==1?'流入金额':'流出金额'):
           (this.pageVal.target == 2?(this.pageVal.TRADETYPE==1?'流入份额':'流出份额'):(this.pageVal.TRADETYPE==1?'流入笔数':'流出笔数'))}}</span>
-            <span class="personsp">新客/个人</span>
+            <span class="personsp">{{this.pageVal.nowCard['cust']==0?'老客':'新客'}}/{{this.pageVal.nowCard['grorjg']==0?'个人':'机构'}}</span>
           </td>
         </tr>
         <tr>
@@ -13,7 +13,7 @@
             <table style="width: 100%;border-right: 1px solid #FFFFFF;line-height: 22px;">
               <tr>
                 <td>
-                  <span class="bignumsp">{{headitem.VALUE1*10000}}</span>
+                  <span class="bignumsp">{{parseInt(headitem.VALUE1*10000)}}</span>
                   <span style="color: #f6f6f6">万</span><br/>
                   <span class="dryd">当日异动</span>
                 </td>

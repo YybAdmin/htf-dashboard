@@ -75,7 +75,7 @@
           target: 1,
           searchval: '999999',
           tradetype:'999999',
-          nowCard: {agency: '999999', product: '999999'}
+          nowCard: {agency: '999999', product: '999999',cust:'999999',grorjg:'999999'}
         }
       }
     },

@@ -34,7 +34,7 @@
     components: {yddetailtab, ydchart, divSplit, ydgrid, shorthead},
     data() {
       return {
-        dataDay: '9000.34',
+        dataDay: this.$route.query.item.VALUE1,
         headData: {
           NAME1: '-',
           KKEY1: '-',
@@ -65,7 +65,7 @@
       this.headData = params.item
       let pageVal = params.pageVal
       pageVal['tradetype'] = params.item.TRADETYPE
-      pageVal['nowCard'] = {agency: this.headData.KKEY1, product: this.headData.KKEY2}
+      pageVal['nowCard'] = {agency: this.headData.KKEY1, product: this.headData.KKEY2,cust:params.item.NAME3,grorjg:params.item.NAME4}
       get30Data(pageVal, function (res) {
         //画图
         let chartData = []
