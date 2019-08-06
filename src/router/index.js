@@ -12,7 +12,8 @@ const baseRoutes = [
 import ydRoutes  from '@/router/yd';
 import yjyRoutes from '@/router/yjy'
 import hujinRoutes from '@/router/hujin'
-const routes = baseRoutes.concat(ydRoutes,yjyRoutes,hujinRoutes);
+import jingpin from '@/router/jingpin'
+const routes = baseRoutes.concat(ydRoutes,yjyRoutes,hujinRoutes,jingpin);
 
 export default new Router({
   base: 'dashboard-report',

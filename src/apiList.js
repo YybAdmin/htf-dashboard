@@ -1,9 +1,9 @@
-let ifUseMock = false
+let ifUseMock = true
 let hrefArr = [
   '',
   'https://iapp.htffund.com/microservice/iapp-dashboard/api'
 ]
-let href = hrefArr[1]
+let href = hrefArr[0]
 let API_LIST = {
   ifUseMock: ifUseMock,
   huijin: {
@@ -24,7 +24,10 @@ let API_LIST = {
     jingpinHeadData: href + '/report/jingpin/headData',
     jingpinChartUp: href + '/report/jingpin/chartUp',
     jingpinChartMid: href + '/report/jingpin/chartMid',
-    jingpinChartDwn: href + '/report/jingpin/chartDwn'
+    jingpinChartDwn: href + '/report/jingpin/chartDwn',
+    jingpinHeadData2: href + '/report/jingpin/headData2',
+    jingpinChartMid2: href + '/report/jingpin/chartMid2',
+    jingpinChartDwn2: href + '/report/jingpin/chartDwn2',
   },
   yidong: {
     yidongSummary: href + '/report/yidong/summary',
