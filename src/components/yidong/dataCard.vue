@@ -7,7 +7,7 @@
           <table>
             <tr>
               <td class="c1">{{item.NAME1}}</td>
-              <td class="c2">{{item.NAME2}}</td>
+              <td class="c2">{{item.NAME2.length>6?(item.NAME2.substring(6)+'...'):item.NAME2}}</td>
               <td class="c3"><span class="btn lc">{{pageVal.target == 1?(item.TRADETYPE==1?'流入金额':'流出金额'):
                 (pageVal.target == 2?(item.TRADETYPE==1?'流入份额':'流出份额'):(item.TRADETYPE==1?'流入笔数':'流出笔数'))}}</span></td>
               <td class="cs"></td>
@@ -17,7 +17,7 @@
         </div>
         <div class="cardMid">
           <div class="midL" @click="goDetail(item)">
-            <div class="v1">{{item.VALUE1}}亿</div>
+            <div class="v1">{{item.VALUE1}}万</div>
             <div class="v1D">当日异动</div>
           </div>
           <div><span cla="sx"> </span></div>
@@ -110,7 +110,7 @@
               white-space: nowrap;
             }
             .c2 {
-              font-size: 14px;
+              font-size: 12px;
               text-align: center;
               border-left:1px solid #eee;
             }
