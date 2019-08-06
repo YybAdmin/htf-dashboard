@@ -93,7 +93,7 @@
         margin: 0px 15px;
         border-radius: 8px;
         height: 129px;
-        padding: 10px 15px 0px 15px;
+        padding: 10px 10px 0px 10px;
 
         .cardUp {
           text-align: left;
