@@ -78,6 +78,7 @@
             title: ['月独立设备数(单位:万台)', '环比增幅(单位:%)'],
             name: ['设备数', '环比增幅'],
             pKey: this.pageVal.pKey1,
+            ifShowDate: false,
             clickParams: []
           },
           chartMid: {
@@ -85,11 +86,13 @@
             name1: '设备数',
             name2: '环比增幅',
             pKey: this.pageVal.pKey1,
+            ifShowDate: false,
             clickParams: []
           },
           chartDwn: {
             title: '月独立设备数(单位:万台)',
             name: ['支付宝', '建行APP', '现金宝', '其他'],
+            ifShowDate: false,
             selected: [true, true, true, true]
           },
           TableData: {
@@ -162,9 +165,6 @@
     },
     mounted () {
       let _this = this
-      let dataZoom1 = _this.$children[7].$refs.dataZoom
-      // dataZoom1.style.display = none
-      console.log(dataZoom1.style.display)
       _this.setHeadData()
       _this.renderAction(_this.pageVal)
     }
