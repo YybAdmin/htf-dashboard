@@ -4,7 +4,7 @@
       <div class="picsty" ><img src="@/assets/img/download.gif" style="height:50px;width:50px;"></div>
       <div class="fontsty">请稍候.....</div>
     </div>
-    <div style="position: absolute;top:25px;left:40px;font-size:11px;color:#999;font-weight: 300; ">
+    <div v-show="this.chartInfo.ifShowDate" style="position: absolute;top:25px;left:40px;font-size:11px;color:#999;font-weight: 300; ">
       数据时间:<span ref="minmin"></span>—<span ref="maxmax"></span>
     </div>
   </div>
@@ -18,7 +18,8 @@
       chartInfo: {
         title: [],
         name: [],
-        pKey: '999999'
+        pKey: '999999',
+        ifShowDate: true
       }
     },
     data () {
