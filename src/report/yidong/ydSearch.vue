@@ -71,9 +71,14 @@
     },
     watch:{
       smData:function (e) {
-        if(this.smData.length>=1 && this.dcData.length>=1){
+        if(this.smData.length>=1){
           this.contentShow = true
           this.$refs.sm.setData(this.smData)
+        }
+      },
+      dcData:function (e) {
+        if(this.dcData.length>=1){
+          this.contentShow = true
           this.$refs.dc.setData(this.dcData)
         }
       }
