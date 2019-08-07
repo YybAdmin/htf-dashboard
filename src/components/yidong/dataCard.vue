@@ -144,7 +144,7 @@
           height: 63px;
 
           .midL {
-            width: 55%;
+            width: 45%;
 
             .v1 {
               font-size: 18px;
@@ -163,7 +163,7 @@
           .midR {
             padding-top: 16px;
             paddint-bottom: 13px;
-            width: 45%;
+            width: 55%;
             font-size: 13px;
 
             .midRC {
