@@ -1,9 +1,11 @@
-let ifUseMock = true
+let ifUseMock = false
 let hrefArr = [
   '',
   'https://iapp.htffund.com/microservice/iapp-dashboard/api'
 ]
-let href = hrefArr[0]
+
+let href = hrefArr[1]
+
 let API_LIST = {
   ifUseMock: ifUseMock,
   huijin: {
@@ -38,10 +40,10 @@ let API_LIST = {
     allUserPro: href + '/report/selPro/getUserPro'
   },
   yanjiuyuan: {
-    getGridData:  href + '/monitor/getAnalystUsing',
-    dataRank: href + '/monitor/getCommentOrder',
-    getHeadData: href + '/monitor/getIndicatorUsing',
-    dataChart: href + '/monitor/getIndicatorCountChart'
+    getGridData:  href + '/indicator/monitor/getAnalystUsing',
+    dataRank: href + '/indicator/monitor/getCommentOrder',
+    getHeadData: href + '/indicator/monitor/getIndicatorUsing',
+    dataChart: href + '/indicator/monitor/getIndicatorCountChart'
   }
 }
 export default API_LIST

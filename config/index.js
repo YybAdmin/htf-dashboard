@@ -11,18 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/monitor': {
-        target: 'http://10.50.16.148:8004',//后端接口地址
+      '/api333/indicator/monitor': {
+        target: 'http://172.26.254.181:80',//后端接口地址
         changeOrigin: true,//是否允许跨越
         pathRewrite: {
-          '^/monitor': '/monitor'
-        }
-      },
-      '/report/yidong&&&&&(((())': {
-        target: 'http://localhost:28080',//后端接口地址
-        changeOrigin: true,//是否允许跨越
-        pathRewrite: {
-          '^/report/yidong': '/api/report/yidong',//重写,
+          '^/api/indicator/monitor': '/api/indicator/monitor'
         }
       }
     },
