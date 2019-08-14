@@ -55,10 +55,12 @@
         SwiperOptions: {
           freeMode:true,
           slidesPerView: 3,
-          spaceBetween: -4,
-          centeredSlides : true
+          spaceBetween: -6,
+          centeredSlides : true,
+          initialSlide:1,
+          loop: false
         },
-        itemList: []
+        itemList: [{NAME:'-',VALUE:'-'},{NAME:'-',VALUE:'-'},{NAME:'-',VALUE:'-'}]
       }
     },
     computed: {
