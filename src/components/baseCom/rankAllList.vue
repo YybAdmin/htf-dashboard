@@ -4,18 +4,18 @@
       <swiper :options="SwiperOptions">
         <swiperSlide>
           <div>
-            <div class="rk"><img src="@/assets/img/yjy/rank1.svg"></div>
+            <div class="rk"><img src="@/assets/img/yjy/rank2.svg"></div>
             <div class="tx"><img style="border:3px solid  #FFDF62;" src="@/assets/img/yjy/tx.jpg"></div>
-            <div class="name">{{itemlteq3[0].NAME}}</div>
-            <div class="num">{{itemlteq3[0].VALUE}}</div>
+            <div class="name">{{itemlteq3[1].NAME}}</div>
+            <div class="num">{{itemlteq3[1].VALUE}}</div>
           </div>
         </swiperSlide>
         <swiperSlide>
           <div>
-            <div class="rk"><img src="@/assets/img/yjy/rank2.svg"></div>
+            <div class="rk"><img src="@/assets/img/yjy/rank1.svg"></div>
             <div class="tx"><img style="border:3px solid  #F8A587;" src="@/assets/img/yjy/tx.jpg"></div>
-            <div class="name">{{itemlteq3[1].NAME}}</div>
-            <div class="num">{{itemlteq3[1].VALUE}}</div>
+            <div class="name">{{itemlteq3[0].NAME}}</div>
+            <div class="num">{{itemlteq3[0].VALUE}}</div>
           </div>
         </swiperSlide>
         <swiperSlide>
@@ -53,10 +53,10 @@
     data() {
       return {
         SwiperOptions: {
+          freeMode:true,
           slidesPerView: 3,
-          spaceBetween: -6,
-          centeredSlides: 1,
-          loop: true
+          spaceBetween: -4,
+          centeredSlides : true
         },
         itemList: []
       }
