@@ -192,7 +192,7 @@ export default {
           },
           axisLabel: {
             color: '#999999',
-            fontSize: '9px'
+            fontSize: '12px'
           }
         },
         series: [{

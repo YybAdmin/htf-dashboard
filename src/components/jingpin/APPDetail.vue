@@ -82,16 +82,13 @@
             clickParams: []
           },
           chartMid: {
-            title: '趋势分析',
-            name1: '设备数',
-            name2: '环比增幅',
-            pKey: this.pageVal.pKey1,
+            title: '使用人群年龄占比(单位:%)',
             ifShowDate: false,
             clickParams: []
           },
           chartDwn: {
-            title: '月独立设备数(单位:万台)',
-            name: ['支付宝', '建行APP', '现金宝', '其他'],
+            title: '使用人群区域占比(单位:%)',
+            // name: ['支付宝', '建行APP', '现金宝', '其他'],
             ifShowDate: false,
             selected: [true, true, true, true]
           },

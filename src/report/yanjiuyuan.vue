@@ -76,8 +76,8 @@
         dataStroge: [],
         chartData: {
           chartUp: {title: ['点评总量 (单位:个)'], name: ['点评总量'], clickParams: []},
-          chartUp2: {title: ['指标量 (单位:次)'], name: ['未确认完成量', '已确认完成量'], clickParams: []},
-          chartUp3: {title: '指标数 (单位:个)', name: ['待更新指标', '已更新指标'], clickParams: []}
+          chartUp2: {title: ['指标量 (单位:个)'], name: ['未确认完成量', '已确认完成量'], clickParams: []},
+          chartUp3: {title: '指标数 (单位:个)', name: ['未更新指标', '已更新指标'], clickParams: []}
         },
         pageVal: {
           tabTop: 1,

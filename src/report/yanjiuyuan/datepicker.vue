@@ -48,7 +48,7 @@
         let year = this.endDate[0].value
         let month = this.endDate[1].value.length === 1 ? '0' + this.endDate[1].value : this.endDate[1].value
         let day = this.endDate[2].value.length === 1 ? '0' + this.endDate[2].value : this.endDate[2].value
-        if(new Date(_year + '-' + _month + '-' + _day) < new Date(year + '-' + month + '-' + day)){
+        if(new Date(_year + '/' + _month + '/' + _day) < new Date(year + '/' + month + '/' + day)){
           this.$parent.pageVal.startDate = this.startDate
           this.$parent.pageVal.endDate = this.endDate
           this.$parent.pageVal.s_date = _year + '-' + _month + '-' + _day

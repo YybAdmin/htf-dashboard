@@ -77,7 +77,6 @@ Mock.mock(API_LIST.jingpin.jingpinChartUp, /post/i, function (req) {
 })
 Mock.mock(API_LIST.jingpin.jingpinChartMid, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
-  console.log(pageVal)
   return {
     'code': '200',
     'msg': 'success',
@@ -95,7 +94,6 @@ Mock.mock(API_LIST.jingpin.jingpinChartMid, /post/i, function (req) {
 
 Mock.mock(API_LIST.jingpin.jingpinChartMid2, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
-  console.log(pageVal)
   return {
     'code': '200',
     'msg': 'success',
@@ -111,7 +109,6 @@ Mock.mock(API_LIST.jingpin.jingpinChartMid2, /post/i, function (req) {
 
 Mock.mock(API_LIST.jingpin.jingpinChartDwn2, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
-  console.log(pageVal)
   return {
     'code': '200',
     'msg': 'success',
@@ -131,7 +128,6 @@ Mock.mock(API_LIST.jingpin.jingpinChartDwn2, /post/i, function (req) {
 })
 Mock.mock(API_LIST.jingpin.jingpinChartDwn, /post/i, function (req) {
   let pageVal = JSON.parse(req.body)
-  console.log(pageVal)
   return {
     'code': '200',
     'msg': 'success',

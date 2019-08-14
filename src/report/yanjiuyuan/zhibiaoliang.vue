@@ -21,7 +21,7 @@
             <td>
             </td>
             <td><span>未确认比率:{{(data.unConfirm/data.autoResourceNum*100).toFixed(0)}}%</span></td>
-            <td><span>未确认比率:{{(data.unUpdateNum/data.manualResourceNum*100).toFixed(0)}}%</span></td>
+            <td><span>未更新比率:{{(data.unUpdateNum/data.manualResourceNum*100).toFixed(0)}}%</span></td>
           </tr>
         </table>
       </div>
