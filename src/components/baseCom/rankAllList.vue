@@ -1,7 +1,7 @@
 <template>
   <div class="group">
     <div class="swp">
-      <swiper :options="SwiperOptions">
+      <swiper :options="SwiperOptions" class="swiper-no-swiping">
         <swiperSlide>
           <div>
             <div class="rk"><img src="@/assets/img/yjy/rank2.svg"></div>
