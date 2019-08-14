@@ -11,7 +11,9 @@
         <div>
           <img src="@/assets/img/yjy/rili.svg" style="display: inline-block;vertical-align: middle;">
           <span class="dateText" @click="getDate">{{this.pageVal.startDate[0].value}}/{{this.pageVal.startDate[1].value}}/{{this.pageVal.startDate[2].value}}
-              -{{this.pageVal.endDate[0].value}}/{{this.pageVal.endDate[1].value}}/{{this.pageVal.endDate[2].value}}</span>
+              -{{this.pageVal.endDate[0].value}}/{{this.pageVal.endDate[1].value}}/{{this.pageVal.endDate[2].value}}
+          </span>
+          <img src="@/assets/img/yjy/letDown.png" style="display: inline-block;vertical-align: middle;">
         </div>
         <DataGrid v-if="reset" ref="btnOder"></DataGrid>
       </div>
