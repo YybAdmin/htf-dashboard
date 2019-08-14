@@ -161,7 +161,6 @@
         return 'chartAndRank'
       },
       changeDateType: function (val) {
-        //TODO 时间维度
         if (val === 1) {
           this.pageVal.dateType = 'currentWeek'
           return 'chartAndRank'
